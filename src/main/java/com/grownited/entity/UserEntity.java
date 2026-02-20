@@ -8,32 +8,28 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-@Entity // create table
-@Table(name = "users") // this will assign table name => users
+@Entity
+@Table(name="users")
+
+
 public class UserEntity {
 
-	@Id // primary key
-	@GeneratedValue(strategy = GenerationType.IDENTITY) // auto increment
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer userId;
-	private String firstName;
-	private String lastName;
-	private String email;
-	private String password;
-	private LocalDate createdAt;  
-	private String role; //admin , participant , judge
+ 	private String firstName;
+ 	private String lastName;
+ 	private String email;
+ 	private String password;
+ 	private LocalDate createdAt;
+ 	private String role; //admin , participant , judge  /->  (admin,user)
 	private String gender;
 	private Integer birthYear;
 	private String contactNum; 
 	private String profilePicURL;
 	private String otp;
 	private Boolean active;
-	
-	public LocalDate getCreatedAt() {
-		return createdAt;
-	}
-	public void setCreatedAt(LocalDate createdAt) {
-		this.createdAt = createdAt;
-	}
 	public Integer getUserId() {
 		return userId;
 	}
@@ -63,6 +59,12 @@ public class UserEntity {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public LocalDate getCreatedAt() {
+		return createdAt;
+	}
+	public void setCreatedAt(LocalDate createdAt) {
+		this.createdAt = createdAt;
 	}
 	public String getRole() {
 		return role;
@@ -106,8 +108,6 @@ public class UserEntity {
 	public void setActive(Boolean active) {
 		this.active = active;
 	}
-
-	
 	
 	
 	

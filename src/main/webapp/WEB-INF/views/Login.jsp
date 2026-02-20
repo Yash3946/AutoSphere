@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 
@@ -20,11 +21,13 @@
 body{
 	background: linear-gradient(135deg,#667eea,#764ba2);
 	min-height:100vh;
+	display:flex;
+	justify-content:center;
+	align-items:center;
 }
 
 .login-card{
-	max-width:420px;
-	margin:80px auto;
+	width:420px;
 	padding:30px;
 	border-radius:20px;
 	backdrop-filter:blur(10px);
@@ -70,8 +73,6 @@ body{
 
 <body>
 
-<div class="container">
-
 <div class="login-card">
 
 <h3 class="text-center login-title mb-4">
@@ -83,7 +84,8 @@ body{
 <div class="alert alert-danger text-center">${error}</div>
 </c:if>
 
-<form action="login" method="post">
+<!-- 🔴 IMPORTANT CHANGE HERE -->
+<form action="authenticate" method="post">
 
 <!-- Email -->
 <div class="mb-3">
@@ -132,9 +134,7 @@ Don't have an account?
 </form>
 
 </div>
-</div>
 
-<!-- Password Toggle Script -->
 <script>
 function togglePassword(){
 	let pass = document.getElementById("password");
