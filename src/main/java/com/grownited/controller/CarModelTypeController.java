@@ -5,7 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+//import com.grownited.entity.CarBrandEntity;
 import com.grownited.entity.CarModelTypeEntity;
+//import com.grownited.repository.CarBrandRepository;
 import com.grownited.repository.CarModelTypeRepository;
 
 @Controller
@@ -17,6 +19,8 @@ public class CarModelTypeController {
 		CarModelTypeRepository carModelTypeRepository;
 		
 		
+//		@Autowired
+//		CarBrandRepository carBrandRepository;
 		
 		@GetMapping("newcartype")
 		public String newcartype() {
@@ -26,6 +30,8 @@ public class CarModelTypeController {
 		
 		@PostMapping("savecartype")
 		public String savecartype(CarModelTypeEntity carModelTypeEntity) {
+			
+//			carModelTypeEntity.setBrandId(CarBrandEntity.getbrand_id());
 			carModelTypeRepository.save(carModelTypeEntity);
 			return "AdminDashboard"; 
 		}

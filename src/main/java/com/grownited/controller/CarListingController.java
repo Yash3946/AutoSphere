@@ -44,7 +44,7 @@ public class CarListingController {
 	
 	@GetMapping("/carListing")
 	public String carListing(Model model) {
-	List<UserEntity> allUser = 	userRepository.findAll();
+	  List<UserEntity> allUser = 	userRepository.findAll();//userrepository ma select query lagshe and badha user laai ne userentity ne aapshe
 	  List<CarBrandEntity> allCarBrand	= carBrandRepository.findAll();
 	  List<CarModelTypeEntity> allCarModel =  carModelTypeRepository.findAll();
 	  List<CarVariantEntity> allCarVariant =  carVariantRepository.findAll();

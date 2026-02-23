@@ -107,7 +107,7 @@ html,body{
 </head>
 <body>
 
-<!-- ================= SIDEBAR (YOUR ORIGINAL CODE SAME) ================= -->
+<!-- ================= SIDEBAR ================= -->
 <div class="sidebar">
     <h5 class="text-center py-3 border-bottom">Dashboard</h5>
 
@@ -303,7 +303,7 @@ html,body{
 
 <!-- ================= FOOTER ================= -->
 <div class="footer">
-	© 2026 Admin Panel | Made by Yash
+	 2026 Admin Panel | Made by Yash
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
