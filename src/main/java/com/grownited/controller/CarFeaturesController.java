@@ -1,6 +1,7 @@
 package com.grownited.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,5 +51,21 @@ public class CarFeaturesController {
 		return "redirect:/listCarFeatures";//do not open jsp , open another url -> listCarVariant
 	}
 	
+	
+	@GetMapping("/viewCarFeatures")
+	public String viewCarFeatures(Integer featureId, Model model) {
+
+	    Optional<CarFeaturesEntity> opFeature =carFeaturesRepository.findById(featureId);
+
+	    if (opFeature.isEmpty()) {
+	        return "redirect:/listCarFeatures"; // safe fallback
+	    } else {
+	        CarFeaturesEntity carFeature = opFeature.get();
+	        model.addAttribute("carFeature", carFeature);
+	    }
+
+	    return "ViewCarFeature";
+	}
+
 		
 }

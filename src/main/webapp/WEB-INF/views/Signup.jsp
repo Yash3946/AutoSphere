@@ -116,7 +116,7 @@ body{
 				</div>
 
 				<div class="card-body p-4">
-					<form action="register" method="post">
+					<form action="register" method="post" enctype="multipart/form-data">
 
 						<div class="row">
 							<div class="col-md-6 mb-3">
@@ -189,10 +189,11 @@ body{
 								<input type="text" name="country" value="India" class="form-control" required>
 							</div>
 						</div>
-
+									
+									<!-- profile pic -->
 						<div class="mb-3">
 							<label class="form-label">Profile Picture</label>
-							<input type="file" name="profilePicURL" class="form-control">
+							<input type="file" name="profilePic" class="form-control">
 						</div>
 
 						<div class="d-grid">

@@ -102,6 +102,12 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.c
                         </select>
                     </div>
 
+					 <!-- Created At -->
+                    <div class="form-group mb-4">
+                        <label>Created At</label>
+                        <input type="date" class="form-control" name="createdAt" required>
+                    </div>
+                    
                     <!-- Submit -->
                     <div class="d-grid mt-4">
                         <button type="submit" class="btn btn-primary-custom">

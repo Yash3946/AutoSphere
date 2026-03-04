@@ -80,9 +80,9 @@
 
                 <td>
                     <!-- Edit Button -->
-                    <a href="editbrand?brandId=${car.brandId}"
+                    <a href="viewCarBrand?brandId=${car.brandId}"
                        class="btn btn-primary">
-                        Edit
+                        View
                     </a>
 
                     <!-- Delete Button -->

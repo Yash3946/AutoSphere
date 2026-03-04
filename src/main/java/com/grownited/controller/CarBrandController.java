@@ -1,6 +1,7 @@
 package com.grownited.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,5 +53,28 @@ public class CarBrandController {
         return "ListBrand";
     }
     
+    @GetMapping("deletebrand")
+    public String deletebrand(Integer brandId) {
+    	carBrandRepository.deleteById(brandId);
+    	
+    	return"redirect:/listbrand";
+    }
+    
+    
+    @GetMapping("/viewCarBrand")
+	public String viewCarBrand(Integer brandId, Model model) {
+
+	    Optional<CarBrandEntity> opBrand =
+	            carBrandRepository.findById(brandId);
+
+	    if (opBrand.isEmpty()) {
+	        return "redirect:/listbrand"; // safe fallback
+	    } else {
+	    	CarBrandEntity carBrand = opBrand.get();
+	        model.addAttribute("carBrand", carBrand);
+	    }
+
+	    return "ViewCarBrand";
+	}
   
 }

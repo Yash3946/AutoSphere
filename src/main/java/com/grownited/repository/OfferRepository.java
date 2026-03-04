@@ -8,4 +8,5 @@ import com.grownited.entity.OfferEntity;
 @Repository
 public interface OfferRepository extends JpaRepository<OfferEntity, Integer>{
 
+	long countByOfferStatus(String offerStatus);
 }

@@ -70,7 +70,7 @@
         </div>
 
         <div class="card-footer text-end">
-            <a href="listCarVariant" class="btn btn-secondary">Back</a>
+            <a href="listCarTransaction" class="btn btn-secondary">Back</a>
             <a href="viewCarTransaction?transactionId=${carTransaction.transactionId}" class="btn btn-warning">
                 Edit
             </a>

@@ -7,5 +7,6 @@ import com.grownited.entity.CarListingEntity;
 
 @Repository
 public interface CarListingRepository extends JpaRepository<CarListingEntity, Integer>{
+	long countByStatus(String status);
 
 }

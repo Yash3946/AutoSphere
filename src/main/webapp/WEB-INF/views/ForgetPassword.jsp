@@ -45,7 +45,7 @@
                 <div class="alert alert-danger">${error}</div>
             </c:if>
 
-            <form action="sendResetLink" method="post">
+            <form action="forgetpassword" method="post">
 
                 <!-- Email Field -->
                 <div class="mb-3">
@@ -55,7 +55,7 @@
                 </div>
 
                 <!-- Submit Button -->
-                <button type="submit" class="btn btn-primary w-100">Send Reset Link</button>
+                <button type="submit" class="btn btn-primary w-100">Send Otp</button>
 
                 <p class="text-center mt-3">
                     <a href="login">Back to Login</a>

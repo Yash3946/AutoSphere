@@ -103,6 +103,7 @@ body{
 					<c:forEach items="${allUser}" var="u">
 						<option value="${u.userId}">
 							${u.userId} - ${u.firstName}
+							 ${u.firstName} - ${u.lastName}
 						</option>
 					</c:forEach>
 				</select>

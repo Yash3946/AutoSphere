@@ -1,38 +1,69 @@
 package com.grownited.controller;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-//import com.grownited.entity.CarBrandEntity;
 import com.grownited.entity.CarModelTypeEntity;
-//import com.grownited.repository.CarBrandRepository;
 import com.grownited.repository.CarModelTypeRepository;
 
 @Controller
 public class CarModelTypeController {
 
-	
+
 	//Singleton design pattern 
 		@Autowired
 		CarModelTypeRepository carModelTypeRepository;
-		
-		
-//		@Autowired
-//		CarBrandRepository carBrandRepository;
-		
+
+
+
 		@GetMapping("newcartype")
 		public String newcartype() {
-			
+
 			return "NewCarModelType";
 		}
-		
+
 		@PostMapping("savecartype")
 		public String savecartype(CarModelTypeEntity carModelTypeEntity) {
-			
-//			carModelTypeEntity.setBrandId(CarBrandEntity.getbrand_id());
 			carModelTypeRepository.save(carModelTypeEntity);
 			return "AdminDashboard"; 
 		}
+		
+		@GetMapping("listCarModel")
+		public String listCarModel(Model model) {		
+			List<CarModelTypeEntity> allCarModel = carModelTypeRepository.findAll();
+			model.addAttribute("allCarModel",allCarModel);
+			return"ListCarModel";
+		}
+		
+		@GetMapping("deleteCarModel")
+		public String deleteCarModel(Integer modelId) {
+			carModelTypeRepository.deleteById(modelId);
+			return "redirect:/listCarModel";
+		}	
+		
+		
+		@GetMapping("viewCarModel")
+		public String viewCarModel(Integer modelId, Model model) {
+
+		    Optional<CarModelTypeEntity> opModel = carModelTypeRepository.findById(modelId);
+
+		    if (opModel.isEmpty()) {
+		        return "redirect:/listCarModel"; // safe fallback
+		    } else {
+		        CarModelTypeEntity carModel = opModel.get();
+		        model.addAttribute("carModel", carModel);
+		    }
+
+		    return "ViewCarModel";
+		}
+
+		
+		
+		
 }

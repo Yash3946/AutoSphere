@@ -2,6 +2,7 @@ package com.grownited.entity;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,6 +21,8 @@ public class UserEntity {
 	private Integer userId;
  	private String firstName;
  	private String lastName;
+ 	
+ 	@Column(unique = true, nullable = false)
  	private String email;
  	private String password;
  	private LocalDate createdAt;

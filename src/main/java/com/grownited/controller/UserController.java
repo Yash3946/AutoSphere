@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.grownited.entity.UserDetailEntity;
 import com.grownited.entity.UserEntity;
@@ -57,5 +59,34 @@ public class UserController {
 	}
 	
 	
+	@GetMapping("/editUser")
+	public String editUser(@RequestParam Integer userId, Model model){
 
+	    Optional<UserEntity> op = userRepository.findById(userId);
+
+	    if(op.isPresent()){
+	        model.addAttribute("user", op.get());
+	        return "EditUser";
+	    }
+
+	    return "redirect:/listUser";
+	}
+	
+	
+	@PostMapping("/updateUser")
+	public String updateUser(UserEntity userEntity){
+
+	    UserEntity dbUser = userRepository.findById(userEntity.getUserId()).get();
+
+	    dbUser.setFirstName(userEntity.getFirstName());
+	    dbUser.setLastName(userEntity.getLastName());
+	    dbUser.setEmail(userEntity.getEmail());
+	    dbUser.setGender(userEntity.getGender());
+	    dbUser.setBirthYear(userEntity.getBirthYear());
+	    dbUser.setContactNum(userEntity.getContactNum());
+
+	    userRepository.save(dbUser);
+
+	    return "redirect:/listUser";
+	}
 }
