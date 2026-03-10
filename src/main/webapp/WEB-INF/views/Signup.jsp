@@ -116,7 +116,7 @@ body{
 				</div>
 
 				<div class="card-body p-4">
-					<form action="register" method="post" enctype="multipart/form-data">
+					<form action="/register" method="post" enctype="multipart/form-data">
 
 						<div class="row">
 							<div class="col-md-6 mb-3">

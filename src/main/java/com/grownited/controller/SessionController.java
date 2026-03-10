@@ -1,5 +1,6 @@
 package com.grownited.controller;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.grownited.entity.CarModelTypeEntity;
 import com.grownited.entity.UserDetailEntity;
@@ -80,14 +82,11 @@ public class SessionController {
     }
 
     // ================= FORGOT PASSWORD =================
-
-    // Open page
     @GetMapping("/forgetpassword")
     public String openForgetPasswordPage() {
         return "ForgetPassword";
     }
 
-    // Send OTP
     @PostMapping("/forgetpassword")
     public String forgotPassword(@RequestParam String email, Model model) {
 
@@ -142,9 +141,43 @@ public class SessionController {
         return "Login";
     }
 
-    // ================= REGISTER =================
+    // ================= REGISTER WITH PROFILE PIC =================
     @PostMapping("/register")
-    public String register(UserEntity userEntity, UserDetailEntity userDetailEntity) {
+    public String register(
+            UserEntity userEntity,
+            UserDetailEntity userDetailEntity,
+            @RequestParam("profilepic") MultipartFile profilePic) {
+
+        System.out.println("REGISTER API HIT");
+
+        try {
+
+            // ===== Debug =====
+            System.out.println("FILE NAME = " + profilePic.getOriginalFilename());
+            System.out.println("FILE SIZE = " + profilePic.getSize());
+
+            if (profilePic != null && !profilePic.isEmpty()) {
+
+                String fileName = System.currentTimeMillis() + "_" + profilePic.getOriginalFilename();
+
+                String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads/";
+
+                File uploadPath = new File(uploadDir);
+
+                if (!uploadPath.exists()) {
+                    uploadPath.mkdirs();
+                }
+
+                File saveFile = new File(uploadPath, fileName);
+
+                profilePic.transferTo(saveFile);
+
+                userEntity.setProfilePicURL("/uploads/" + fileName);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         userEntity.setRole("CUSTOMER");
         userEntity.setActive(true);
@@ -158,9 +191,8 @@ public class SessionController {
         userDetailEntity.setUserId(userEntity.getUserId());
         userDetailRepository.save(userDetailEntity);
 
-        return "Login";
+        return "redirect:/listUser";
     }
-
     // ================= LOGOUT =================
     @GetMapping("/logout")
     public String logout(HttpSession session) {

@@ -1,311 +1,362 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
-<title> Admin Dashboard</title>
+<title>AutoSphere Admin Dashboard</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
-html,body{
-	height:100%;
-	margin:0;
-	display:flex;
-	flex-direction:column;
-	background:#F4F6F9;
-	font-family:'Segoe UI', sans-serif;
+
+body{
+margin:0;
+background:#f1f5f9;
+font-family:'Segoe UI',sans-serif;
 }
 
-/* ===== Sidebar Styling Only (Structure Same) ===== */
+/* SIDEBAR */
+
 .sidebar{
-	width:260px;
-	height:100vh;
-	position:fixed;
-	background:linear-gradient(180deg,#0D1B2A,#1B263B);
-	color:white;
-	overflow-y:auto;
-	box-shadow:3px 0 15px rgba(0,0,0,0.2);
+width:260px;
+position:fixed;
+top:0;
+bottom:0;
+left:0;
+background:linear-gradient(180deg,#0f172a,#1e293b);
+color:white;
+overflow-y:auto;
 }
 
 .sidebar h5{
-	color:white;
-	font-weight:600;
+padding:22px;
+border-bottom:1px solid rgba(255,255,255,0.08);
 }
 
 .sidebar a{
-	display:block;
-	padding:12px 20px;
-	color:#ADB5BD;
-	text-decoration:none;
-	transition:0.3s;
-	font-size:14px;
+display:block;
+padding:14px 22px;
+color:#cbd5e1;
+text-decoration:none;
+transition:0.3s;
 }
 
 .sidebar a:hover{
-	background:#1B263B;
-	color:white;
-	padding-left:28px;
+background:#334155;
+color:white;
+padding-left:28px;
 }
 
-.sidebar .dropdown-menu{
-	background:#1B263B;
-	border:none;
-}
+/* HEADER */
 
-.sidebar .dropdown-item{
-	color:#ADB5BD;
-}
-
-.sidebar .dropdown-item:hover{
-	background:#00B4D8;
-	color:white;
-}
-
-/* ===== Header ===== */
 .header{
-	margin-left:260px;
-	background:linear-gradient(90deg,#0D1B2A,#1B263B);
-	color:white;
-	padding:15px 25px;
-	display:flex;
-	justify-content:space-between;
-	align-items:center;
-	box-shadow:0 3px 10px rgba(0,0,0,0.1);
+position:fixed;
+top:0;
+left:260px;
+right:0;
+height:70px;
+background:#0b1220;
+color:white;
+padding:0 30px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+box-shadow:0 4px 15px rgba(0,0,0,0.2);
 }
 
-/* ===== Content ===== */
+/* CONTENT */
 
 .content{
-	margin-left:260px;
-	padding:30px;
-	flex:1;
+margin-left:260px;
+margin-top:90px;
+padding:40px;
 }
 
-.card{
-	border:none;
-	border-radius:15px;
-	transition:0.3s;
+/* STAT CARDS */
+
+.stat-card{
+border-radius:16px;
+padding:25px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+color:white;
+box-shadow:0 10px 25px rgba(0,0,0,0.15);
+transition:0.3s;
 }
 
-.card:hover{
-	transform:translateY(-5px);
-	box-shadow:0 8px 20px rgba(0,0,0,0.15);
+.stat-card:hover{
+transform:translateY(-6px);
 }
 
-/* ===== Footer ===== */
-.footer{
-	margin-left:260px;
-	background:#0D1B2A;
-	color:white;
-	text-align:center;
-	padding:15px;
+.users{
+background:linear-gradient(135deg,#3b82f6,#2563eb);
 }
+
+.cars{
+background:linear-gradient(135deg,#10b981,#059669);
+}
+
+.bookings{
+background:linear-gradient(135deg,#f59e0b,#d97706);
+}
+
+.revenue{
+background:linear-gradient(135deg,#8b5cf6,#6d28d9);
+}
+
+.stat-icon{
+width:55px;
+height:55px;
+border-radius:12px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:22px;
+background:rgba(255,255,255,0.2);
+}
+
+/* CHART CARD */
+
+.chart-card{
+background:white;
+border-radius:16px;
+padding:30px;
+box-shadow:0 8px 25px rgba(0,0,0,0.08);
+}
+
+/* SMALL ANALYTICS */
+
+.small-card{
+border-radius:14px;
+padding:20px;
+text-align:center;
+color:white;
+box-shadow:0 6px 20px rgba(0,0,0,0.15);
+}
+
+.box1{
+background:linear-gradient(135deg,#06b6d4,#0891b2);
+}
+
+.box2{
+background:linear-gradient(135deg,#fb7185,#e11d48);
+}
+
+.box3{
+background:linear-gradient(135deg,#22c55e,#15803d);
+}
+
+.small-card h4{
+font-weight:700;
+}
+
 </style>
+
 </head>
+
 <body>
 
-<!-- ================= SIDEBAR ================= -->
+<!-- SIDEBAR -->
+
 <div class="sidebar">
-    <h5 class="text-center py-3 border-bottom">Dashboard</h5>
 
-    <a href="admin-dashboard">
-        <i class="bi bi-speedometer2 me-2"></i> Dashboard
-    </a>
+<h5>AutoSphere</h5>
 
-    <!-- USERS -->
-    <div class="dropdown">
-    <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-        <i class="bi bi-people me-2"></i> Users
-    </a>
-    <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="signup">
-            <i class="bi bi-person-plus me-2"></i> Signup User</a></li>
-        <li><a class="dropdown-item" href="listUser">
-            <i class="bi bi-list me-2"></i> List Users</a></li>
-    </ul>
-    </div>
+<a href="admin-dashboard"><i class="bi bi-speedometer2"></i> Dashboard</a>
+<a href="listUser"><i class="bi bi-people"></i> Users</a>
+<a href="listbrand"><i class="bi bi-tags"></i> Brand</a>
+<a href="newcartype"><i class="bi bi-box"></i> Car Model</a>
+<a href="listCarVariant"><i class="bi bi-car-front"></i> Car Variant</a>
+<a href="allCarList"><i class="bi bi-list"></i> Car Listing</a>
+<a href="listCarOffer"><i class="bi bi-cash-coin"></i> Offers</a>
+<a href="listCarTransaction"><i class="bi bi-receipt"></i> Transactions</a>
+<a href="listCarReports"><i class="bi bi-flag"></i> Reports</a>
+<a href="listCarImage"><i class="bi bi-image"></i> Images</a>
+<a href="listReviewRating"><i class="bi bi-star"></i> Ratings</a>
+<a href="listSavedListing"><i class="bi bi-bookmark"></i> Saved</a>
 
-    <!-- BRAND -->
-    <div class="dropdown">
-    <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-        <i class="bi bi-tags me-2"></i> Brand
-    </a>
-    <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="addbrand">
-            <i class="bi bi-plus-circle me-2"></i> Add Brand</a></li>
-        <li><a class="dropdown-item" href="listbrand">
-            <i class="bi bi-list me-2"></i> List Brand</a></li>
-    </ul>
-    </div>
-
-    <a href="newcartype">
-        <i class="bi bi-box me-2"></i> New Car Model Type
-    </a>
-
-    <!-- Car Variant -->
-    <div class="dropdown">
-    <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-        <i class="bi bi-car-front me-2"></i> Car Variant
-    </a>
-    <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="newCarVariant">
-            <i class="bi bi-plus-circle me-2"></i> Add Car Variant</a></li>
-        <li><a class="dropdown-item" href="listCarVariant">
-            <i class="bi bi-list me-2"></i> List Car Variant</a></li>
-    </ul>
-    </div>
-
-    <!-- Car Feature -->
-    <div class="dropdown">
-    <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-        <i class="bi bi-gear me-2"></i> Car Feature
-    </a>
-    <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="carFeatures">
-            <i class="bi bi-plus-circle me-2"></i> Add Car Feature</a></li>
-        <li><a class="dropdown-item" href="listCarFeatures">
-            <i class="bi bi-list me-2"></i> List Car Feature</a></li>
-    </ul>
-    </div>
-
-    <!-- Car Listing -->
-    <div class="dropdown">
-    <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-        <i class="bi bi-car-front me-2"></i> Car Listing
-    </a>
-    <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="carListing">
-            <i class="bi bi-plus-circle me-2"></i> New Car Listing</a></li>
-        <li><a class="dropdown-item" href="allCarList">
-            <i class="bi bi-list me-2"></i> View Car Listing</a></li>
-    </ul>
-    </div>
-
-    <!-- Car Offer -->
-    <div class="dropdown">
-    <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-        <i class="bi bi-cash-coin me-2"></i> Car Offer
-    </a>
-    <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="listCarOffer">
-            <i class="bi bi-list me-2"></i> List Car Offer</a></li>
-    </ul>
-    </div>
-
-    <!-- Car Transaction -->
-    <div class="dropdown">
-    <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-        <i class="bi bi-receipt me-2"></i> Car Transaction
-    </a>
-    <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="carTransaction">
-            <i class="bi bi-plus-circle me-2"></i> New Car Transaction</a></li>
-        <li><a class="dropdown-item" href="listCarTransaction">
-            <i class="bi bi-list me-2"></i> List Car Transaction</a></li>
-    </ul>
-    </div>
-
-    <!-- Car Reports -->
-    <div class="dropdown">
-    <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-        <i class="bi bi-flag me-2"></i> Car Reports
-    </a>
-    <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="carReports">
-            <i class="bi bi-plus-circle me-2"></i> New Car Report</a></li>
-        <li><a class="dropdown-item" href="listCarReports">
-            <i class="bi bi-list me-2"></i> List Car Reports</a></li>
-    </ul>
-    </div>
-
-    <!-- Car Images -->
-    <div class="dropdown">
-    <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-        <i class="bi bi-image me-2"></i> Car Images
-    </a>
-    <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="carImage">
-            <i class="bi bi-plus-circle me-2"></i> New Car Image</a></li>
-        <li><a class="dropdown-item" href="listCarImage">
-            <i class="bi bi-list me-2"></i> List Car Images</a></li>
-    </ul>
-    </div>
-
-    <a href="listReviewRating">
-        <i class="bi bi-star me-2"></i> Car Review Rating
-    </a>  
-
-    <a href="listSavedListing">
-        <i class="bi bi-bookmark me-2"></i> Car Saved List  
-    </a>  
 </div>
 
-<!-- ================= HEADER ================= -->
+<!-- HEADER -->
+
 <div class="header">
-	<h5>AutoSphere Admin Panel</h5>
-	<div>
-		Welcome, <b>${sessionScope.user.firstName}</b>
-		<a href="logout" class="btn btn-sm btn-outline-light ms-3">
-			<i class="bi bi-box-arrow-right"></i> Logout
-		</a>
-	</div>
+
+<h5>AutoSphere Analytics</h5>
+
+<div>
+Welcome, <b>${sessionScope.user.firstName}</b>
+
+<a href="logout" class="btn btn-sm btn-light ms-3">
+Logout
+</a>
+
 </div>
 
-<!-- ================= CONTENT ================= -->
+</div>
+
+<!-- CONTENT -->
+
 <div class="content">
-	<h2 class="fw-bold mb-4" style="color:#0D1B2A;">Dashboard Overview</h2>
 
-	<div class="row g-4">
-		<div class="col-md-3">
-			<div class="card text-white shadow"
-				style="background:linear-gradient(135deg,#14213D,#1D3557);">
-				<div class="card-body">
-					<h6>Total Users</h6>
-					<h3>120</h3>
-				</div>
-			</div>
-		</div>
+<h3 class="mb-4">Dashboard Overview</h3>
 
-		<div class="col-md-3">
-			<div class="card text-white shadow"
-				style="background:linear-gradient(135deg,#003566,#001D3D);">
-				<div class="card-body">
-					<h6>Listed Cars</h6>
-					<h3>340</h3>
-				</div>
-			</div>
-		</div>
+<!-- STAT CARDS -->
 
-		<div class="col-md-3">
-			<div class="card text-white shadow"
-				style="background:linear-gradient(135deg,#005F73,#0A9396);">
-				<div class="card-body">
-					<h6>Bookings</h6>
-					<h3>86</h3>
-				</div>
-			</div>
-		</div>
+<div class="row g-4 mb-5">
 
-		<div class="col-md-3">
-			<div class="card text-white shadow"
-				style="background:linear-gradient(135deg,#03045E,#0077B6);">
-				<div class="card-body">
-					<h6>Total Revenue</h6>
-					<h3>₹ 12,40,000</h3>
-				</div>
-			</div>
-		</div>
-	</div>
+<!-- USERS -->
+<div class="col-md-3">
+<div class="stat-card users">
+<div>
+<h4>${totalUser}</h4>
+<p>Total Users</p>
+</div>
+<div class="stat-icon">
+<i class="bi bi-people"></i>
+</div>
+</div>
 </div>
 
-<!-- ================= FOOTER ================= -->
-<div class="footer">
-	 2026 Admin Panel | Made by Yash
+<!-- CARS -->
+<div class="col-md-3">
+<div class="stat-card cars">
+<div>
+<h4>${totalAvailable}</h4>
+<p>Listed Cars</p>
+</div>
+<div class="stat-icon">
+<i class="bi bi-car-front"></i>
+</div>
+</div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- BOOKINGS -->
+<div class="col-md-3">
+<div class="stat-card bookings">
+<div>
+<h4>${totalTransaction}</h4>
+<p>Bookings</p>
+</div>
+<div class="stat-icon">
+<i class="bi bi-receipt"></i>
+</div>
+</div>
+</div>
+
+<!-- REVENUE -->
+<div class="col-md-3">
+<div class="stat-card revenue">
+<div>
+<h4>₹ ${totalRevenue}</h4>
+<p>Total Revenue</p>
+</div>
+<div class="stat-icon">
+<i class="bi bi-cash-coin"></i>
+</div>
+</div>
+</div>
+
+</div>
+
+
+<!-- CHART + ANALYTICS -->
+
+<div class="row">
+
+<div class="col-md-8">
+
+<div class="chart-card">
+
+<canvas id="dashboardChart"></canvas>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="row g-3">
+
+<div class="col-12">
+<div class="small-card box1">
+<h4>70%</h4>
+<p>Completion</p>
+</div>
+</div>
+
+<div class="col-12">
+<div class="small-card box2">
+<h4>770</h4>
+<p>Views</p>
+</div>
+</div>
+
+<div class="col-12">
+<div class="small-card box3">
+<h4>Daily</h4>
+<p>Traffic</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+const ctx=document.getElementById('dashboardChart');
+
+new Chart(ctx,{
+
+type:'bar',
+
+data:{
+
+labels:['Users','Cars','Bookings'],
+
+datasets:[{
+
+data:[
+${totalUser},
+${totalAvailable},
+${totalTransaction}
+],
+
+backgroundColor:[
+'#3b82f6',
+'#10b981',
+'#f59e0b'
+],
+
+borderRadius:8
+
+}]
+
+},
+
+options:{
+responsive:true,
+plugins:{legend:{display:false}}
+}
+
+});
+
+</script>
+
 </body>
+
+
 </html>

@@ -25,18 +25,24 @@ public class AdminController {
 	@Autowired
 	OfferRepository offerRepository;
 	
-	@GetMapping(value =  {"admin-dashboard","/"})
+	@GetMapping(value = {"admin-dashboard","/"})
 	public String adminDashboard(Model model) {
-		Long totalUser =  userRepository.count();			
-		Long totalAvailable = carListingRepository.countByStatus("AVAILABLE");
-		Long totalTransaction = transactionRepository.countByTransactionStatus("COMPLETED");
-		Long totalOffer = offerRepository.countByOfferStatus("PENDING");
-			 
-		model.addAttribute("totalUser",totalUser);
-		model.addAttribute("totalAvailable",totalAvailable);
-		model.addAttribute("totalTransaction",totalTransaction);
-		model.addAttribute("totalOffer",totalOffer);
-		
-		return "AdminDashboard";
+
+	    Long totalUser = userRepository.count();
+	    Long totalAvailable = carListingRepository.countByStatus("AVAILABLE");
+	    Long totalTransaction = transactionRepository.countByTransactionStatus("COMPLETED");
+
+	    Double totalRevenue = transactionRepository.getTotalRevenue();
+
+	    if(totalRevenue == null){
+	        totalRevenue = 0.0;
+	    }
+
+	    model.addAttribute("totalUser", totalUser);
+	    model.addAttribute("totalAvailable", totalAvailable);
+	    model.addAttribute("totalTransaction", totalTransaction);
+	    model.addAttribute("totalRevenue", totalRevenue);
+
+	    return "AdminDashboard";
 	}
 }

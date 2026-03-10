@@ -2,122 +2,330 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
+
 <html>
 <head>
 <title>User List</title>
 
-<!-- Bootstrap CSS -->
 <link rel="stylesheet"
 href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 
-<!-- Bootstrap Icons -->
 <link rel="stylesheet"
 href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
-<!-- IMPORTANT: Common Admin CSS -->
 <jsp:include page="AdminCSS.jsp"/>
+
+<style>
+
+body{
+background:#F4F6F9;
+font-family: "Segoe UI", sans-serif;
+}
+
+/* HEADER */
+
+.page-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
+padding-bottom:10px;
+border-bottom:1px solid #E5E7EB;
+}
+
+.page-title{
+font-weight:700;
+color:#0D1B2A;
+}
+
+/* SEARCH BAR */
+
+.search-box{
+width:280px;
+}
+
+/* CARD */
+
+.dashboard-card{
+background:white;
+border-radius:14px;
+padding:25px;
+box-shadow:0 5px 20px rgba(0,0,0,0.08);
+}
+
+/* TABLE */
+
+.table thead{
+background:#F1F5F9;
+font-weight:600;
+border-bottom:2px solid #E5E7EB;
+}
+
+.table tbody tr{
+transition:all 0.2s ease;
+}
+
+.table tbody tr:hover{
+background:#F8FAFC;
+transform:scale(1.01);
+box-shadow:0 3px 8px rgba(0,0,0,0.05);
+}
+
+/* USER AVATAR */
+
+.user-avatar{
+width:45px;
+height:45px;
+border-radius:50%;
+object-fit:cover;
+border:2px solid #E5E7EB;
+}
+
+.user-icon{
+font-size:40px;
+color:#9CA3AF;
+margin-right:10px;
+}
+
+/* USER TEXT */
+
+.user-name{
+font-weight:600;
+font-size:15px;
+}
+
+.user-email{
+font-size:13px;
+color:#6B7280;
+}
+
+/* ROLE */
+
+.role-admin{
+background:#111827;
+color:white;
+padding:5px 10px;
+border-radius:12px;
+font-size:12px;
+}
+
+.role-user{
+background:#E0F2FE;
+color:#0369A1;
+padding:5px 10px;
+border-radius:12px;
+font-size:12px;
+}
+
+/* STATUS */
+
+.status-active{
+background:#DCFCE7;
+color:#166534;
+padding:5px 10px;
+border-radius:12px;
+font-size:12px;
+}
+
+.status-inactive{
+background:#FEE2E2;
+color:#991B1B;
+padding:5px 10px;
+border-radius:12px;
+font-size:12px;
+}
+
+/* ACTION BUTTONS */
+
+.action-btn{
+border-radius:8px;
+padding:6px 10px;
+margin-right:5px;
+}
+
+.btn-view{
+background:#0EA5E9;
+color:white;
+}
+
+.btn-edit{
+background:#F59E0B;
+color:white;
+}
+
+.btn-delete{
+background:#EF4444;
+color:white;
+}
+
+.btn-view:hover{
+background:#0284C7;
+color:white;
+}
+
+.btn-edit:hover{
+background:#D97706;
+color:white;
+}
+
+.btn-delete:hover{
+background:#DC2626;
+color:white;
+}
+
+</style>
 
 </head>
 
 <body>
 
-<!-- SIDEBAR -->
 <jsp:include page="AdminSidebar.jsp"/>
-
-<!-- HEADER -->
 <jsp:include page="AdminHeader.jsp"/>
 
-<!-- CONTENT -->
 <div class="content">
 
-    <div class="content-card">
+<div class="page-header">
 
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h3 class="fw-bold">User List</h3>
-            <a href="signup" class="btn btn-primary">
-                + Add User
-            </a>
-        </div>
+<div>
+<h3 class="page-title">User Management</h3>
+<p class="text-muted mb-0">Manage all registered users</p>
+</div>
 
-        <div class="table-responsive">
-            <table class="table table-hover align-middle">
-                <thead>
-                    <tr>
-                        <th>SrNo</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Gender</th>
-                        <th>Birth Year</th>
-                        <th class="text-center">Profile</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
+<div class="d-flex align-items-center gap-2">
 
-                <tbody>
-                    <c:forEach var="user" items="${userList}" varStatus="s">
-                        <tr>
-                            <td>${s.count}</td>
-                            <td>${user.firstName} ${user.lastName}</td>
-                            <td>${user.email}</td>
-                            <td>
-                                <span class="badge bg-info text-dark">
-                                    ${user.role}
-                                </span>
-                            </td>
-                            <td>${user.gender}</td>
-                            <td>${user.birthYear}</td>
-                            <td class="text-center">
-                                <c:if test="${not empty user.profilePicURL}">
-                                    <img src="${user.profilePicURL}" class="profile-pic"/>
-                                </c:if>
-                            </td>
-                            <td>
-                                <c:choose>
-                                    <c:when test="${user.active}">
-                                        <span class="badge bg-success">Active</span>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <span class="badge bg-danger">Inactive</span>
-                                    </c:otherwise>
-                                </c:choose>
-                            </td>
-                            <td>
-                                <a href="editUser?userId=${user.userId}"
-                                   class="btn btn-sm btn-warning">Edit</a>
+<input type="text" placeholder="Search user..."
+class="form-control search-box">
 
-                                <a href="deleteUser?userId=${user.userId}"
-                                   class="btn btn-sm btn-danger"
-                                   onclick="return confirm('Are you sure?');">
-                                   Delete
-                                </a>
-
-                                <a href="viewUser?userId=${user.userId}"
-                                   class="btn btn-sm btn-info">
-                                   View
-                                </a>
-                            </td>
-                        </tr>
-                    </c:forEach>
-
-                    <c:if test="${empty userList}">
-                        <tr>
-                            <td colspan="9" class="text-center text-muted py-4">
-                                No users found
-                            </td>
-                        </tr>
-                    </c:if>
-
-                </tbody>
-            </table>
-        </div>
-
-    </div>
+<a href="signup" class="btn btn-primary">
+<i class="bi bi-person-plus"></i> Add User
+</a>
 
 </div>
 
-<!-- FOOTER -->
+</div>
+
+<div class="dashboard-card">
+
+<div class="table-responsive">
+
+<table class="table table-borderless align-middle">
+
+<thead>
+
+<tr>
+<th>#</th>
+<th>User</th>
+<th>Role</th>
+<th>Gender</th>
+<th>Birth Year</th>
+<th>Status</th>
+<th>Actions</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+<c:forEach var="user" items="${userList}" varStatus="s">
+
+<tr>
+
+<td>${s.count}</td>
+
+<td>
+
+<div class="d-flex align-items-center">
+
+<c:choose>
+
+<c:when test="${not empty user.profilePicURL}"> <img src="${user.profilePicURL}" class="user-avatar me-3">
+</c:when>
+
+<c:otherwise> <i class="bi bi-person-circle user-icon"></i>
+</c:otherwise>
+
+</c:choose>
+
+<div>
+<div class="user-name">${user.firstName} ${user.lastName}</div>
+<div class="user-email">
+<i class="bi bi-envelope"></i> ${user.email}
+</div>
+</div>
+
+</div>
+
+</td>
+
+<td>
+
+<c:choose>
+
+<c:when test="${user.role eq 'ADMIN'}"> <span class="role-admin">ADMIN</span>
+</c:when>
+
+<c:otherwise> <span class="role-user">CUSTOMER</span>
+</c:otherwise>
+
+</c:choose>
+
+</td>
+
+<td>${user.gender}</td>
+
+<td>${user.birthYear}</td>
+
+<td>
+
+<c:choose>
+
+<c:when test="${user.active}"> <span class="status-active"> <i class="bi bi-check-circle"></i> Active </span>
+</c:when>
+
+<c:otherwise> <span class="status-inactive"> <i class="bi bi-x-circle"></i> Inactive </span>
+</c:otherwise>
+
+</c:choose>
+
+</td>
+
+<td>
+
+<a href="viewUser?userId=${user.userId}"
+class="btn btn-sm action-btn btn-view shadow-sm"> <i class="bi bi-eye"></i> </a>
+
+<a href="editUser?userId=${user.userId}"
+class="btn btn-sm action-btn btn-edit shadow-sm"> <i class="bi bi-pencil"></i> </a>
+
+<a href="deleteUser?userId=${user.userId}"
+class="btn btn-sm action-btn btn-delete shadow-sm"
+onclick="return confirm('Delete this user?');"> <i class="bi bi-trash"></i> </a>
+
+</td>
+
+</tr>
+
+</c:forEach>
+
+<c:if test="${empty userList}">
+
+<tr>
+<td colspan="7" class="text-center text-muted py-4">
+No users available
+</td>
+</tr>
+</c:if>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
 <jsp:include page="AdminFooter.jsp"/>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

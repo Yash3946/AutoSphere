@@ -60,7 +60,7 @@ body{
 
 <!-- Header -->
 
-		 <b>${sessionScope.user.firstName}</b>
+		
 
 		<a href="logout" class="btn btn-sm btn-outline-light ms-3">
 			<i class="bi bi-box-arrow-right"></i> Logout
@@ -72,7 +72,7 @@ body{
 <!-- Content -->
 <div class="content">
 
-<h3 class="fw-bold mb-4">Edit User</h3>
+<h3 class="fw-bold mb-4" style="text-align: center;">Edit User</h3>
 
 <div class="row justify-content-center">
 
@@ -110,6 +110,11 @@ body{
 <input type="email" name="email" value="${user.email}" class="form-control">
 </div>
 
+<div class="mb-3">
+<label class="form-label">Password</label>
+<input type="password" name="password" class="form-control"
+placeholder="Enter new password (leave blank if not changing)">
+</div>
 
 <div class="mb-3">
 <label class="form-label">Gender</label>

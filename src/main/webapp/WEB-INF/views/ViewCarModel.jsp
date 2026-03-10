@@ -16,7 +16,7 @@
 
 		<div class="container-fluid page-body-wrapper">
 
-			<jsp:include page="AdminLeftSidebar.jsp"></jsp:include>
+			<jsp:include page="AdminSidebar.jsp"></jsp:include>
 
 			<div class="main-panel">
 				<div class="content-wrapper">

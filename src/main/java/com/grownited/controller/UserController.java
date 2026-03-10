@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,9 @@ public class UserController {
 
 	@Autowired
 	UserDetailRepository userDetailRepository;
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
 	@GetMapping("listUser")
 	public String listUser(Model model) {
@@ -76,17 +80,26 @@ public class UserController {
 	@PostMapping("/updateUser")
 	public String updateUser(UserEntity userEntity){
 
-	    UserEntity dbUser = userRepository.findById(userEntity.getUserId()).get();
+	UserEntity dbUser = userRepository.findById(userEntity.getUserId()).get();
 
-	    dbUser.setFirstName(userEntity.getFirstName());
-	    dbUser.setLastName(userEntity.getLastName());
-	    dbUser.setEmail(userEntity.getEmail());
-	    dbUser.setGender(userEntity.getGender());
-	    dbUser.setBirthYear(userEntity.getBirthYear());
-	    dbUser.setContactNum(userEntity.getContactNum());
+	dbUser.setFirstName(userEntity.getFirstName());
+	dbUser.setLastName(userEntity.getLastName());
+	dbUser.setEmail(userEntity.getEmail());
+	dbUser.setGender(userEntity.getGender());
+	dbUser.setBirthYear(userEntity.getBirthYear());
+	dbUser.setContactNum(userEntity.getContactNum());
 
-	    userRepository.save(dbUser);
 
-	    return "redirect:/listUser";
+	// password update only if entered
+	if(userEntity.getPassword() != null && !userEntity.getPassword().isEmpty()){
+
+		String encodedPassword = passwordEncoder.encode(userEntity.getPassword());
+	dbUser.setPassword(encodedPassword);
+
+	}
+
+	userRepository.save(dbUser);
+
+	return "redirect:/listUser";
 	}
 }

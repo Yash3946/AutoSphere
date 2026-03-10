@@ -149,7 +149,7 @@ body{
                             <td>
                                 <a href="editCarVariant?variantId=${v.variantId}"
                                    class="btn btn-admin btn-sm">
-                                   View
+                                   Edit
                                 </a>
 
                                 <a href="deleteCarVariant?variantId=${v.variantId}"
