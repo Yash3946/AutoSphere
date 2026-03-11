@@ -16,13 +16,16 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.c
 
 <style>
 
+/* ================= GLOBAL ================= */
+
 body{
 margin:0;
-background:#f1f5f9;
-font-family:'Segoe UI',sans-serif;
+background:#F8FAFC;
+font-family:'Inter','Segoe UI',sans-serif;
+color:#0f172a;
 }
 
-/* SIDEBAR */
+/* ================= SIDEBAR ================= */
 
 .sidebar{
 width:260px;
@@ -30,31 +33,65 @@ position:fixed;
 top:0;
 bottom:0;
 left:0;
-background:linear-gradient(180deg,#0f172a,#1e293b);
+background:#0F172A;
 color:white;
 overflow-y:auto;
+box-shadow:4px 0 20px rgba(0,0,0,0.35);
 }
 
-.sidebar h5{
-padding:22px;
-border-bottom:1px solid rgba(255,255,255,0.08);
+/* LOGO */
+
+.logo-box{
+text-align:center;
+padding:20px;
+border-bottom:1px solid rgba(255,255,255,0.05);
 }
 
-.sidebar a{
-display:block;
-padding:14px 22px;
-color:#cbd5e1;
+.logo-circle{
+width:60px;
+height:60px;
+border-radius:50%;
+background:#1E293B;
+display:flex;
+align-items:center;
+justify-content:center;
+margin:auto;
+}
+
+.logo-img{
+width:38px;
+}
+
+/* MENU */
+
+.menu-item{
+display:flex;
+align-items:center;
+gap:12px;
+padding:15px 24px;
+color:#CBD5F5;
 text-decoration:none;
-transition:0.3s;
+transition:.25s;
+border-left:3px solid transparent;
 }
 
-.sidebar a:hover{
-background:#334155;
+.menu-item i{
+font-size:18px;
+}
+
+.menu-item:hover{
+background:#1E293B;
 color:white;
 padding-left:28px;
 }
 
-/* HEADER */
+.menu-item.active{
+background:#1E293B;
+border-left:3px solid #3B82F6;
+color:white;
+}
+
+/* ================= HEADER ================= */
 
 .header{
 position:fixed;
@@ -62,7 +99,7 @@ top:0;
 left:260px;
 right:0;
 height:70px;
-background:#0b1220;
+background:#020617;
 color:white;
 padding:0 30px;
 display:flex;
@@ -71,7 +108,7 @@ justify-content:space-between;
 box-shadow:0 4px 15px rgba(0,0,0,0.2);
 }
 
-/* CONTENT */
+/* ================= CONTENT ================= */
 
 .content{
 margin-left:260px;
@@ -79,37 +116,40 @@ margin-top:90px;
 padding:40px;
 }
 
-/* STAT CARDS */
+/* ================= DASHBOARD CARDS ================= */
 
 .stat-card{
-border-radius:16px;
-padding:25px;
+border-radius:18px;
+padding:26px;
 display:flex;
 align-items:center;
 justify-content:space-between;
 color:white;
-box-shadow:0 10px 25px rgba(0,0,0,0.15);
-transition:0.3s;
+box-shadow:0 12px 30px rgba(0,0,0,0.15);
+transition:.3s;
+cursor:pointer;
 }
 
 .stat-card:hover{
-transform:translateY(-6px);
+transform:translateY(-8px) scale(1.02);
 }
 
+/* CARD COLORS */
+
 .users{
-background:linear-gradient(135deg,#3b82f6,#2563eb);
+background:linear-gradient(135deg,#3B82F6,#2563EB);
 }
 
 .cars{
-background:linear-gradient(135deg,#10b981,#059669);
+background:linear-gradient(135deg,#10B981,#059669);
 }
 
 .bookings{
-background:linear-gradient(135deg,#f59e0b,#d97706);
+background:linear-gradient(135deg,#F59E0B,#EA580C);
 }
 
 .revenue{
-background:linear-gradient(135deg,#8b5cf6,#6d28d9);
+background:linear-gradient(135deg,#8B5CF6,#6D28D9);
 }
 
 .stat-icon{
@@ -120,38 +160,38 @@ display:flex;
 align-items:center;
 justify-content:center;
 font-size:22px;
-background:rgba(255,255,255,0.2);
+background:rgba(255,255,255,0.25);
 }
 
-/* CHART CARD */
+/* ================= CHART ================= */
 
 .chart-card{
 background:white;
-border-radius:16px;
+border-radius:18px;
 padding:30px;
-box-shadow:0 8px 25px rgba(0,0,0,0.08);
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
 }
 
-/* SMALL ANALYTICS */
+/* ================= SMALL CARDS ================= */
 
 .small-card{
-border-radius:14px;
-padding:20px;
+border-radius:16px;
+padding:22px;
 text-align:center;
 color:white;
-box-shadow:0 6px 20px rgba(0,0,0,0.15);
+box-shadow:0 8px 20px rgba(0,0,0,0.2);
 }
 
 .box1{
-background:linear-gradient(135deg,#06b6d4,#0891b2);
+background:linear-gradient(135deg,#06B6D4,#0284C7);
 }
 
 .box2{
-background:linear-gradient(135deg,#fb7185,#e11d48);
+background:linear-gradient(135deg,#F43F5E,#E11D48);
 }
 
 .box3{
-background:linear-gradient(135deg,#22c55e,#15803d);
+background:linear-gradient(135deg,#22C55E,#15803D);
 }
 
 .small-card h4{
@@ -164,28 +204,32 @@ font-weight:700;
 
 <body>
 
-<!-- SIDEBAR -->
+<!-- ================= SIDEBAR ================= -->
 
 <div class="sidebar">
 
-<h5>AutoSphere</h5>
+<div class="logo-box">
+<div class="logo-circle">
+<img src="/images/defender-logo.png" class="logo-img">
+</div>
+</div>
 
-<a href="admin-dashboard"><i class="bi bi-speedometer2"></i> Dashboard</a>
-<a href="listUser"><i class="bi bi-people"></i> Users</a>
-<a href="listbrand"><i class="bi bi-tags"></i> Brand</a>
-<a href="newcartype"><i class="bi bi-box"></i> Car Model</a>
-<a href="listCarVariant"><i class="bi bi-car-front"></i> Car Variant</a>
-<a href="allCarList"><i class="bi bi-list"></i> Car Listing</a>
-<a href="listCarOffer"><i class="bi bi-cash-coin"></i> Offers</a>
-<a href="listCarTransaction"><i class="bi bi-receipt"></i> Transactions</a>
-<a href="listCarReports"><i class="bi bi-flag"></i> Reports</a>
-<a href="listCarImage"><i class="bi bi-image"></i> Images</a>
-<a href="listReviewRating"><i class="bi bi-star"></i> Ratings</a>
-<a href="listSavedListing"><i class="bi bi-bookmark"></i> Saved</a>
+<a href="admin-dashboard" class="menu-item active"><i class="bi bi-speedometer2"></i> Dashboard</a>
+<a href="listUser" class="menu-item"><i class="bi bi-people"></i> Users</a>
+<a href="listbrand" class="menu-item"><i class="bi bi-tags"></i> Brand</a>
+<a href="newcartype" class="menu-item"><i class="bi bi-box"></i> Car Model</a>
+<a href="listCarVariant" class="menu-item"><i class="bi bi-car-front"></i> Car Variant</a>
+<a href="allCarList" class="menu-item"><i class="bi bi-list"></i> Car Listing</a>
+<a href="listCarOffer" class="menu-item"><i class="bi bi-cash-coin"></i> Offers</a>
+<a href="listCarTransaction" class="menu-item"><i class="bi bi-receipt"></i> Transactions</a>
+<a href="listCarReports" class="menu-item"><i class="bi bi-flag"></i> Reports</a>
+<a href="listCarImage" class="menu-item"><i class="bi bi-image"></i> Images</a>
+<a href="listReviewRating" class="menu-item"><i class="bi bi-star"></i> Ratings</a>
+<a href="listSavedListing" class="menu-item"><i class="bi bi-bookmark"></i> Saved</a>
 
 </div>
 
-<!-- HEADER -->
+<!-- ================= HEADER ================= -->
 
 <div class="header">
 
@@ -202,88 +246,81 @@ Logout
 
 </div>
 
-<!-- CONTENT -->
+<!-- ================= CONTENT ================= -->
 
 <div class="content">
 
 <h3 class="mb-4">Dashboard Overview</h3>
 
-<!-- STAT CARDS -->
-
 <div class="row g-4 mb-5">
 
-<!-- USERS -->
 <div class="col-md-3">
+<a href="listUser" style="text-decoration:none">
 <div class="stat-card users">
 <div>
-<h4>${totalUser}</h4>
+<h4 id="usersCount">${totalUser}</h4>
 <p>Total Users</p>
 </div>
-<div class="stat-icon">
-<i class="bi bi-people"></i>
+<div class="stat-icon"><i class="bi bi-people"></i></div>
 </div>
-</div>
+</a>
 </div>
 
-<!-- CARS -->
 <div class="col-md-3">
+<a href="allCarList" style="text-decoration:none">
 <div class="stat-card cars">
 <div>
-<h4>${totalAvailable}</h4>
+<h4 id="carsCount">${totalAvailable}</h4>
 <p>Listed Cars</p>
 </div>
-<div class="stat-icon">
-<i class="bi bi-car-front"></i>
+<div class="stat-icon"><i class="bi bi-car-front"></i></div>
 </div>
-</div>
+</a>
 </div>
 
-<!-- BOOKINGS -->
 <div class="col-md-3">
+<a href="listCarTransaction" style="text-decoration:none">
 <div class="stat-card bookings">
 <div>
-<h4>${totalTransaction}</h4>
+<h4 id="bookingCount">${totalTransaction}</h4>
 <p>Bookings</p>
 </div>
-<div class="stat-icon">
-<i class="bi bi-receipt"></i>
+<div class="stat-icon"><i class="bi bi-receipt"></i></div>
 </div>
-</div>
+</a>
 </div>
 
-<!-- REVENUE -->
 <div class="col-md-3">
+<a href="listCarTransaction" style="text-decoration:none">
 <div class="stat-card revenue">
 <div>
-<h4>₹ ${totalRevenue}</h4>
+<h4 id="revenueCount">₹ ${totalRevenue}</h4>
 <p>Total Revenue</p>
 </div>
-<div class="stat-icon">
-<i class="bi bi-cash-coin"></i>
+<div class="stat-icon"><i class="bi bi-cash-coin"></i></div>
 </div>
-</div>
-</div>
-
+</a>
 </div>
 
-
-<!-- CHART + ANALYTICS -->
+</div>
 
 <div class="row">
 
 <div class="col-md-8">
 
 <div class="chart-card">
-
-<canvas id="dashboardChart"></canvas>
-
+<canvas id="monthlyChart"></canvas>
 </div>
 
 </div>
 
 <div class="col-md-4">
 
-<div class="row g-3">
+<div class="chart-card">
+<canvas id="pieChart"></canvas>
+</div>
+
+<div class="row g-3 mt-3">
 
 <div class="col-12">
 <div class="small-card box1">
@@ -314,42 +351,74 @@ Logout
 
 </div>
 
-
 <script>
 
-const ctx=document.getElementById('dashboardChart');
+function animateValue(id,start,end,duration){
 
-new Chart(ctx,{
+let range=end-start;
+let current=start;
+let increment=end>start?1:-1;
+let stepTime=Math.abs(Math.floor(duration/range));
 
-type:'bar',
+let obj=document.getElementById(id);
+
+let timer=setInterval(function(){
+
+current+=increment;
+obj.innerHTML=current;
+
+if(current==end){
+clearInterval(timer);
+}
+
+},stepTime);
+
+}
+
+animateValue("usersCount",0,${totalUser},1200);
+animateValue("carsCount",0,${totalAvailable},1200);
+animateValue("bookingCount",0,${totalTransaction},1200);
+
+setTimeout(function(){
+document.getElementById("revenueCount").innerHTML="₹ ${totalRevenue}"
+},2500);
+
+/* LINE CHART */
+
+new Chart(document.getElementById("monthlyChart"),{
+
+type:"line",
 
 data:{
-
-labels:['Users','Cars','Bookings'],
-
+labels:["Jan","Feb","Mar","Apr","May","Jun"],
 datasets:[{
+label:"Bookings",
+data:[12,19,8,15,22,30],
+borderColor:"#3B82F6",
+backgroundColor:"rgba(59,130,246,0.2)",
+fill:true,
+tension:.4
+}]
+}
 
+});
+
+/* PIE CHART */
+
+new Chart(document.getElementById("pieChart"),{
+
+type:"pie",
+
+data:{
+labels:["Users","Cars","Bookings"],
+datasets:[{
 data:[
 ${totalUser},
 ${totalAvailable},
 ${totalTransaction}
 ],
-
-backgroundColor:[
-'#3b82f6',
-'#10b981',
-'#f59e0b'
-],
-
-borderRadius:8
-
+backgroundColor:["#3B82F6","#10B981","#F59E0B"]
 }]
-
-},
-
-options:{
-responsive:true,
-plugins:{legend:{display:false}}
 }
 
 });
@@ -357,6 +426,4 @@ plugins:{legend:{display:false}}
 </script>
 
 </body>
-
-
 </html>

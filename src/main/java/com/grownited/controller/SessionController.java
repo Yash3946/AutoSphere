@@ -1,9 +1,15 @@
 package com.grownited.controller;
 
-import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+
+import com.grownited.repository.CarModelTypeRepository;
+import com.grownited.repository.UserDetailRepository;
+import com.grownited.repository.UserRepository;
+import com.grownited.service.MailerService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -11,192 +17,184 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cloudinary.Cloudinary;
 import com.grownited.entity.CarModelTypeEntity;
 import com.grownited.entity.UserDetailEntity;
 import com.grownited.entity.UserEntity;
-import com.grownited.repository.CarModelTypeRepository;
-import com.grownited.repository.UserDetailRepository;
-import com.grownited.repository.UserRepository;
-import com.grownited.service.MailerService;
 
 @Controller
 public class SessionController {
 
-    @Autowired
-    UserRepository userRepository;
+	@Autowired
+	UserRepository userRepository;
 
-    @Autowired
-    UserDetailRepository userDetailRepository;
+	@Autowired
+	UserDetailRepository userDetailRepository;
 
-    @Autowired
-    CarModelTypeRepository carModelTypeRepository;
+	@Autowired
+	CarModelTypeRepository carModelTypeRepository;
 
-    @Autowired
-    MailerService mailerService;
+	@Autowired
+	MailerService mailerService;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
-    // ================= SIGNUP PAGE =================
-    @GetMapping("/signup")
-    public String signup(Model model) {
+	@Autowired
+	Cloudinary cloudinary;
 
-        List<CarModelTypeEntity> allCarModelType = carModelTypeRepository.findAll();
-        model.addAttribute("allCarModelType", allCarModelType);
+	/* ================= SIGNUP PAGE ================= */
 
-        return "Signup";
-    }
+	@GetMapping("/signup")
+	public String signup(Model model) {
 
-    // ================= LOGIN =================
-    @GetMapping("/login")
-    public String openLoginPage() {
-        return "Login";
-    }
+		List<CarModelTypeEntity> allCarModelType = carModelTypeRepository.findAll();
+		model.addAttribute("allCarModelType", allCarModelType);
 
-    @PostMapping("/authenticate")
-    public String authenticate(String email, String password, Model model, HttpSession session) {
+		return "Signup";
+	}
 
-        Optional<UserEntity> op = userRepository.findByEmail(email);
+	/* ================= LOGIN PAGE ================= */
 
-        if (op.isPresent()) {
+	@GetMapping("/login")
+	public String openLoginPage() {
+		return "Login";
+	}
 
-            UserEntity dbUser = op.get();
+	/* ================= AUTHENTICATION ================= */
 
-            if (passwordEncoder.matches(password, dbUser.getPassword())) {
+	@PostMapping("/authenticate")
+	public String authenticate(String email, String password, Model model, HttpSession session) {
 
-                session.setAttribute("user", dbUser);
+		Optional<UserEntity> op = userRepository.findByEmail(email);
 
-                if ("ADMIN".equals(dbUser.getRole())) {
-                    return "redirect:/admin-dashboard";
-                } else {
-                    return "redirect:/customer-dashboard";
-                }
-            }
-        }
+		if (op.isPresent()) {
 
-        model.addAttribute("error", "Invalid Credentials");
-        return "Login";
-    }
+			UserEntity dbUser = op.get();
 
-    // ================= FORGOT PASSWORD =================
-    @GetMapping("/forgetpassword")
-    public String openForgetPasswordPage() {
-        return "ForgetPassword";
-    }
+			if (passwordEncoder.matches(password, dbUser.getPassword())) {
 
-    @PostMapping("/forgetpassword")
-    public String forgotPassword(@RequestParam String email, Model model) {
+				session.setAttribute("user", dbUser);
 
-        Optional<UserEntity> op = userRepository.findByEmail(email);
+				if (dbUser.getRole().equals("ADMIN")) {
+					return "redirect:/admin-dashboard";
+				}
 
-        if (op.isEmpty()) {
-            model.addAttribute("error", "Email not found");
-            return "ForgetPassword";
-        }
+				if (dbUser.getRole().equals("CUSTOMER")) {
+					return "redirect:/customer-dashboard";
+				}
+			}
+		}
 
-        UserEntity user = op.get();
+		model.addAttribute("error", "Invalid Credentials");
+		return "Login";
+	}
 
-        String otp = mailerService.sendForgotPasswordOtp(email);
+	/* ================= FORGOT PASSWORD ================= */
 
-        user.setOtp(otp);
-        userRepository.save(user);
+	@GetMapping("/forgetpassword")
+	public String openForgetPassword() {
+		return "ForgetPassword";
+	}
 
-        model.addAttribute("email", email);
-        model.addAttribute("success", "OTP sent successfully");
+	@PostMapping("/forgot-password")
+	public String forgotPassword(@RequestParam String email, Model model) {
 
-        return "ResetPassword";
-    }
+		UserEntity user = userRepository.findUserByEmail(email);
 
-    // ================= RESET PASSWORD =================
-    @PostMapping("/reset-password")
-    public String resetPassword(
-            @RequestParam String email,
-            @RequestParam String otp,
-            @RequestParam String newPassword,
-            Model model) {
+		if (user == null) {
+			model.addAttribute("error", "Email not found");
+			return "ForgetPassword";
+		}
 
-        Optional<UserEntity> op = userRepository.findByEmail(email);
+		String otp = mailerService.sendForgotPasswordOtp(email);
 
-        if (op.isEmpty()) {
-            model.addAttribute("error", "User not found");
-            return "ResetPassword";
-        }
+		user.setOtp(otp);
+		userRepository.save(user);
 
-        UserEntity user = op.get();
+		model.addAttribute("email", email);
 
-        if (user.getOtp() == null || !user.getOtp().equals(otp)) {
-            model.addAttribute("error", "Invalid OTP");
-            model.addAttribute("email", email);
-            return "ResetPassword";
-        }
+		return "ResetPassword";
+	}
 
-        user.setPassword(passwordEncoder.encode(newPassword));
-        user.setOtp(null);
-        userRepository.save(user);
+	/* ================= RESET PASSWORD ================= */
 
-        model.addAttribute("success", "Password Reset Successfully");
-        return "Login";
-    }
+	@PostMapping("/reset-password")
+	public String resetPassword(@RequestParam String email,
+								@RequestParam String otp,
+								@RequestParam String newPassword,
+								Model model) {
 
-    // ================= REGISTER WITH PROFILE PIC =================
-    @PostMapping("/register")
-    public String register(
-            UserEntity userEntity,
-            UserDetailEntity userDetailEntity,
-            @RequestParam("profilepic") MultipartFile profilePic) {
+		UserEntity user = userRepository.findUserByEmail(email);
 
-        System.out.println("REGISTER API HIT");
+		if (user == null) {
+			model.addAttribute("error", "User not found");
+			return "ResetPassword";
+		}
 
-        try {
+		if (!user.getOtp().equals(otp)) {
+			model.addAttribute("error", "Invalid OTP");
+			return "ResetPassword";
+		}
 
-            // ===== Debug =====
-            System.out.println("FILE NAME = " + profilePic.getOriginalFilename());
-            System.out.println("FILE SIZE = " + profilePic.getSize());
+		String encodedPassword = passwordEncoder.encode(newPassword);
 
-            if (profilePic != null && !profilePic.isEmpty()) {
+		user.setPassword(encodedPassword);
+		user.setOtp(null);
 
-                String fileName = System.currentTimeMillis() + "_" + profilePic.getOriginalFilename();
+		userRepository.save(user);
 
-                String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads/";
+		return "Login";
+	}
 
-                File uploadPath = new File(uploadDir);
+	/* ================= REGISTER ================= */
 
-                if (!uploadPath.exists()) {
-                    uploadPath.mkdirs();
-                }
+	@PostMapping("/register")
+	public String register(UserEntity userEntity,
+						   UserDetailEntity userDetailEntity,
+						   MultipartFile profilePic) {
 
-                File saveFile = new File(uploadPath, fileName);
+		userEntity.setRole("CUSTOMER");
+		userEntity.setActive(true);
+		userEntity.setCreatedAt(LocalDate.now());
 
-                profilePic.transferTo(saveFile);
+		String encodedPassword = passwordEncoder.encode(userEntity.getPassword());
+		userEntity.setPassword(encodedPassword);
 
-                userEntity.setProfilePicURL("/uploads/" + fileName);
-            }
+		try {
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+			Map map = cloudinary.uploader().upload(profilePic.getBytes(), null);
 
-        userEntity.setRole("CUSTOMER");
-        userEntity.setActive(true);
-        userEntity.setCreatedAt(LocalDate.now());
+			String profilePicURL = map.get("secure_url").toString();
 
-        String encodedPassword = passwordEncoder.encode(userEntity.getPassword());
-        userEntity.setPassword(encodedPassword);
+			userEntity.setProfilePicURL(profilePicURL);
 
-        userRepository.save(userEntity);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-        userDetailEntity.setUserId(userEntity.getUserId());
-        userDetailRepository.save(userDetailEntity);
+		userRepository.save(userEntity);
 
-        return "redirect:/listUser";
-    }
-    // ================= LOGOUT =================
-    @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();
-        return "Login";
-    }
+		userDetailEntity.setUserId(userEntity.getUserId());
+		userDetailRepository.save(userDetailEntity);
+
+		mailerService.sendWelcomeMail(userEntity);
+
+		return "Login";
+	}
+
+	/* ================= LOGOUT ================= */
+
+	@GetMapping("logout")
+	public String logout(HttpSession session) {
+
+		session.invalidate();
+
+		return "Login";
+	}
 }
