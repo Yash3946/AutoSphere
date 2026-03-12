@@ -1,5 +1,6 @@
 package com.grownited.entity;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
@@ -8,30 +9,43 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+
 @Entity
-@Table(name="CarListing")
+@Table(name="car_listing")
 public class CarListingEntity {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer listingId;
-//	private Integer sellerId;
-	private Integer userId;
-	private Integer brandId;
-	private Integer modelId;
-	private Integer variantId;
-	private String city;
-	private Integer kmsDriven;
-	private Integer year;
-	private String ownership;
-	private Integer price;
-	private String status;  //Enum
-	private LocalDate createdAt;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer listingId;
+
+    private Integer userId;
+
+    private Integer brandId;
+    private Integer modelId;
+    private Integer variantId;
+
+    private String brandName;
+    private String modelName;
+    private String variantName;
+
+    private String city;
+    private Integer kmsDriven;
+    private Integer year;
+    private String ownership;
+    private Integer price;
+    private String status;
+    private Date createdAt;
 	public Integer getListingId() {
 		return listingId;
 	}
 	public void setListingId(Integer listingId) {
 		this.listingId = listingId;
+	}
+	public Integer getUserId() {
+		return userId;
+	}
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 	public Integer getBrandId() {
 		return brandId;
@@ -50,6 +64,24 @@ public class CarListingEntity {
 	}
 	public void setVariantId(Integer variantId) {
 		this.variantId = variantId;
+	}
+	public String getBrandName() {
+		return brandName;
+	}
+	public void setBrandName(String brandName) {
+		this.brandName = brandName;
+	}
+	public String getModelName() {
+		return modelName;
+	}
+	public void setModelName(String modelName) {
+		this.modelName = modelName;
+	}
+	public String getVariantName() {
+		return variantName;
+	}
+	public void setVariantName(String variantName) {
+		this.variantName = variantName;
 	}
 	public String getCity() {
 		return city;
@@ -87,26 +119,12 @@ public class CarListingEntity {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public LocalDate getCreatedAt() {
+	public Date getCreatedAt() {
 		return createdAt;
 	}
-	public void setCreatedAt(LocalDate createdAt) {
+	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
-//	public Integer getSellerId() {
-//		return sellerId;
-//	}
-//	public void setSellerId(Integer sellerId) {
-//		this.sellerId = sellerId;
-//	}
-	public Integer getUserId() {
-		return userId;
-	}
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
-	
-	
-	
 
+    // getters setters
 }

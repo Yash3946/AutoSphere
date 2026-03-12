@@ -110,33 +110,39 @@ body{
 
 					<c:forEach items="${allCarList}" var="c">
 
-						<tr>
-							<td>${c.listingId}</td>
-							<td>${c.userId}</td>
-							<td>${c.brandId}</td>
-							<td>${c.modelId}</td>
-							<td>${c.variantId}</td>
-							<td>${c.city}</td>
-							<td>${c.kmsDriven}</td>
-							<td>${c.year}</td>
-							<td>${c.ownership}</td>
-							<td>₹ ${c.price}</td>
-							<td>${c.status}</td>
-							<td>${c.createdAt}</td>
+					<tr>
 
-							<td>
-								<a href="viewCarListing?listingId=${c.listingId}"
-								   class="btn btn-admin btn-sm">
-								   View
-								</a>
+<td>${c.listingId}</td>
+<td>${c.userId}</td>
 
-								<a href="deleteCarListing?listingId=${c.listingId}"
-								   class="btn btn-delete btn-sm"
-								   onclick="return confirm('Are you sure?')">
-								   Delete
-								</a>
-							</td>
-						</tr>
+<td>${c.brandId} - ${c.brandName}</td>
+<td>${c.modelId} - ${c.modelName}</td>
+<td>${c.variantId} - ${c.variantName}</td>
+
+<td>${c.city}</td>
+<td>${c.kmsDriven}</td>
+<td>${c.year}</td>
+<td>${c.ownership}</td>
+<td>₹ ${c.price}</td>
+<td>${c.status}</td>
+<td>${c.createdAt}</td>
+
+<td>
+
+<a href="viewCarListing?listingId=${c.listingId}"
+class="btn btn-admin btn-sm">
+View
+</a>
+
+<a href="deleteCarListing?listingId=${c.listingId}"
+class="btn btn-delete btn-sm"
+onclick="return confirm('Are you sure?')">
+Delete
+</a>
+
+</td>
+
+</tr>
 
 					</c:forEach>
 

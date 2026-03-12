@@ -79,9 +79,11 @@ List Of All Cars
 
 <td>${c.listingId}</td>
 <td>${c.userId}</td>
-<td>${c.brandId}</td>
-<td>${c.modelId}</td>
-<td>${c.variantId}</td>
+
+<td>${c.brandId}  ${c.brandName}</td>
+<td>${c.modelId}  ${c.modelName}</td>
+<td>${c.variantId}  ${c.variantName}</td>
+
 <td>${c.city}</td>
 <td>${c.kmsDriven}</td>
 <td>${c.year}</td>
@@ -91,11 +93,10 @@ List Of All Cars
 <td>${c.createdAt}</td>
 
 <td>
-<a href="customerViewCarListing?listingId=${c.listingId}" 
-   class="btn btn-primary btn-sm">
-   View
+<a href="customerViewCarListing?listingId=${c.listingId}"
+class="btn btn-primary btn-sm">
+View
 </a>
-
 </td>
 
 </tr>

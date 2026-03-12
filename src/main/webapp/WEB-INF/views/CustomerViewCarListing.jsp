@@ -135,13 +135,13 @@ No Car Listing Found
 </div>
 
 
-<div class="card-footer text-end">
-
-<a href="customerCarList" class="btn btn-secondary">
-Back
+<a href="addToWishlist?listingId=${carListing.listingId}">
+<button>Add To Wishlist</button>
 </a>
 
-</div>
+<a href="buyNow?listingId=${carListing.listingId}">
+<button>Buy Now</button>
+</a>
 
 </div>
 

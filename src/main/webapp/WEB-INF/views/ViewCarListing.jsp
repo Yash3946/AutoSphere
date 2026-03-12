@@ -41,20 +41,20 @@
                         <td>${carListing.userId}</td>
                     </tr>
 
-                    <tr>
-                        <td class="label">Brand</td>
-                        <td>${carListing.brandId}</td>
-                    </tr>
-
-                    <tr>
-                        <td class="label">Model</td>
-                        <td>${carListing.modelId}</td>
-                    </tr>
-
-                    <tr>
-                        <td class="label">Variant</td>
-                        <td>${carListing.variantId}</td>
-                    </tr>
+                  <tr>
+					<td class="label">Brand</td>
+					<td>${carListing.brandId} - ${carListing.brandName}</td>
+					</tr>
+					
+					<tr>
+					<td class="label">Model</td>
+					<td>${carListing.modelId} - ${carListing.modelName}</td>
+					</tr>
+					
+					<tr>
+					<td class="label">Variant</td>
+					<td>${carListing.variantId} - ${carListing.variantName}</td>
+				</tr>
 
                     <tr>
                         <td class="label">City</td>

@@ -1,6 +1,4 @@
 package com.grownited.controller;
-import com.grownited.repository.SavedListingRepository;
-import com.grownited.repository.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,73 +18,107 @@ import com.grownited.repository.CarBrandRepository;
 import com.grownited.repository.CarListingRepository;
 import com.grownited.repository.CarModelTypeRepository;
 import com.grownited.repository.CarVariantRepository;
+import com.grownited.repository.UserRepository;
 
 @Controller
 public class CarListingController {
 
-    
+    @Autowired
+    CarListingRepository carListingRepository;
 
-	@Autowired
-	CarListingRepository carListingRepository;
-	
-	@Autowired
-	CarBrandRepository carBrandRepository;
-	
-	@Autowired
-	CarModelTypeRepository carModelTypeRepository;
-	
-	@Autowired
-	CarVariantRepository carVariantRepository;
-	
-	@Autowired
-	UserRepository userRepository;
+    @Autowired
+    CarBrandRepository carBrandRepository;
 
-	
-	@GetMapping("/carListing")
-	public String carListing(Model model) {
-	  List<UserEntity> allUser = 	userRepository.findAll();//userrepository ma select query lagshe and badha user laai ne userentity ne aapshe
-	  List<CarBrandEntity> allCarBrand	= carBrandRepository.findAll();
-	  List<CarModelTypeEntity> allCarModel =  carModelTypeRepository.findAll();
-	  List<CarVariantEntity> allCarVariant =  carVariantRepository.findAll();
-	  model.addAttribute("allUser",allUser);
-	  model.addAttribute("allCarBrand",allCarBrand);
-	  model.addAttribute("allCarModel",allCarModel);
-	  model.addAttribute("allCarVariant",allCarVariant);
-		return"CarListing";
-	}
-	
-	@PostMapping("saveCarListing")
-	public String saveCarList(CarListingEntity carListingEntity) {
-		carListingRepository.save(carListingEntity);
-		return"AdminDashboard"; 
-	}
-	
-	@GetMapping("allCarList")
-	public String alLCarList(Model model) {
-		List<CarListingEntity> allCarList =  carListingRepository.findAll();
-		model.addAttribute("allCarList",allCarList);
-		return"AllCarList";
-	}
-	
-	@GetMapping("deleteCarListing")
-	public String deleteCarListing(Integer listingId) {
-		carListingRepository.deleteById(listingId);
-		return"redirect:/allCarList";
-	}
-	
-	@GetMapping("/viewCarListing")
-	public String viewCarListing(Integer listingId, Model model) {
+    @Autowired
+    CarModelTypeRepository carModelTypeRepository;
 
-	    Optional<CarListingEntity> opListing =
-	            carListingRepository.findById(listingId);
+    @Autowired
+    CarVariantRepository carVariantRepository;
 
-	    if (opListing.isEmpty()) {
-	        return "redirect:/allCarList"; // safe fallback
-	    } else {
-	        CarListingEntity carListing = opListing.get();
-	        model.addAttribute("carListing", carListing);
-	    }
+    @Autowired
+    UserRepository userRepository;
 
-	    return "ViewCarListing";
-	}
-}	
+    // Add Car Listing Page
+    @GetMapping("/carListing")
+    public String carListing(Model model) {
+
+        List<UserEntity> allUser = userRepository.findAll();
+        List<CarBrandEntity> allCarBrand = carBrandRepository.findAll();
+        List<CarModelTypeEntity> allCarModel = carModelTypeRepository.findAll();
+        List<CarVariantEntity> allCarVariant = carVariantRepository.findAll();
+
+        model.addAttribute("allUser", allUser);
+        model.addAttribute("allCarBrand", allCarBrand);
+        model.addAttribute("allCarModel", allCarModel);
+        model.addAttribute("allCarVariant", allCarVariant);
+
+        return "CarListing";
+    }
+
+    // Save Car Listing
+    @PostMapping("/saveCarListing")
+    public String saveCarList(CarListingEntity carListingEntity) {
+
+        // Brand Name
+        Optional<CarBrandEntity> brand =
+                carBrandRepository.findById(carListingEntity.getBrandId());
+
+        if (brand.isPresent()) {
+            carListingEntity.setBrandName(brand.get().getBrandName());
+        }
+
+        // Model Name
+        Optional<CarModelTypeEntity> model =
+                carModelTypeRepository.findById(carListingEntity.getModelId());
+
+        if (model.isPresent()) {
+            carListingEntity.setModelName(model.get().getModelName());
+        }
+
+        // Variant Name
+        Optional<CarVariantEntity> variant =
+                carVariantRepository.findById(carListingEntity.getVariantId());
+
+        if (variant.isPresent()) {
+            carListingEntity.setVariantName(variant.get().getVariantName());
+        }
+
+        carListingRepository.save(carListingEntity);
+
+        return "redirect:/allCarList";
+    }
+
+    // Admin Car List
+    @GetMapping("/allCarList")
+    public String alLCarList(Model model) {
+
+        List<CarListingEntity> allCarList = carListingRepository.findAll();
+
+        model.addAttribute("allCarList", allCarList);
+
+        return "AllCarList";
+    }
+
+    // Delete
+    @GetMapping("/deleteCarListing")
+    public String deleteCarListing(Integer listingId) {
+
+        carListingRepository.deleteById(listingId);
+
+        return "redirect:/allCarList";
+    }
+
+    // View
+    @GetMapping("/viewCarListing")
+    public String viewCarListing(Integer listingId, Model model) {
+
+        Optional<CarListingEntity> car =
+                carListingRepository.findById(listingId);
+
+        if (car.isPresent()) {
+            model.addAttribute("carListing", car.get());
+        }
+
+        return "ViewCarListing";
+    }
+}
