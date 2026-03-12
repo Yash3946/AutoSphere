@@ -19,27 +19,31 @@ background:#F4F6F9;
 font-family:'Segoe UI',sans-serif;
 }
 
-.card{
-border-radius:15px;
+.car-card{
+border-radius:18px;
 }
 
-.card-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
+.car-title{
+font-size:22px;
+font-weight:600;
+}
+
+.price{
+font-size:28px;
+font-weight:bold;
+color:#198754;
+}
+
+.info-box{
+background:#f8f9fa;
+border-radius:12px;
+padding:15px;
+margin-bottom:10px;
 }
 
 .label{
 font-weight:600;
-color:#444;
-}
-
-.value{
-font-weight:500;
-}
-
-.action-btn{
-margin-right:10px;
+color:#666;
 }
 
 </style>
@@ -50,11 +54,11 @@ margin-right:10px;
 
 <div class="container mt-5">
 
-<div class="card shadow-lg">
+<div class="card shadow-lg car-card">
 
 <!-- HEADER -->
 
-<div class="card-header bg-dark text-white">
+<div class="card-header bg-dark text-white d-flex justify-content-between">
 
 <h4 class="mb-0">
 <i class="bi bi-car-front"></i> Car Details
@@ -66,76 +70,37 @@ margin-right:10px;
 
 </div>
 
-<!-- BODY -->
 
 <div class="card-body">
 
 <c:if test="${not empty carListing}">
 
-<table class="table table-borderless">
+<div class="row">
 
-<tr>
-<td class="label">Listing ID</td>
-<td class="value">${carListing.listingId}</td>
-</tr>
+<!-- LEFT SIDE -->
 
-<tr>
-<td class="label">Seller ID</td>
-<td class="value">${carListing.userId}</td>
-</tr>
+<div class="col-md-7">
 
-<tr>
-<td class="label">Brand</td>
-<td class="value">
-${carListing.brandId}  ${carListing.brandName}
-</td>
-</tr>
+<h3 class="car-title">
 
-<tr>
-<td class="label">Model</td>
-<td class="value">
-${carListing.modelId}  ${carListing.modelName}
-</td>
-</tr>
+${carListing.brandName} ${carListing.modelName}
 
-<tr>
-<td class="label">Variant</td>
-<td class="value">
-${carListing.variantId}  ${carListing.variantName}
-</td>
-</tr>
+<span class="text-muted">(${carListing.year})</span>
 
-<tr>
-<td class="label">City</td>
-<td class="value">${carListing.city}</td>
-</tr>
+</h3>
 
-<tr>
-<td class="label">KMS Driven</td>
-<td class="value">${carListing.kmsDriven} KM</td>
-</tr>
+<p class="text-muted mb-3">
 
-<tr>
-<td class="label">Year</td>
-<td class="value">${carListing.year}</td>
-</tr>
+<i class="bi bi-geo-alt"></i>
+${carListing.city}
 
-<tr>
-<td class="label">Ownership</td>
-<td class="value">${carListing.ownership}</td>
-</tr>
+</p>
 
-<tr>
-<td class="label">Price</td>
-<td class="value text-success fw-bold">
+<div class="price mb-3">
+
 ₹ ${carListing.price}
-</td>
-</tr>
 
-<tr>
-<td class="label">Status</td>
-
-<td>
+</div>
 
 <c:choose>
 
@@ -149,40 +114,129 @@ ${carListing.variantId}  ${carListing.variantName}
 
 </c:choose>
 
-</td>
+<hr>
 
-</tr>
+<div class="info-box">
 
-<tr>
-<td class="label">Created At</td>
-<td class="value">${carListing.createdAt}</td>
-</tr>
+<div class="row">
 
-</table>
+<div class="col-6">
+
+<p class="label">KMS Driven</p>
+<p>${carListing.kmsDriven} KM</p>
+
+</div>
+
+<div class="col-6">
+
+<p class="label">Ownership</p>
+<p>${carListing.ownership}</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="info-box">
+
+<div class="row">
+
+<div class="col-6">
+
+<p class="label">Variant</p>
+<p>${carListing.variantName}</p>
+
+</div>
+
+<div class="col-6">
+
+<p class="label">Created At</p>
+<p>${carListing.createdAt}</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- RIGHT SIDE -->
+
+<div class="col-md-5">
+
+<div class="info-box">
+
+<p class="label">Listing ID</p>
+<p>${carListing.listingId}</p>
+
+</div>
+
+<div class="info-box">
+
+<p class="label">Seller ID</p>
+<p>${carListing.userId}</p>
+
+</div>
+
+<div class="info-box">
+
+<p class="label">Brand</p>
+<p>${carListing.brandId}  ${carListing.brandName}</p>
+
+</div>
+
+<div class="info-box">
+
+<p class="label">Model</p>
+<p>${carListing.modelId} ${carListing.modelName}</p>
+
+</div>
+
+<div class="info-box">
+
+<p class="label">Variant</p>
+<p>${carListing.variantId} ${carListing.variantName}</p>
+
+</div>
+
+</div>
+
+</div>
 
 </c:if>
 
-
 <c:if test="${empty carListing}">
+
 <div class="alert alert-warning">
 No Car Listing Found
 </div>
+
 </c:if>
 
 </div>
 
-<!-- FOOTER BUTTONS -->
+
+<!-- FOOTER -->
 
 <div class="card-footer text-end">
 
 <a href="addToWishlist?listingId=${carListing.listingId}"
-class="btn btn-warning action-btn">
-<i class="bi bi-heart"></i> Add To Wishlist
+class="btn btn-warning me-2">
+
+<i class="bi bi-heart"></i>
+Add To Wishlist
+
 </a>
 
 <a href="buyNow?listingId=${carListing.listingId}"
 class="btn btn-success">
-<i class="bi bi-cart"></i> Buy Now
+
+<i class="bi bi-cart"></i>
+Buy Now
+
 </a>
 
 </div>

@@ -6,112 +6,144 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>List Of All Car</title>
+<title>Available Cars</title>
 
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-	rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
 <style>
-body {
-	background: #F4F6F9;
-	font-family: 'Segoe UI', sans-serif;
+
+body{
+background:#F4F6F9;
+font-family:'Segoe UI',sans-serif;
 }
 
-.content {
-	padding: 40px;
+.car-card{
+border-radius:15px;
+transition:0.3s;
 }
 
-.content-card {
-	background: white;
-	padding: 25px;
-	border-radius: 15px;
-	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+.car-card:hover{
+transform:translateY(-5px);
+box-shadow:0 10px 25px rgba(0,0,0,0.15);
 }
 
-.table thead {
-	background: #0D1B2A;
-	color: white;
+.price{
+font-size:20px;
+font-weight:bold;
+color:#198754;
 }
+
+.car-title{
+font-weight:600;
+font-size:18px;
+}
+
 </style>
 
 </head>
 
 <body>
 
-	<div class="content">
+<div class="container mt-5">
 
-		<div class="content-card">
+<h3 class="mb-4 fw-bold">
+<i class="bi bi-car-front"></i> Available Cars
+</h3>
 
-			<h4 class="fw-bold mb-4">List Of All Cars</h4>
+<div class="row g-4">
 
-			<table class="table table-hover">
+<c:forEach items="${customerCarList}" var="c">
 
-				<thead>
+<div class="col-md-4">
 
-					<tr>
+<div class="card car-card shadow-sm">
 
-						<th>ID</th>
-						<th>Seller</th>
-						<th>Brand</th>
-						<th>Model</th>
-						<th>Variant</th>
-						<th>City</th>
-						<th>KMS</th>
-						<th>Year</th>
-						<th>Ownership</th>
-						<th>Price</th>
-						<th>Status</th>
-						<th>Date</th>
-						<th>Action</th>
+<div class="card-body">
 
-					</tr>
+<h5 class="car-title">
 
-				</thead>
+${c.brandName} ${c.modelName}
 
-				<tbody>
+<span class="text-muted">(${c.year})</span>
 
-					<c:forEach items="${customerCarList}" var="c">
+</h5>
 
-						<tr>
+<p class="text-muted mb-2">
 
-							<td>${c.listingId}</td>
-							<td>${c.userId}</td>
+<i class="bi bi-geo-alt"></i>
+${c.city}
 
-							<td>${c.brandId}${c.brandName}</td>
-							<td>${c.modelId}${c.modelName}</td>
-							<td>${c.variantId}${c.variantName}</td>
+</p>
 
-							<td>${c.city}</td>
-							<td>${c.kmsDriven}</td>
-							<td>${c.year}</td>
-							<td>${c.ownership}</td>
-							<td>₹ ${c.price}</td>
-							<td>${c.status}</td>
-							<td>${c.createdAt}</td>
+<p class="mb-1">
 
-							<td><a
-								href="customerViewCarListing?listingId=${c.listingId}"
-								class="btn btn-primary btn-sm"> View </a></td>
+<b>KMS:</b> ${c.kmsDriven} KM
 
-						</tr>
+</p>
 
-					</c:forEach>
+<p class="mb-1">
 
+<b>Ownership:</b> ${c.ownership}
 
-					<c:if test="${empty customerCarList}">
-						<tr>
-							<td colspan="13" class="text-center">No car listings found</td>
-						</tr>
-					</c:if>
+</p>
 
-				</tbody>
+<p class="price">
 
-			</table>
+₹ ${c.price}
 
-		</div>
+</p>
 
-	</div>
+<c:choose>
+
+<c:when test="${c.status == 'AVAILABLE'}">
+
+<span class="badge bg-success">Available</span>
+
+</c:when>
+
+<c:otherwise>
+
+<span class="badge bg-danger">Sold</span>
+
+</c:otherwise>
+
+</c:choose>
+
+<div class="mt-3">
+
+<a href="customerViewCarListing?listingId=${c.listingId}"
+class="btn btn-primary btn-sm">
+
+<i class="bi bi-eye"></i> View Details
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</c:forEach>
+
+<c:if test="${empty customerCarList}">
+
+<div class="col-12 text-center">
+
+<p class="text-muted">No cars available</p>
+
+</div>
+
+</c:if>
+
+</div>
+
+</div>
 
 </body>
 </html>

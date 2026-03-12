@@ -19,21 +19,23 @@ background:#F4F6F9;
 font-family:'Segoe UI',sans-serif;
 }
 
-.card{
+.car-card{
 border-radius:15px;
+transition:0.3s;
 }
 
-.table thead{
-background:#0D1B2A;
-color:white;
+.car-card:hover{
+transform:translateY(-5px);
+box-shadow:0 10px 25px rgba(0,0,0,0.15);
 }
 
-.car-name{
+.car-title{
 font-weight:600;
-color:#333;
+font-size:18px;
 }
 
 .price{
+font-size:20px;
 font-weight:bold;
 color:#198754;
 }
@@ -46,97 +48,97 @@ color:#198754;
 
 <div class="container mt-5">
 
-<div class="card shadow-lg">
+<div class="d-flex justify-content-between align-items-center mb-4">
 
-<div class="card-header bg-dark text-white d-flex justify-content-between">
+<h3>
+<i class="bi bi-heart-fill text-danger"></i> My Wishlist
+</h3>
 
-<h4 class="mb-0">
-<i class="bi bi-heart-fill"></i> My Wishlist
-</h4>
-
-<a href="customerCarList" class="btn btn-light btn-sm">
+<a href="customerCarList" class="btn btn-dark btn-sm">
 <i class="bi bi-arrow-left"></i> Back
 </a>
 
 </div>
 
-
-<div class="card-body">
-
-<div class="table-responsive">
-
-<table class="table table-hover align-middle">
-
-<thead>
-
-<tr>
-<th>Car</th>
-<th>City</th>
-<th>KMS</th>
-<th>Price</th>
-<th>Action</th>
-</tr>
-
-</thead>
-
-<tbody>
+<div class="row g-4">
 
 <c:forEach items="${wishlist}" var="w">
 
-<tr>
+<div class="col-md-4">
 
-<td class="car-name">
-${w.carListing.brandName} 
-${w.carListing.modelName} 
-(${w.carListing.year})
-</td>
+<div class="card car-card shadow-sm">
 
-<td>
+<div class="card-body">
+
+<h5 class="car-title">
+
+${w.carListing.brandName} ${w.carListing.modelName}
+
+<span class="text-muted">(${w.carListing.year})</span>
+
+</h5>
+
+<p class="text-muted mb-2">
+
 <i class="bi bi-geo-alt"></i>
 ${w.carListing.city}
-</td>
 
-<td>
-${w.carListing.kmsDriven} KM
-</td>
+</p>
 
-<td class="price">
+<p class="mb-1">
+
+<b>KMS:</b> ${w.carListing.kmsDriven} KM
+
+</p>
+
+<p class="price">
+
 ₹ ${w.carListing.price}
-</td>
 
-<td>
+</p>
+
+<div class="mt-3">
 
 <a href="removeWishlist?wishlistId=${w.wishlistId}"
-class="btn btn-danger btn-sm">
-<i class="bi bi-trash"></i> Remove
+class="btn btn-danger btn-sm me-2">
+
+<i class="bi bi-trash"></i>
+Remove
+
 </a>
 
 <a href="buyNow?listingId=${w.carListing.listingId}"
 class="btn btn-success btn-sm">
-<i class="bi bi-cart"></i> Buy
+
+<i class="bi bi-cart"></i>
+Buy
+
 </a>
 
-</td>
+</div>
 
-</tr>
+</div>
+
+</div>
+
+</div>
 
 </c:forEach>
 
 <c:if test="${empty wishlist}">
-<tr>
-<td colspan="5" class="text-center text-muted">
+
+<div class="col-12 text-center">
+
+<div class="alert alert-warning">
+
+<i class="bi bi-exclamation-circle"></i>
 No cars in wishlist
-</td>
-</tr>
+
+</div>
+
+</div>
+
 </c:if>
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
 
 </div>
 
