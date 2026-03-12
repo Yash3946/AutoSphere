@@ -9,19 +9,37 @@
 <link rel="stylesheet"
 href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
 <style>
 
 body{
 background:#F4F6F9;
+font-family:'Segoe UI',sans-serif;
+}
+
+.card{
+border-radius:15px;
+}
+
+.card-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
 }
 
 .label{
 font-weight:600;
-color:#555;
+color:#444;
 }
 
-.card{
-border-radius:12px;
+.value{
+font-weight:500;
+}
+
+.action-btn{
+margin-right:10px;
 }
 
 </style>
@@ -32,12 +50,23 @@ border-radius:12px;
 
 <div class="container mt-5">
 
-<div class="card shadow">
+<div class="card shadow-lg">
+
+<!-- HEADER -->
 
 <div class="card-header bg-dark text-white">
-<h4 class="mb-0">Car Details</h4>
+
+<h4 class="mb-0">
+<i class="bi bi-car-front"></i> Car Details
+</h4>
+
+<a href="customerCarList" class="btn btn-light btn-sm">
+<i class="bi bi-arrow-left"></i> Back
+</a>
+
 </div>
 
+<!-- BODY -->
 
 <div class="card-body">
 
@@ -47,52 +76,60 @@ border-radius:12px;
 
 <tr>
 <td class="label">Listing ID</td>
-<td>${carListing.listingId}</td>
+<td class="value">${carListing.listingId}</td>
 </tr>
 
 <tr>
 <td class="label">Seller ID</td>
-<td>${carListing.userId}</td>
+<td class="value">${carListing.userId}</td>
 </tr>
 
 <tr>
 <td class="label">Brand</td>
-<td>${carListing.brandId}</td>
+<td class="value">
+${carListing.brandId}  ${carListing.brandName}
+</td>
 </tr>
 
 <tr>
 <td class="label">Model</td>
-<td>${carListing.modelId}</td>
+<td class="value">
+${carListing.modelId}  ${carListing.modelName}
+</td>
 </tr>
 
 <tr>
 <td class="label">Variant</td>
-<td>${carListing.variantId}</td>
+<td class="value">
+${carListing.variantId}  ${carListing.variantName}
+</td>
 </tr>
 
 <tr>
 <td class="label">City</td>
-<td>${carListing.city}</td>
+<td class="value">${carListing.city}</td>
 </tr>
 
 <tr>
 <td class="label">KMS Driven</td>
-<td>${carListing.kmsDriven}</td>
+<td class="value">${carListing.kmsDriven} KM</td>
 </tr>
 
 <tr>
 <td class="label">Year</td>
-<td>${carListing.year}</td>
+<td class="value">${carListing.year}</td>
 </tr>
 
 <tr>
 <td class="label">Ownership</td>
-<td>${carListing.ownership}</td>
+<td class="value">${carListing.ownership}</td>
 </tr>
 
 <tr>
 <td class="label">Price</td>
-<td>₹ ${carListing.price}</td>
+<td class="value text-success fw-bold">
+₹ ${carListing.price}
+</td>
 </tr>
 
 <tr>
@@ -102,12 +139,12 @@ border-radius:12px;
 
 <c:choose>
 
-<c:when test="${carListing.status == 'Active'}">
-<span class="badge bg-success">Active</span>
+<c:when test="${carListing.status == 'AVAILABLE'}">
+<span class="badge bg-success">Available</span>
 </c:when>
 
 <c:otherwise>
-<span class="badge bg-danger">Inactive</span>
+<span class="badge bg-danger">Sold</span>
 </c:otherwise>
 
 </c:choose>
@@ -118,7 +155,7 @@ border-radius:12px;
 
 <tr>
 <td class="label">Created At</td>
-<td>${carListing.createdAt}</td>
+<td class="value">${carListing.createdAt}</td>
 </tr>
 
 </table>
@@ -134,14 +171,21 @@ No Car Listing Found
 
 </div>
 
+<!-- FOOTER BUTTONS -->
 
-<a href="addToWishlist?listingId=${carListing.listingId}">
-<button>Add To Wishlist</button>
+<div class="card-footer text-end">
+
+<a href="addToWishlist?listingId=${carListing.listingId}"
+class="btn btn-warning action-btn">
+<i class="bi bi-heart"></i> Add To Wishlist
 </a>
 
-<a href="buyNow?listingId=${carListing.listingId}">
-<button>Buy Now</button>
+<a href="buyNow?listingId=${carListing.listingId}"
+class="btn btn-success">
+<i class="bi bi-cart"></i> Buy Now
 </a>
+
+</div>
 
 </div>
 
