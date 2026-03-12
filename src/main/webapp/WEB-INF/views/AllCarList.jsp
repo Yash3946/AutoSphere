@@ -116,9 +116,9 @@ body {
 								<td>${c.listingId}</td>
 								<td>${c.userId}</td>
 
-								<td>${c.brandId}- ${c.brandName}</td>
-								<td>${c.modelId}- ${c.modelName}</td>
-								<td>${c.variantId}- ${c.variantName}</td>
+								<td>${c.brandId} ${c.brandName}</td>
+								<td>${c.modelId} ${c.modelName}</td>
+								<td>${c.variantId} ${c.variantName}</td>
 
 								<td>${c.city}</td>
 								<td>${c.kmsDriven}</td>
