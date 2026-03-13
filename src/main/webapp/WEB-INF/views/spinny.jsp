@@ -13,6 +13,9 @@ body {
 	font-family: Arial;
 	background: #f4f6fb;
 }
+html{
+scroll-behavior:smooth;
+}
 
 /* HEADER */
 .header {
@@ -293,7 +296,7 @@ body {
 		</div>
 
 		<div class="menu">
-			<a href="customerCarList">List Car</a> <a href="#">Car Brand</a> <a
+			<a href="customerCarList">List Car</a> <a href="#brands">Car Brand</a> <a
 				href="#">Buy Car</a> <a href="#">Sell Car</a> <a href="#">Login</a>
 			<a href="#">Register</a>
 		</div>
@@ -422,7 +425,7 @@ body {
 
 	<!-- POPULAR BRANDS -->
 
-	<div class="brand-section">
+	<div class="brand-section" id="brands">
 
 		<h2>Explore Popular Brands</h2>
 
