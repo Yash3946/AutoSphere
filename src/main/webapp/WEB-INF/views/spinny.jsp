@@ -312,7 +312,7 @@ body {
 
 			<!-- <div class="slider" id="slider"> -->
 
-				<!-- <img
+			<!-- <img
 					src="https://tse2.mm.bing.net/th/id/OIP.ol3_UawwhWz5LhXFWAdoNgHaE8">
 				<img
 					src="https://tse3.mm.bing.net/th/id/OIP.k83Uo4eIEvIwprOFSEAAFAHaEo">
@@ -333,14 +333,13 @@ body {
 				<img
 					src="https://tse2.mm.bing.net/th/id/OIP.sU50XnjaVMAl8jUzpQMjYQHaE8?pid=Api&P=0&h=220">
  -->
+			<div class="slider" id="slider">
 
-				<div class="slider" id="slider">
+				<c:forEach var="img" items="${image}">
+					<img src="${img.imageURL}">
+				</c:forEach>
 
-					<c:forEach var="img" items="${image}">
-						<img src="${img}">
-					</c:forEach>
-
-				</div>
+			</div>
 
 
 			<!-- </div>-->
@@ -506,8 +505,8 @@ body {
 
 		</div>
 
-		<div class="footer-bottom">©️ 2026 AutoSphere | MCA Sem 4 Project
-		</div>
+		<div class="footer-bottom">©️ 2026 AutoSphere | MCA Sem 4
+			Project</div>
 
 	</div>
 

@@ -1,153 +1,132 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
+
 <html>
 <head>
-    <title>Car Image List</title>
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<title>Car Image List</title>
 
-    <!-- Admin Main CSS -->
-    <jsp:include page="AdminCSS.jsp"/>
+<!-- Bootstrap -->
 
-    <style>
-        .content-card{
-            background:white;
-            padding:25px;
-            border-radius:15px;
-            box-shadow:0 10px 25px rgba(0,0,0,0.08);
-        }
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-        .table thead{
-            background:linear-gradient(90deg,#0D1B2A,#1B263B);
-            color:white;
-        }
+<!-- Admin CSS -->
 
-        img{
-            width:120px;
-            height:80px;
-            object-fit:cover;
-            border-radius:6px;
-        }
+<jsp:include page="AdminCSS.jsp"/>
 
-        .primary{
-            color:#28a745;
-            font-weight:bold;
-        }
+<style>
 
-        .secondary{
-            color:#dc3545;
-            font-weight:bold;
-        }
+.page-wrapper{
+padding:30px;
+}
 
-        .btn-view{
-            background:linear-gradient(135deg,#14213D,#1D3557);
-            color:white;
-            border:none;
-        }
+.page-card{
+background:#fff;
+padding:30px;
+border-radius:12px;
+box-shadow:0 3px 12px rgba(0,0,0,0.08);
+}
 
-        .btn-view:hover{
-            background:#0077B6;
-            color:white;
-        }
+.table img{
+border-radius:8px;
+}
 
-        .btn-delete{
-            background:#dc3545;
-            color:white;
-            border:none;
-        }
+</style>
 
-        .btn-delete:hover{
-            background:#bb2d3b;
-            color:white;
-        }
-    </style>
 </head>
 
 <body>
 
-<!-- Sidebar -->
+<!-- ================= SIDEBAR ================= -->
+
 <jsp:include page="AdminSidebar.jsp"/>
 
-<!-- Header -->
+<!-- ================= HEADER ================= -->
+
 <jsp:include page="AdminHeader.jsp"/>
+
+<!-- ================= CONTENT ================= -->
 
 <div class="content">
 
-    <div class="content-card">
+<div class="page-wrapper">
 
-        <h3 class="fw-bold mb-4" style="color:#0D1B2A;">
-            Car Image List
-        </h3>
+<div class="container-fluid">
 
-        <div class="table-responsive">
-            <table class="table table-hover align-middle">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Model Name</th>
-                        <th>Image</th>
-                        <th>Primary</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
+<div class="page-card">
 
-                <tbody>
+<h3 class="text-center fw-bold mb-4">Car Image List</h3>
 
-                    <c:forEach var="img" items="${carList}">
-                        <tr>
-                            <td>${img.imageId}</td>
-                            <td>${img.modelName}</td>
-                            <td>
-                                <img src="${img.imageUrl}" alt="Car Image">
-                            </td>
-                            <td>
-                                <c:choose>
-                                    <c:when test="${img.primary}">
-                                        <span class="primary">Yes</span>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <span class="secondary">No</span>
-                                    </c:otherwise>
-                                </c:choose>
-                            </td>
-                            <td>
-                                <a href="viewCarImage?imageId=${img.imageId}"
-                                   class="btn btn-sm btn-view">
-                                   View
-                                </a>
+<table class="table table-hover align-middle">
 
-                                <a href="deleteCarImage?imageId=${img.imageId}"
-                                   class="btn btn-sm btn-delete"
-                                   onclick="return confirm('Are you sure?')">
-                                   Delete
-                                </a>
-                            </td>
-                        </tr>
-                    </c:forEach>
+<thead class="table-dark text-center">
 
-                    <c:if test="${empty carList}">
-                        <tr>
-                            <td colspan="5" class="text-center text-muted py-4">
-                                No Car Images Found
-                            </td>
-                        </tr>
-                    </c:if>
+<tr>
+<th>ID</th>
+<th>Model Name</th>
+<th>Image</th>
+<th>Primary</th>
+<th>Action</th>
+</tr>
 
-                </tbody>
-            </table>
-        </div>
+</thead>
 
-    </div>
+<tbody class="text-center">
+
+<c:forEach var="c" items="${carList}">
+
+<tr>
+
+<td>${c.imageId}</td>
+
+<td>${c.modelName}</td>
+
+<td>
+<img src="${c.imageURL}" width="120" class="img-thumbnail">
+</td>
+
+<td>
+
+<c:if test="${c.isPrimary}"> <span class="badge bg-success">Primary</span>
+</c:if>
+
+<c:if test="${!c.isPrimary}"> <span class="badge bg-secondary">Secondary</span>
+</c:if>
+
+</td>
+
+<td>
+
+<a href="viewCarImage?imageId=${c.imageId}" 
+class="btn btn-info btn-sm">View</a>
+
+<a href="deleteCarImage?imageId=${c.imageId}" 
+class="btn btn-danger btn-sm">Delete</a>
+
+</td>
+
+</tr>
+
+</c:forEach>
+
+</tbody>
+
+</table>
 
 </div>
 
-<!-- Footer -->
+</div>
+
+</div>
+
+</div>
+
+<!-- ================= FOOTER ================= -->
+
 <jsp:include page="AdminFooter.jsp"/>
 
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
