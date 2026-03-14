@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
+
 <html>
 <head>
 <meta charset="UTF-8">
@@ -23,6 +24,7 @@ font-family:'Segoe UI',sans-serif;
 .car-card{
 border-radius:15px;
 transition:0.3s;
+overflow:hidden;
 }
 
 .car-card:hover{
@@ -39,6 +41,12 @@ color:#198754;
 .car-title{
 font-weight:600;
 font-size:18px;
+}
+
+.car-img{
+width:100%;
+height:200px;
+object-fit:cover;
 }
 
 </style>
@@ -60,6 +68,18 @@ font-size:18px;
 <div class="col-md-4">
 
 <div class="card car-card shadow-sm">
+
+<!-- CAR IMAGE -->
+
+<c:choose>
+
+<c:when test="${not empty c.imageUrl}"> <img src="${c.imageUrl}" class="car-img">
+</c:when>
+
+<c:otherwise> <img src="https://cdn-icons-png.flaticon.com/512/743/743131.png" class="car-img">
+</c:otherwise>
+
+</c:choose>
 
 <div class="card-body">
 
@@ -118,6 +138,13 @@ ${c.city}
 class="btn btn-primary btn-sm">
 
 <i class="bi bi-eye"></i> View Details
+
+</a>
+
+<a href="buyNow?listingId=${c.listingId}"
+class="btn btn-success btn-sm">
+
+<i class="bi bi-cart"></i> Buy Now
 
 </a>
 

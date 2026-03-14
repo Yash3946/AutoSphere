@@ -13,9 +13,6 @@ body {
 	font-family: Arial;
 	background: #f4f6fb;
 }
-html{
-scroll-behavior:smooth;
-}
 
 /* HEADER */
 .header {
@@ -296,7 +293,7 @@ scroll-behavior:smooth;
 		</div>
 
 		<div class="menu">
-			<a href="customerCarList">List Car</a> <a href="#brands">Car Brand</a> <a
+			<a href="customerCarList">List Car</a> <a href="#">Car Brand</a> <a
 				href="#">Buy Car</a> <a href="#">Sell Car</a> <a href="#">Login</a>
 			<a href="#">Register</a>
 		</div>
@@ -315,7 +312,7 @@ scroll-behavior:smooth;
 
 			<!-- <div class="slider" id="slider"> -->
 
-			<!-- <img
+				<!-- <img
 					src="https://tse2.mm.bing.net/th/id/OIP.ol3_UawwhWz5LhXFWAdoNgHaE8">
 				<img
 					src="https://tse3.mm.bing.net/th/id/OIP.k83Uo4eIEvIwprOFSEAAFAHaEo">
@@ -336,13 +333,14 @@ scroll-behavior:smooth;
 				<img
 					src="https://tse2.mm.bing.net/th/id/OIP.sU50XnjaVMAl8jUzpQMjYQHaE8?pid=Api&P=0&h=220">
  -->
-			<div class="slider" id="slider">
 
-				<c:forEach var="img" items="${image}">
-					<img src="${img.imageURL}">
-				</c:forEach>
+				<div class="slider" id="slider">
 
-			</div>
+					<c:forEach var="img" items="${image}">
+						<img src="${img}">
+					</c:forEach>
+
+				</div>
 
 
 			<!-- </div>-->
@@ -425,7 +423,7 @@ scroll-behavior:smooth;
 
 	<!-- POPULAR BRANDS -->
 
-	<div class="brand-section" id="brands">
+	<div class="brand-section">
 
 		<h2>Explore Popular Brands</h2>
 
@@ -508,8 +506,8 @@ scroll-behavior:smooth;
 
 		</div>
 
-		<div class="footer-bottom">©️ 2026 AutoSphere | MCA Sem 4
-			Project</div>
+		<div class="footer-bottom">©️ 2026 AutoSphere | MCA Sem 4 Project
+		</div>
 
 	</div>
 
