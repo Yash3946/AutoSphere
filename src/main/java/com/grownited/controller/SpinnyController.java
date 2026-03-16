@@ -8,7 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.grownited.entity.CarImageEntity;
 import com.grownited.entity.CarListingEntity;
+import com.grownited.repository.CarImageRepository;
 import com.grownited.repository.CarListingRepository;
 
 @Controller
@@ -16,6 +18,9 @@ public class SpinnyController {
 
 	@Autowired
 	CarListingRepository carListingRepository;
+	
+	@Autowired 
+	CarImageRepository carImageRepository;
 
 	@GetMapping("customer-dashboard")
 	public String spinny() {
@@ -26,7 +31,9 @@ public class SpinnyController {
 	public String customerCarList(Model model) {
 
 		List<CarListingEntity> customerCarList = carListingRepository.findAll();
+		List<CarImageEntity> image = carImageRepository.findAll();
 		model.addAttribute("customerCarList", customerCarList);
+		model.addAttribute("image",image);
 
 		return "CustomerCarList";
 	}

@@ -334,13 +334,13 @@ body {
 					src="https://tse2.mm.bing.net/th/id/OIP.sU50XnjaVMAl8jUzpQMjYQHaE8?pid=Api&P=0&h=220">
  -->
 
-				<div class="slider" id="slider">
-
-					<c:forEach var="img" items="${image}">
-						<img src="${img}">
-					</c:forEach>
-
-				</div>
+			<div class="slider" id="slider">
+			
+			<c:forEach var="img" items="${image}">
+			<img src="${img.imageURL}">
+			</c:forEach>
+			
+			</div>
 
 
 			<!-- </div>-->
