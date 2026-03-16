@@ -2,6 +2,8 @@ package com.grownited.entity;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -10,37 +12,52 @@ public class CarListingEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="listing_id")
     private Integer listingId;
 
+    @Column(name="city")
     private String city;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name="created_at")
     private Date createdAt;
 
+    @Column(name="kms_driven")
     private Integer kmsDriven;
 
+    @Column(name="ownership")
     private String ownership;
 
+    @Column(name="price")
     private Integer price;
 
+    @Column(name="status")
     private String status;
 
+    @Column(name="user_id")
     private Integer userId;
 
+    @Column(name="year")
     private Integer year;
 
+    @Column(name="brand_name")
     private String brandName;
 
+    @Column(name="model_name")
     private String modelName;
 
+    @Column(name="variant_name")
     private String variantName;
 
+    @Column(name="brand_id")
     private Integer brandId;
 
+    @Column(name="model_id")
     private Integer modelId;
 
+    @Column(name="variant_id")
     private Integer variantId;
 
-    // ✅ IMAGE URL FIELD
     @Column(name="image_url")
     private String imageUrl;
 
@@ -168,8 +185,6 @@ public class CarListingEntity {
         this.variantId = variantId;
     }
 
-    // ✅ IMAGE GETTER SETTER
-
     public String getImageUrl() {
         return imageUrl;
     }
@@ -178,3 +193,4 @@ public class CarListingEntity {
         this.imageUrl = imageUrl;
     }
 }
+

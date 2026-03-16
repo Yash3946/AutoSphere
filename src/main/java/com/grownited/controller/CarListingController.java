@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.grownited.entity.CarBrandEntity;
+import com.grownited.entity.CarImageEntity;
 import com.grownited.entity.CarListingEntity;
 import com.grownited.entity.CarModelTypeEntity;
 import com.grownited.entity.CarVariantEntity;
 import com.grownited.entity.UserEntity;
 import com.grownited.repository.CarBrandRepository;
+import com.grownited.repository.CarImageRepository;
 import com.grownited.repository.CarListingRepository;
 import com.grownited.repository.CarModelTypeRepository;
 import com.grownited.repository.CarVariantRepository;
@@ -37,6 +39,7 @@ public class CarListingController {
 
     @Autowired
     UserRepository userRepository;
+    
 
     // Add Car Listing Page
     @GetMapping("/carListing")
@@ -46,11 +49,13 @@ public class CarListingController {
         List<CarBrandEntity> allCarBrand = carBrandRepository.findAll();
         List<CarModelTypeEntity> allCarModel = carModelTypeRepository.findAll();
         List<CarVariantEntity> allCarVariant = carVariantRepository.findAll();
+       
 
         model.addAttribute("allUser", allUser);
         model.addAttribute("allCarBrand", allCarBrand);
         model.addAttribute("allCarModel", allCarModel);
         model.addAttribute("allCarVariant", allCarVariant);
+       
 
         return "CarListing";
     }

@@ -1,3 +1,4 @@
+```jsp
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -15,7 +16,6 @@
 
 <style>
 
-/* Card Wrapper */
 .form-card{
 	background:white;
 	padding:30px;
@@ -23,7 +23,6 @@
 	box-shadow:0 10px 25px rgba(0,0,0,0.08);
 }
 
-/* Title Style */
 .page-title{
 	background:linear-gradient(135deg,#14213D,#1D3557);
 	color:white;
@@ -33,7 +32,6 @@
 	margin-bottom:25px;
 }
 
-/* SAME COLOR AS SIGNUP BUTTON */
 .btn-save{
 	background: linear-gradient(135deg,#005F73,#0A9396);
 	border: none;
@@ -53,13 +51,9 @@
 
 <body>
 
-<!-- Sidebar -->
 <jsp:include page="AdminSidebar.jsp"/>
-
-<!-- Header -->
 <jsp:include page="AdminHeader.jsp"/>
 
-<!-- Content -->
 <div class="content">
 
 	<div class="row justify-content-center">
@@ -69,7 +63,7 @@
 
 				<h4 class="page-title">Add New Car Brand</h4>
 
-				<form action="savebrand" method="post">
+				<form action="savebrand" method="post" enctype="multipart/form-data">
 
 					<div class="mb-3">
 						<label class="form-label">Brand Name</label>
@@ -81,11 +75,12 @@
 					</div>
 
 					<div class="mb-3">
-						<label class="form-label">Logo URL</label>
-						<input type="text"
+						<label class="form-label">Brand Logo</label>
+						<input type="file"
 							   class="form-control"
-							   name="logoUrl"
-							   placeholder="Enter Logo URL (optional)">
+							   name="logoFile"
+							   accept="image/*"
+							   required>
 					</div>
 
 					<div class="d-grid">
@@ -103,10 +98,10 @@
 
 </div>
 
-<!-- Footer -->
 <jsp:include page="AdminFooter.jsp"/>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
+```
