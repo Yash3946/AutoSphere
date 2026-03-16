@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -15,48 +16,58 @@ rel="stylesheet">
 <link rel="stylesheet"
 href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
-<jsp:include page="AdminCSS.jsp" />
+<jsp:include page="AdminCSS.jsp"/>
 
 <style>
 
 body{
 background:#F4F6F9;
-font-family:Segoe UI;
+font-family:'Segoe UI', sans-serif;
 }
 
-/* Content Layout */
+/* Content layout */
+
 .content{
 margin-left:260px;
 padding:30px;
+display:flex;
+justify-content:center;
 }
 
 /* Card */
+
 .content-card{
+width:100%;
+max-width:1200px;
 background:white;
-padding:25px;
+padding:30px;
 border-radius:15px;
 box-shadow:0 10px 25px rgba(0,0,0,0.08);
 }
 
 /* Table Header */
+
 .table thead{
 background:linear-gradient(90deg,#0D1B2A,#1B263B);
 color:white;
 }
 
 /* Price */
+
 .price{
 font-weight:600;
 color:#198754;
 }
 
 /* Status */
+
 .status-available{
 color:#198754;
 font-weight:600;
 }
 
 /* Buttons */
+
 .btn-view{
 background:#1D3557;
 color:white;
@@ -83,11 +94,13 @@ background:#bb2d3b;
 
 <body>
 
-<!-- HEADER -->
-<jsp:include page="AdminHeader.jsp" />
-
 <!-- SIDEBAR -->
-<jsp:include page="AdminSidebar.jsp" />
+<jsp:include page="AdminSidebar.jsp"/>
+
+<!-- HEADER -->
+<jsp:include page="AdminHeader.jsp"/>
+
+<!-- CONTENT -->
 
 <div class="content">
 
@@ -124,21 +137,13 @@ background:#bb2d3b;
 <tr>
 
 <td>${c.listingId}</td>
-
 <td>${c.userId}</td>
-
 <td>${c.brandName}</td>
-
 <td>${c.modelName}</td>
-
 <td>${c.variantName}</td>
-
 <td>${c.city}</td>
-
 <td>${c.kmsDriven}</td>
-
 <td>${c.year}</td>
-
 <td>${c.ownership}</td>
 
 <td class="price">₹ ${c.price}</td>
@@ -195,7 +200,8 @@ No car listings found
 </div>
 
 <!-- FOOTER -->
-<jsp:include page="AdminFooter.jsp" />
+
+<jsp:include page="AdminFooter.jsp"/>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 

@@ -1,4 +1,4 @@
-```jsp
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 
@@ -9,31 +9,19 @@ pageEncoding="UTF-8"%>
 <meta charset="UTF-8">
 <title>AutoSphere Admin Dashboard</title>
 
-<!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Icons -->
 <link rel="stylesheet"
 href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600&display=swap" rel="stylesheet">
-
-<!-- Charts -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <style>
 
-/* GLOBAL */
-
 body{
 margin:0;
 background:#F8FAFC;
-font-family:'Inter',sans-serif;
-color:#0f172a;
-font-size:15px;
+font-family:'Inter','Segoe UI',sans-serif;
 }
 
 /* SIDEBAR */
@@ -58,7 +46,6 @@ gap:10px;
 padding:14px 22px;
 color:#CBD5E1;
 text-decoration:none;
-font-size:14px;
 }
 
 .sidebar > a:hover{
@@ -80,26 +67,17 @@ padding:0 30px;
 display:flex;
 align-items:center;
 justify-content:space-between;
-font-family:'Poppins',sans-serif;
-font-weight:500;
 }
 
 /* CONTENT */
-
 .content{
 margin-left:260px;
 margin-top:90px;
 padding:40px;
-padding-bottom:90px;
+padding-bottom:120px;
 }
 
-h3{
-font-family:'Poppins',sans-serif;
-font-weight:600;
-color:#1e293b;
-}
-
-/* DASHBOARD CARDS */
+/* CARDS */
 
 .stat-card{
 border-radius:18px;
@@ -108,25 +86,6 @@ display:flex;
 align-items:center;
 justify-content:space-between;
 color:white;
-box-shadow:0 10px 25px rgba(0,0,0,0.1);
-transition:0.25s;
-}
-
-.stat-card:hover{
-transform:translateY(-6px);
-cursor:pointer;
-}
-
-.stat-card h4{
-font-family:'Poppins',sans-serif;
-font-size:26px;
-margin:0;
-}
-
-.stat-card p{
-margin:0;
-font-size:14px;
-opacity:0.9;
 }
 
 .users{background:linear-gradient(135deg,#3B82F6,#2563EB);}
@@ -145,8 +104,6 @@ font-size:22px;
 background:rgba(255,255,255,0.25);
 }
 
-/* CHART CARD */
-
 .chart-card{
 background:white;
 border-radius:18px;
@@ -154,12 +111,13 @@ padding:30px;
 box-shadow:0 10px 25px rgba(0,0,0,0.08);
 }
 
-/* FIXED FOOTER */
+/* FOOTER */
+
 
 .footer{
 position:fixed;
 bottom:0;
-left:260px;
+left:260px;      /* sidebar width */
 right:0;
 height:55px;
 background:#020617;
@@ -168,10 +126,12 @@ display:flex;
 align-items:center;
 justify-content:space-between;
 padding:0 40px;
-font-family:'Inter',sans-serif;
-font-size:13px;
+font-size:14px;
 border-top:1px solid #1E293B;
+z-index:1000;
 }
+
+
 
 </style>
 
@@ -192,7 +152,6 @@ border-top:1px solid #1E293B;
 <div class="row g-4 mb-5">
 
 <div class="col-md-3">
-<a href="listUser" style="text-decoration:none">
 <div class="stat-card users">
 <div>
 <h4>${totalUser}</h4>
@@ -200,11 +159,9 @@ border-top:1px solid #1E293B;
 </div>
 <div class="stat-icon"><i class="bi bi-people"></i></div>
 </div>
-</a>
 </div>
 
 <div class="col-md-3">
-<a href="allCarList" style="text-decoration:none">
 <div class="stat-card cars">
 <div>
 <h4>${totalAvailable}</h4>
@@ -212,11 +169,9 @@ border-top:1px solid #1E293B;
 </div>
 <div class="stat-icon"><i class="bi bi-car-front"></i></div>
 </div>
-</a>
 </div>
 
 <div class="col-md-3">
-<a href="listCarTransaction" style="text-decoration:none">
 <div class="stat-card bookings">
 <div>
 <h4>${totalTransaction}</h4>
@@ -224,11 +179,9 @@ border-top:1px solid #1E293B;
 </div>
 <div class="stat-icon"><i class="bi bi-receipt"></i></div>
 </div>
-</a>
 </div>
 
 <div class="col-md-3">
-<a href="listCarTransaction" style="text-decoration:none">
 <div class="stat-card revenue">
 <div>
 <h4>₹ ${totalRevenue}</h4>
@@ -236,7 +189,6 @@ border-top:1px solid #1E293B;
 </div>
 <div class="stat-icon"><i class="bi bi-cash-coin"></i></div>
 </div>
-</a>
 </div>
 
 </div>
@@ -263,12 +215,16 @@ border-top:1px solid #1E293B;
 
 <footer class="footer">
 
-<div>
+<div class="row">
+
+<div class="col-md-6">
 © 2026 <b>AutoSphere</b> Admin Panel
 </div>
 
-<div>
+<div class="col-md-6 text-end">
 Developed by <b>AutoSphere Team</b>
+</div>
+
 </div>
 
 </footer>
@@ -284,8 +240,7 @@ label:"Bookings",
 data:[12,19,8,15,22,30],
 borderColor:"#3B82F6",
 backgroundColor:"rgba(59,130,246,0.2)",
-fill:true,
-tension:.4
+fill:true
 }]
 }
 });
@@ -309,4 +264,4 @@ backgroundColor:["#3B82F6","#10B981","#F59E0B"]
 
 </body>
 </html>
-```
+
