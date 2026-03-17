@@ -73,28 +73,33 @@ opacity:0.9;
 
 <form action="confirmBooking" method="post">
 
-<input type="hidden" name="listingId" value="${car.listingId}">
+<!-- ✅ FIXED hidden field -->
+<input type="hidden" name="listingId" value="${carListing.listingId}">
 
 <div class="row">
 
+<!-- Buyer -->
 <div class="col-md-6 mb-3">
 <label>Buyer Name</label>
 <input type="text" class="form-control"
 value="${sessionScope.user.firstName} ${sessionScope.user.lastName}" readonly>
 </div>
 
+<!-- Amount -->
 <div class="col-md-6 mb-3">
 <label>Booking Amount</label>
 <input type="text" class="form-control"
 value="₹10,000 Advance Booking" readonly>
 </div>
 
+<!-- ✅ FIXED Car Name -->
 <div class="col-md-6 mb-3">
 <label>Car Name</label>
 <input type="text" class="form-control"
-value="${car.brandName} ${car.modelName}" readonly>
+value="${carListing.brandName} ${carListing.modelName}" readonly>
 </div>
 
+<!-- Payment -->
 <div class="col-md-6 mb-3">
 <label>Payment Method</label>
 <select class="form-control" name="paymentMethod">
@@ -104,12 +109,14 @@ value="${car.brandName} ${car.modelName}" readonly>
 </select>
 </div>
 
+<!-- ✅ FIXED Variant -->
 <div class="col-md-6 mb-3">
 <label>Variant Name</label>
 <input type="text" class="form-control"
-value="${car.variantName}" readonly>
+value="${carListing.variantName}" readonly>
 </div>
 
+<!-- Card -->
 <div class="col-md-6 mb-3">
 <label>Card Number</label>
 <input type="text" class="form-control" placeholder="XXXX XXXX XXXX XXXX">
@@ -133,7 +140,7 @@ Confirm Booking ₹10,000
 
 </form>
 
-<!-- Back Button -->
+<!-- Back -->
 <a href="CustomerCarList" class="btn back-btn w-100">
 ⬅ Back to Car List
 </a>
