@@ -1,4 +1,4 @@
-package com.grownited.controller;
+package com.grownited.controller.Admin;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -40,7 +40,7 @@ public class CarSavedListingController {
      model.addAttribute("carList",carList);
      model.addAttribute("all",all);
     	
-        return "NewSavedListing";
+        return "Admin/NewSavedListing";
     }
 
     // ================= SAVE =================
@@ -53,7 +53,7 @@ public class CarSavedListingController {
 
         savedListingRepository.save(savedListingEntity);
 
-        return "AdminDashboard";
+        return "Admin/AdminDashboard";
     }
 
     // ================= LIST =================
@@ -64,7 +64,7 @@ public class CarSavedListingController {
         List<SavedListingEntity> allSaved = savedListingRepository.findAll();
         model.addAttribute("allSaved", allSaved);
 
-        return "ListSavedListing";
+        return "Admin/ListSavedListing";
     }
 
     // ================= DELETE =================
@@ -93,6 +93,6 @@ public class CarSavedListingController {
         }
 
   
-        return "ViewSavedListing";
+        return "Admin/ViewSavedListing";
     }
 }

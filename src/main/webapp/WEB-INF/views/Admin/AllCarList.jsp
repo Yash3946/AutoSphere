@@ -2,13 +2,15 @@
 pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
+
 <html>
 <head>
 
 <meta charset="UTF-8">
-<title>List Of All Cars</title>
+<title>Car Listings</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 rel="stylesheet">
@@ -25,67 +27,104 @@ background:#F4F6F9;
 font-family:'Segoe UI', sans-serif;
 }
 
-/* Content layout */
-
 .content{
 margin-left:260px;
-padding:30px;
-display:flex;
-justify-content:center;
+padding:40px;
 }
-
-/* Card */
 
 .content-card{
-width:100%;
-max-width:1200px;
 background:white;
+border-radius:16px;
 padding:30px;
-border-radius:15px;
-box-shadow:0 10px 25px rgba(0,0,0,0.08);
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
 }
 
-/* Table Header */
+.page-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
+}
+
+.page-title{
+font-weight:700;
+font-size:22px;
+color:#1B263B;
+}
+
+.counter-badge{
+background:#4361ee;
+color:white;
+padding:6px 14px;
+border-radius:20px;
+font-size:14px;
+}
+
+.table{
+min-width:1300px;
+border-radius:10px;
+overflow:hidden;
+}
+
+.table th{
+padding:14px;
+white-space:nowrap;
+font-size:14px;
+}
+
+.table td{
+padding:14px;
+vertical-align:middle;
+white-space:nowrap;
+}
 
 .table thead{
-background:linear-gradient(90deg,#0D1B2A,#1B263B);
+background:#1B263B;
 color:white;
 }
 
-/* Price */
+.table tbody tr:hover{
+background:#f4f7fb;
+}
 
 .price{
-font-weight:600;
+font-weight:700;
 color:#198754;
 }
 
-/* Status */
-
-.status-available{
+.status-badge{
+background:#e9f9f1;
 color:#198754;
+padding:6px 12px;
+border-radius:20px;
+font-size:12px;
 font-weight:600;
 }
 
-/* Buttons */
+.action-btn{
+border-radius:6px;
+padding:5px 10px;
+font-size:13px;
+}
 
 .btn-view{
-background:#1D3557;
+background:#4361ee;
 color:white;
 border:none;
 }
 
 .btn-view:hover{
-background:#16324d;
+background:#3651d4;
 }
 
 .btn-delete{
-background:#dc3545;
+background:#ef233c;
 color:white;
 border:none;
 }
 
 .btn-delete:hover{
-background:#bb2d3b;
+background:#d90429;
 }
 
 </style>
@@ -95,18 +134,28 @@ background:#bb2d3b;
 <body>
 
 <!-- SIDEBAR -->
+
 <jsp:include page="AdminSidebar.jsp"/>
 
 <!-- HEADER -->
-<jsp:include page="AdminHeader.jsp"/>
 
-<!-- CONTENT -->
+<jsp:include page="AdminHeader.jsp"/>
 
 <div class="content">
 
 <div class="content-card">
 
-<h4 class="fw-bold mb-4">List Of All Cars</h4>
+<div class="page-header">
+
+<h4 class="page-title">
+<i class="bi bi-car-front-fill"></i> Car Listings
+</h4>
+
+<div class="counter-badge">
+Total Cars : ${allCarList.size()}
+</div>
+
+</div>
 
 <div class="table-responsive">
 
@@ -114,6 +163,7 @@ background:#bb2d3b;
 
 <thead>
 <tr>
+
 <th>ID</th>
 <th>Seller</th>
 <th>Brand</th>
@@ -126,7 +176,8 @@ background:#bb2d3b;
 <th>Price</th>
 <th>Status</th>
 <th>Date</th>
-<th>Action</th>
+<th class="text-center">Action</th>
+
 </tr>
 </thead>
 
@@ -137,37 +188,56 @@ background:#bb2d3b;
 <tr>
 
 <td>${c.listingId}</td>
-<td>${c.userId}</td>
-<td>${c.brandName}</td>
-<td>${c.modelName}</td>
-<td>${c.variantName}</td>
-<td>${c.city}</td>
-<td>${c.kmsDriven}</td>
-<td>${c.year}</td>
-<td>${c.ownership}</td>
-
-<td class="price">₹ ${c.price}</td>
 
 <td>
-<span class="status-available">
-<i class="bi bi-check-circle"></i> Available
+<i class="bi bi-person-circle"></i>
+${c.userId}
+</td>
+
+<td>${c.brandName}</td>
+
+<td>${c.modelName}</td>
+
+<td>${c.variantName}</td>
+
+<td>
+<i class="bi bi-geo-alt-fill"></i>
+${c.city}
+</td>
+
+<td>${c.kmsDriven} km</td>
+
+<td>${c.year}</td>
+
+<td>${c.ownership}</td>
+
+<td class="price">
+₹ ${c.price}
+</td>
+
+<td>
+<span class="status-badge">
+<i class="bi bi-check-circle-fill"></i>
+Available
 </span>
 </td>
 
-<td>${c.createdAt}</td>
-
 <td>
+<fmt:formatDate value="${c.createdAt}" pattern="yyyy-MM-dd"/>
+</td>
+
+<td class="text-center">
 
 <a href="viewCarListing?listingId=${c.listingId}"
-class="btn btn-view btn-sm">
+class="btn btn-view action-btn btn-sm">
 
-<i class="bi bi-eye"></i> View
+<i class="bi bi-eye"></i>
 
 </a>
 
 <a href="deleteCarListing?listingId=${c.listingId}"
-class="btn btn-delete btn-sm"
-onclick="return confirm('Are you sure?')">
+class="btn btn-delete action-btn btn-sm"
+onclick="return confirm('Delete this listing?')">
 
 <i class="bi bi-trash"></i>
 
@@ -182,9 +252,17 @@ onclick="return confirm('Are you sure?')">
 <c:if test="${empty allCarList}">
 
 <tr>
-<td colspan="13" class="text-center text-muted py-4">
-No car listings found
+
+<td colspan="13" class="text-center text-muted py-5">
+
+<i class="bi bi-car-front" style="font-size:25px"></i>
+
+<br><br>
+
+No Car Listings Found
+
 </td>
+
 </tr>
 
 </c:if>

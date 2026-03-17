@@ -1,4 +1,4 @@
-package com.grownited.controller;
+package com.grownited.controller.Admin;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,20 +25,20 @@ public class CarModelTypeController {
 		@GetMapping("newcartype")
 		public String newcartype() {
 
-			return "NewCarModelType";
+			return "Admin/NewCarModelType";
 		}
 
 		@PostMapping("savecartype")
 		public String savecartype(CarModelTypeEntity carModelTypeEntity) {
 			carModelTypeRepository.save(carModelTypeEntity);
-			return "AdminDashboard"; 
+			return "Admin/AdminDashboard"; 
 		}
 		
 		@GetMapping("listCarModel")
 		public String listCarModel(Model model) {		
 			List<CarModelTypeEntity> allCarModel = carModelTypeRepository.findAll();
 			model.addAttribute("allCarModel",allCarModel);
-			return"ListCarModel";
+			return"Admin/ListCarModel";
 		}
 		
 		@GetMapping("deleteCarModel")
@@ -60,7 +60,7 @@ public class CarModelTypeController {
 		        model.addAttribute("carModel", carModel);
 		    }
 
-		    return "ViewCarModel";
+		    return "Admin/ViewCarModel";
 		}
 
 		

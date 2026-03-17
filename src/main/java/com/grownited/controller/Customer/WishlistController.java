@@ -1,4 +1,4 @@
-package com.grownited.controller;
+package com.grownited.controller.Customer;
 
 import java.util.List;
 
@@ -41,7 +41,7 @@ public class WishlistController {
 
         model.addAttribute("wishlist", wishlist);
 
-        return "wishlist";
+        return "Customer/wishlist";
     }
 
     @GetMapping("/removeWishlist")

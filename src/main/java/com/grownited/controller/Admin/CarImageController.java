@@ -1,4 +1,4 @@
-package com.grownited.controller;
+package com.grownited.controller.Admin;
 
 import java.io.IOException;
 import java.util.List;
@@ -37,7 +37,7 @@ public class CarImageController {
         List<CarModelTypeEntity> allCarModel = carModelTypeRepository.findAll();
         model.addAttribute("allCarModel", allCarModel);
 
-        return "CarImage";
+        return "Admin/CarImage";
     }
 
     @PostMapping("/saveCarImage")
@@ -68,7 +68,7 @@ public class CarImageController {
 
         model.addAttribute("carList", carList);
 
-        return "ListCarImage";
+        return "Admin/ListCarImage";
     }
 
     @GetMapping("/deleteCarImage")
@@ -91,7 +91,7 @@ public class CarImageController {
             model.addAttribute("carImage", carImage);
         }
 
-        return "ViewCarImage";
+        return "Admin/ViewCarImage";
     }
 
 }

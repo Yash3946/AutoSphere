@@ -1,4 +1,4 @@
-package com.grownited.controller;
+package com.grownited.controller.Admin;
 
 import java.util.List;
 import java.util.Optional;
@@ -35,7 +35,7 @@ public class OfferController {
 	List<UserEntity> allUser =  userRepository.findAll();
 	model.addAttribute("allCarList",allCarList);
 	model.addAttribute("allUser",allUser);
-		return"CarOffer";
+		return"Admin/CarOffer";
 	}
 	
 	
@@ -50,7 +50,7 @@ public class OfferController {
 	public String listCarOffer(Model model) {
 		List<OfferEntity> allOffer =  offerRepository.findAll();
 		model.addAttribute("allOffer",allOffer);
-		return"ListOffer";
+		return"Admin/ListOffer";
 	}
 	
 	@GetMapping("deleteOffer")
@@ -70,7 +70,7 @@ public class OfferController {
 		model.addAttribute("Offer",Offer);
 	}
 	
-		return"ViewOffer";
+		return"Admin/ViewOffer";
 	}
 }
 

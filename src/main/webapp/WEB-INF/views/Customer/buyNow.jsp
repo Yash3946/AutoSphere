@@ -134,7 +134,7 @@ Confirm Booking ₹10,000
 </form>
 
 <!-- Back Button -->
-<a href="customerCarList" class="btn back-btn w-100">
+<a href="CustomerCarList" class="btn back-btn w-100">
 ⬅ Back to Car List
 </a>
 

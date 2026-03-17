@@ -1,4 +1,4 @@
-package com.grownited.controller;
+package com.grownited.controller.Admin;
 
 import java.io.File;
 import java.util.List;
@@ -24,7 +24,7 @@ public class CarBrandController {
     // Add Brand Page
     @GetMapping("/addbrand")
     public String homepage() {
-        return "AddBrand";
+        return "Admin/AddBrand";
     }
 
     // Save Brand
@@ -66,7 +66,7 @@ public class CarBrandController {
 
         model.addAttribute("brandList", brandList);
 
-        return "ListBrand";
+        return "Admin/ListBrand";
     }
 
     // Delete Brand
@@ -92,6 +92,6 @@ public class CarBrandController {
 
         model.addAttribute("carBrand", carBrand);
 
-        return "ViewCarBrand";
+        return "Admin/ViewCarBrand";
     }
 }

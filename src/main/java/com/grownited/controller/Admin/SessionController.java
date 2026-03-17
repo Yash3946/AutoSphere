@@ -1,4 +1,4 @@
-package com.grownited.controller;
+package com.grownited.controller.Admin;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -56,14 +56,14 @@ public class SessionController {
 		List<CarModelTypeEntity> allCarModelType = carModelTypeRepository.findAll();
 		model.addAttribute("allCarModelType", allCarModelType);
 
-		return "Signup";
+		return "Admin/Signup";
 	}
 
 	/* ================= LOGIN PAGE ================= */
 
 	@GetMapping("/login")
 	public String openLoginPage() {
-		return "Login";
+		return "Admin/Login";
 	}
 
 	/* ================= AUTHENTICATION ================= */
@@ -99,7 +99,7 @@ public class SessionController {
 
 	@GetMapping("/forgetpassword")
 	public String openForgetPassword() {
-		return "ForgetPassword";
+		return "Admin/ForgetPassword";
 	}
 
 	@PostMapping("/forgot-password")
@@ -109,7 +109,7 @@ public class SessionController {
 
 		if (user == null) {
 			model.addAttribute("error", "Email not found");
-			return "ForgetPassword";
+			return "Admin/ForgetPassword";
 		}
 
 		String otp = mailerService.sendForgotPasswordOtp(email);
@@ -134,12 +134,12 @@ public class SessionController {
 
 		if (user == null) {
 			model.addAttribute("error", "User not found");
-			return "ResetPassword";
+			return "Admin/ResetPassword";
 		}
 
 		if (!user.getOtp().equals(otp)) {
 			model.addAttribute("error", "Invalid OTP");
-			return "ResetPassword";
+			return "Admin/ResetPassword";
 		}
 
 		String encodedPassword = passwordEncoder.encode(newPassword);
@@ -149,7 +149,7 @@ public class SessionController {
 
 		userRepository.save(user);
 
-		return "Login";
+		return "Admin/Login";
 	}
 
 	/* ================= REGISTER ================= */
@@ -185,7 +185,7 @@ public class SessionController {
 
 		mailerService.sendWelcomeMail(userEntity);
 
-		return "Login";
+		return "Admin/Login";
 	}
 
 	/* ================= LOGOUT ================= */
@@ -195,6 +195,6 @@ public class SessionController {
 
 		session.invalidate();
 
-		return "Login";
+		return "Admin/Login";
 	}
 }

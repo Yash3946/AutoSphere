@@ -1,4 +1,4 @@
-package com.grownited.controller;
+package com.grownited.controller.Customer;
 
 import java.io.IOException;
 import java.util.List;
@@ -56,7 +56,7 @@ public class SpinnyController {
 			
 		model.addAttribute("image", image);
 		model.addAttribute("brand",brand);
-		return "spinny";
+		return "Customer/spinny";
 	}
 	
 	
@@ -67,7 +67,7 @@ public class SpinnyController {
 
 	    model.addAttribute("customerCarList", customerCarList);
 
-	    return "CustomerCarList";
+	    return "Customer/CustomerCarList";
 	}
 	
 	@GetMapping("/customerViewCarListing")
@@ -79,7 +79,7 @@ public class SpinnyController {
 	        model.addAttribute("carListing", op.get());
 	    }
 
-	    return "CustomerViewCarListing"; 
+	    return "Customer/CustomerViewCarListing"; 
 	}
 	
 	
@@ -102,7 +102,7 @@ public class SpinnyController {
 	        return "redirect:/CustomerCarList"; // fallback if car not found
 	    }
 
-	    return "buyNow";
+	    return "Customer/buyNow";
 	}
 
 
@@ -112,7 +112,7 @@ public class SpinnyController {
 
 		    carTransactionRepository.save(transaction);
 
-		    return "bookingSuccess";
+		    return "Customer/bookingSuccess";
 		}
 
 }

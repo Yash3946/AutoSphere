@@ -1,4 +1,4 @@
-package com.grownited.controller;
+package com.grownited.controller.Admin;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,7 +34,7 @@ public class UserController {
 
 		List<UserEntity> allUser = userRepository.findAll();
 		model.addAttribute("userList", allUser);
-		return "ListUser";
+		return "Admin/ListUser";
 	
 		
 	}
@@ -53,7 +53,7 @@ public class UserController {
 		 model.addAttribute("userDetail",userDetailEntity);
 	 }
 	 
-		return"ViewUser";
+		return"Admin/ViewUser";
 	}
 	
 	@GetMapping("/deleteUser")

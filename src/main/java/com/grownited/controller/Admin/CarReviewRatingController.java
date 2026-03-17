@@ -1,4 +1,4 @@
-package com.grownited.controller;
+package com.grownited.controller.Admin;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,20 +27,20 @@ public class CarReviewRatingController {
 	public String carReviewRating(Model model) {
 		List<UserEntity> user = userRepository.findAll();
 		model.addAttribute("user",user);
-		return"CarReviewRating";
+		return"Admin/CarReviewRating";
 	}
 	
 	@PostMapping("saveReview")
 	public String saveReview(ReviewRatingEntity reviewRatingEntity) {
 		reviewRatingRepository.save(reviewRatingEntity);
-		return"AdminDashboard";
+		return"Admin/AdminDashboard";
 	}
 	
 	@GetMapping("listReviewRating")
 	public String listReviewRating(Model model) {
 		List<ReviewRatingEntity> allCarReview = reviewRatingRepository.findAll();
 		model.addAttribute("allCarReview",allCarReview);
-		return"ListReviewRating";
+		return"Admin/ListReviewRating";
 	}
 	
 	@GetMapping("deleteReviewRating")
@@ -61,7 +61,7 @@ public class CarReviewRatingController {
 			model.addAttribute("viewReview",viewReview);
 		}
 		
-		return"ViewReviewRating";
+		return"Admin/ViewReviewRating";
 	}
 	
 }

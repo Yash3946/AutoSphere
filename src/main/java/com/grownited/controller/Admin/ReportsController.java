@@ -1,4 +1,4 @@
-package com.grownited.controller;
+package com.grownited.controller.Admin;
 
 import java.util.List;
 import java.util.Optional;
@@ -39,21 +39,21 @@ public class ReportsController {
 		
 		model.addAttribute("allCar",allCar);
 		model.addAttribute("allUser",allUser);
-		return"CarReports";
+		return"Admin/CarReports";
 		
 	}
 	
 	@PostMapping("/saveCarReport")
 	public String saveCarReports(ReportsEntity reportsEntity) {		
 		reportsRepository.save(reportsEntity);		
-		return"AdminDashboard";
+		return"Admin/AdminDashboard";
 	}
 	
 	@GetMapping("/listCarReports")
 	public String listCarReports(Model model) {
 	List<ReportsEntity> carReports = 	reportsRepository.findAll();
 	model.addAttribute("carReports",carReports);
-		return"ListCarReports";
+		return"Admin/ListCarReports";
 	}
 	
 	@GetMapping("/deleteCarReports")
@@ -72,6 +72,6 @@ public class ReportsController {
 			ReportsEntity Report = allReports.get();
 			model.addAttribute("Report",Report);
 		}		
-		return"ViewCarReports";
+		return"Admin/ViewCarReports";
 	}
 }

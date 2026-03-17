@@ -1,4 +1,4 @@
-package com.grownited.controller;
+package com.grownited.controller.Admin;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,7 +28,7 @@ public class CarVariantController {
 	List<CarModelTypeEntity> allCarType = carModelTypeRepository.findAll();	
 	model.addAttribute("allCarType",allCarType);
 	
-		return"NewCarVariant";
+		return"Admin/NewCarVariant";
 	}
 	
 	@PostMapping("/saveCarVariant")
@@ -42,7 +42,7 @@ public class CarVariantController {
 		List<CarVariantEntity> allCarVariant =  carVariantRepository.findAll();
 		model.addAttribute("allCarVariant",allCarVariant);
 
-		return"ListCarVariant";
+		return"Admin/ListCarVariant";
 	}
 	
 	@GetMapping("deleteCarVariant")
@@ -64,7 +64,7 @@ public class CarVariantController {
 	        model.addAttribute("carVariant", carVariant);
 	    }
 
-	    return "ViewCarVariant";
+	    return "Admin/ViewCarVariant";
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.grownited.controller;
+package com.grownited.controller.Admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,6 +43,6 @@ public class AdminController {
 	    model.addAttribute("totalTransaction", totalTransaction);
 	    model.addAttribute("totalRevenue", totalRevenue);
 
-	    return "AdminDashboard";
+	    return "Admin/AdminDashboard";
 	}
 }

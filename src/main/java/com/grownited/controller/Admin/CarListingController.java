@@ -1,4 +1,4 @@
-package com.grownited.controller;
+package com.grownited.controller.Admin;
 
 import java.util.List;
 import java.util.Optional;
@@ -57,7 +57,7 @@ public class CarListingController {
         model.addAttribute("allCarVariant", allCarVariant);
        
 
-        return "CarListing";
+        return "Admin/CarListing";
     }
 
     // Save Car Listing
@@ -101,7 +101,7 @@ public class CarListingController {
 
         model.addAttribute("allCarList", allCarList);
 
-        return "AllCarList";
+        return "Admin/AllCarList";
     }
 
     // Delete
@@ -124,6 +124,6 @@ public class CarListingController {
             model.addAttribute("carListing", car.get());
         }
 
-        return "ViewCarListing";
+        return "Admin/ViewCarListing";
     }
 }

@@ -1,4 +1,4 @@
-package com.grownited.controller;
+package com.grownited.controller.Admin;
 
 import java.util.List;
 import java.util.Optional;
@@ -38,13 +38,13 @@ public class TransactionController {
 		
 		model.addAttribute("allCarList",allCarList);
 		model.addAttribute("allUsers",allUsers);
-		return "CarTransaction";
+		return "Admin/CarTransaction";
 	}
 	
 	@PostMapping("/saveCarTransaction")
 	public String saveCarTransaction(TransactionsEntity transactionsEntity) {
 		transactionsRepository.save(transactionsEntity);
-		return"AdminDashboard";
+		return"Admin/AdminDashboard";
 				
 	}
 	
@@ -53,10 +53,10 @@ public class TransactionController {
 		
 	List<TransactionsEntity> allTransaction = transactionsRepository.findAll();
 	model.addAttribute("allTransaction",allTransaction);
-		return"ListCarTransaction";
+		return"Admin/ListCarTransaction";
 	}
 	
-	@GetMapping("deleteTransaction")
+	@GetMapping("/deleteTransaction")
 	public String deleteTransaction(Integer transactionId) {
 		transactionsRepository.deleteById(transactionId);
 		
@@ -75,6 +75,6 @@ public class TransactionController {
 	        model.addAttribute("carTransaction", carTransaction);
 	    }
 
-	    return "ViewCarTransaction";
+	    return "Admin/ViewCarTransaction";
 	}
 }
