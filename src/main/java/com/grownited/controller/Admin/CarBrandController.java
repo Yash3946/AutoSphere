@@ -1,17 +1,17 @@
 package com.grownited.controller.Admin;
 
-import java.io.File;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.grownited.entity.CarBrandEntity;
 import com.grownited.repository.CarBrandRepository;
 
@@ -21,31 +21,31 @@ public class CarBrandController {
     @Autowired
     CarBrandRepository carBrandRepository;
 
-    // Add Brand Page
+    @Autowired
+    Cloudinary cloudinary;
+
     @GetMapping("/addbrand")
     public String homepage() {
         return "Admin/AddBrand";
     }
 
-    // Save Brand
+    // 🔥 CLOUDINARY UPLOAD
     @PostMapping("/savebrand")
     public String saveCategory(CarBrandEntity carBrandEntity,
                                @RequestParam("logoFile") MultipartFile file) {
 
         try {
 
-            String uploadDir = "C:/uploads/brands/";
+            // 🔥 Upload to Cloudinary (logo folder)
+            Map uploadResult = cloudinary.uploader().upload(
+                    file.getBytes(),
+                    ObjectUtils.asMap("folder", "brand_logos")
+            );
 
-            String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+            String imageUrl = (String) uploadResult.get("secure_url");
 
-            // ✅ Correct class name
-            File saveFile = new File(uploadDir + fileName);
-
-            saveFile.getParentFile().mkdirs();
-
-            file.transferTo(saveFile);
-
-            carBrandEntity.setLogoUrl("/uploads/brands/" + fileName);
+            // 🔥 Save URL in DB
+            carBrandEntity.setLogoUrl(imageUrl);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -57,6 +57,7 @@ public class CarBrandController {
 
         return "redirect:/listbrand";
     }
+
 
     // List Brand
     @GetMapping("/listbrand")

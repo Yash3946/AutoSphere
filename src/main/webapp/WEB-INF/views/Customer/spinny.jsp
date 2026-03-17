@@ -272,8 +272,8 @@ transition:transform 0.6s ease-in-out;
 <a href="wishlist">My Cart</a>
 <a href="#">Buy Car</a>
 <a href="#">Sell Car</a>
-<a href="#">Login</a>
-<a href="#">Register</a>
+<a href="login">Login</a>
+<a href="signup">Register</a>
 </div>
 
 </div>
@@ -337,32 +337,6 @@ transition:transform 0.6s ease-in-out;
 
 </div>
 
-<!-- HOW WORKS -->
-
-<div class="how-section">
-
-<h2>How AutoSphere Works</h2>
-
-<div class="how-cards">
-
-<div class="how-card">
-<img src="https://cdn-icons-png.flaticon.com/512/854/854878.png">
-<h3>Choose your car</h3>
-</div>
-
-<div class="how-card">
-<img src="https://tse3.mm.bing.net/th/id/OIP.3I6DIZqr146CnNMUkrljrQHaE8">
-<h3>Book test drive</h3>
-</div>
-
-<div class="how-card">
-<img src="https://tse2.mm.bing.net/th/id/OIP.TinBeamEG8ni7EGH1fS6NAHaHa">
-<h3>Online payment</h3>
-</div>
-
-</div>
-
-</div>
 
 <!-- BRANDS -->
 
@@ -371,11 +345,10 @@ transition:transform 0.6s ease-in-out;
 <h2>Explore Popular Brands</h2>
 
 <div class="brand-grid">
-
 <c:forEach var="brd" items="${brand}">
 <div class="brand-card">
-<h3>${brd.brandName}</h3>
-<img src="${brd.logoUrl}">
+    <h3>${brd.brandName}</h3>
+    <img src="${brd.logoUrl}">
 </div>
 </c:forEach>
 
