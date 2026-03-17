@@ -26,8 +26,6 @@ body{
 	box-shadow:3px 0 15px rgba(0,0,0,0.2);
 }
 
-.sidebar h5{ color:white; }
-
 .sidebar a{
 	display:block;
 	padding:12px 20px;
@@ -43,21 +41,31 @@ body{
 	padding-left:28px;
 }
 
-/* ===== Header ===== */
+/* ===== FIXED HEADER ===== */
 .header{
-	margin-left:260px;
+	position:fixed;
+	top:0;
+	left:260px;
+	right:0;
+	height:70px;
+
 	background:linear-gradient(90deg,#0D1B2A,#1B263B);
 	color:white;
-	padding:15px 25px;
+
 	display:flex;
 	justify-content:space-between;
 	align-items:center;
+
+	padding:0 25px;
+	z-index:1000;
+
+	box-shadow:0 2px 10px rgba(0,0,0,0.2);
 }
 
-/* ===== Content ===== */
+/* ===== CONTENT ===== */
 .content{
 	margin-left:260px;
-	padding:40px;
+	padding:100px 40px 40px 40px; /* top space for header */
 }
 
 /* Card Styling */
@@ -83,6 +91,16 @@ body{
 .btn-success:hover{
 	background:#0077B6;
 }
+
+/* Footer */
+.footer{
+	margin-left:260px;
+	background:#0D1B2A;
+	color:white;
+	text-align:center;
+	padding:15px;
+	margin-top:40px;
+}
 </style>
 </head>
 
@@ -91,9 +109,9 @@ body{
 <!-- ===== Sidebar Include ===== -->
 <jsp:include page="AdminSidebar.jsp"/>
 
-<!-- ===== Header ===== -->
+<!-- ===== FIXED HEADER ===== -->
 <div class="header">
-	<h5>AutoSphere Admin Panel</h5>
+	<h5>🚗 AutoSphere Admin Panel</h5>
 	<div>
 		Welcome, <b>${sessionScope.user.firstName}</b>
 		<a href="logout" class="btn btn-sm btn-outline-light ms-3">
@@ -102,10 +120,8 @@ body{
 	</div>
 </div>
 
-<!-- ===== Content ===== -->
+<!-- ===== CONTENT ===== -->
 <div class="content">
-
-	<h2 class="fw-bold mb-4" style="color:#0D1B2A;"></h2>
 
 	<div class="row justify-content-center">
 		<div class="col-lg-8">
@@ -159,7 +175,7 @@ body{
 						<div class="row">
 							<div class="col-md-6 mb-3">
 								<label class="form-label">Birth Year</label>
-								<input type="number" name="birthYear" class="form-control" min="1900" max="2100" required>
+								<input type="number" name="birthYear" class="form-control" required>
 							</div>
 
 							<div class="col-md-6 mb-3">
@@ -189,8 +205,7 @@ body{
 								<input type="text" name="country" value="India" class="form-control" required>
 							</div>
 						</div>
-									
-									<!-- profile pic -->
+
 						<div class="mb-3">
 							<label class="form-label">Profile Picture</label>
 							<input type="file" name="profilePic" class="form-control">
@@ -208,11 +223,12 @@ body{
 
 		</div>
 	</div>
+
 </div>
 
-<!-- ===== Footer ===== -->
-<div class="footer" style="margin-left:260px;background:#0D1B2A;color:white;text-align:center;padding:15px;margin-top:40px;">
-<jsp:include page="AdminFooter.jsp"/>
+<!-- ===== FOOTER ===== -->
+<div class="footer">
+	<jsp:include page="AdminFooter.jsp"/>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
