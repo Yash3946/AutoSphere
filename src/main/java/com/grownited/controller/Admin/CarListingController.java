@@ -1,6 +1,7 @@
 package com.grownited.controller.Admin;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,15 +9,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.cloudinary.Cloudinary;
 import com.grownited.entity.CarBrandEntity;
-import com.grownited.entity.CarImageEntity;
 import com.grownited.entity.CarListingEntity;
 import com.grownited.entity.CarModelTypeEntity;
 import com.grownited.entity.CarVariantEntity;
 import com.grownited.entity.UserEntity;
 import com.grownited.repository.CarBrandRepository;
-import com.grownited.repository.CarImageRepository;
 import com.grownited.repository.CarListingRepository;
 import com.grownited.repository.CarModelTypeRepository;
 import com.grownited.repository.CarVariantRepository;
@@ -39,77 +41,72 @@ public class CarListingController {
 
     @Autowired
     UserRepository userRepository;
-    
 
-    // Add Car Listing Page
+    @Autowired
+    Cloudinary cloudinary;
+
+    // Add Page
     @GetMapping("/carListing")
     public String carListing(Model model) {
 
-        List<UserEntity> allUser = userRepository.findAll();
-        List<CarBrandEntity> allCarBrand = carBrandRepository.findAll();
-        List<CarModelTypeEntity> allCarModel = carModelTypeRepository.findAll();
-        List<CarVariantEntity> allCarVariant = carVariantRepository.findAll();
-       
-
-        model.addAttribute("allUser", allUser);
-        model.addAttribute("allCarBrand", allCarBrand);
-        model.addAttribute("allCarModel", allCarModel);
-        model.addAttribute("allCarVariant", allCarVariant);
-       
+        model.addAttribute("allUser", userRepository.findAll());
+        model.addAttribute("allCarBrand", carBrandRepository.findAll());
+        model.addAttribute("allCarModel", carModelTypeRepository.findAll());
+        model.addAttribute("allCarVariant", carVariantRepository.findAll());
 
         return "Admin/CarListing";
     }
 
-    // Save Car Listing
+    // 🔥 SAVE WITH IMAGE
     @PostMapping("/saveCarListing")
-    public String saveCarList(CarListingEntity carListingEntity) {
+    public String saveCarList(CarListingEntity carListingEntity,
+                             @RequestParam("imageFile") MultipartFile file) {
+
+        try {
+            // Upload image to Cloudinary
+            Map uploadResult = cloudinary.uploader().upload(file.getBytes(), null);
+
+            String imageUrl = uploadResult.get("secure_url").toString();
+
+            // Set image in listing
+            carListingEntity.setImageUrl(imageUrl);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         // Brand Name
         Optional<CarBrandEntity> brand =
                 carBrandRepository.findById(carListingEntity.getBrandId());
-
-        if (brand.isPresent()) {
-            carListingEntity.setBrandName(brand.get().getBrandName());
-        }
+        brand.ifPresent(b -> carListingEntity.setBrandName(b.getBrandName()));
 
         // Model Name
         Optional<CarModelTypeEntity> model =
                 carModelTypeRepository.findById(carListingEntity.getModelId());
-
-        if (model.isPresent()) {
-            carListingEntity.setModelName(model.get().getModelName());
-        }
+        model.ifPresent(m -> carListingEntity.setModelName(m.getModelName()));
 
         // Variant Name
         Optional<CarVariantEntity> variant =
                 carVariantRepository.findById(carListingEntity.getVariantId());
+        variant.ifPresent(v -> carListingEntity.setVariantName(v.getVariantName()));
 
-        if (variant.isPresent()) {
-            carListingEntity.setVariantName(variant.get().getVariantName());
-        }
-
+        // Save
         carListingRepository.save(carListingEntity);
 
         return "redirect:/allCarList";
     }
 
-    // Admin Car List
+    // List
     @GetMapping("/allCarList")
     public String alLCarList(Model model) {
-
-        List<CarListingEntity> allCarList = carListingRepository.findAll();
-
-        model.addAttribute("allCarList", allCarList);
-
+        model.addAttribute("allCarList", carListingRepository.findAll());
         return "Admin/AllCarList";
     }
 
     // Delete
     @GetMapping("/deleteCarListing")
     public String deleteCarListing(Integer listingId) {
-
         carListingRepository.deleteById(listingId);
-
         return "redirect:/allCarList";
     }
 
@@ -120,9 +117,7 @@ public class CarListingController {
         Optional<CarListingEntity> car =
                 carListingRepository.findById(listingId);
 
-        if (car.isPresent()) {
-            model.addAttribute("carListing", car.get());
-        }
+        car.ifPresent(c -> model.addAttribute("carListing", c));
 
         return "Admin/ViewCarListing";
     }

@@ -78,7 +78,7 @@ body{
     Add Car Listing
 </h4>
 
-<form action="saveCarListing" method="post">
+<form action="saveCarListing" method="post" enctype="multipart/form-data">
 
     <!-- Seller -->
     <div class="mb-3">
@@ -180,6 +180,12 @@ body{
         <label class="form-label">Created Date</label>
         <input type="date" name="createdAt" class="form-control small-input">
     </div>
+    
+    <!-- 🔥 ADD THIS HERE -->
+<div class="mb-3">
+    <label class="form-label">Car Image</label>
+    <input type="file" name="imageFile" class="form-control small-input" required>
+</div>
 
     <div class="d-grid mt-4">
         <button type="submit" class="btn btn-admin">

@@ -54,7 +54,7 @@ color:#198754;
 <i class="bi bi-heart-fill text-danger"></i> My Wishlist
 </h3>
 
-<a href="customerCarList" class="btn btn-dark btn-sm">
+<a href="CustomerCarList" class="btn btn-dark btn-sm">
 <i class="bi bi-arrow-left"></i> Back
 </a>
 
