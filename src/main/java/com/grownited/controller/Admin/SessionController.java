@@ -71,28 +71,35 @@ public class SessionController {
 	@PostMapping("/authenticate")
 	public String authenticate(String email, String password, Model model, HttpSession session) {
 
-		Optional<UserEntity> op = userRepository.findByEmail(email);
+	    Optional<UserEntity> op = userRepository.findByEmail(email);
 
-		if (op.isPresent()) {
+	    if (op.isPresent()) {
 
-			UserEntity dbUser = op.get();
+	        UserEntity dbUser = op.get();
 
-			if (passwordEncoder.matches(password, dbUser.getPassword())) {
+	        if (passwordEncoder.matches(password, dbUser.getPassword())) {
 
-				session.setAttribute("user", dbUser);
+	            // 🔥 EXISTING
+	            session.setAttribute("user", dbUser);
 
-				if (dbUser.getRole().equals("ADMIN")) {
-					return "redirect:/admin-dashboard";
-				}
+	            // 🔥 ADD THIS LINE (VERY IMPORTANT)
+	            session.setAttribute("userId", dbUser.getUserId());
 
-				if (dbUser.getRole().equals("CUSTOMER")) {
-					return "redirect:/customer-dashboard";
-				}
-			}
-		}
+	            // Optional
+	            session.setAttribute("userName", dbUser.getFirstName());
 
-		model.addAttribute("error", "Invalid Credentials");
-		return "Login";
+	            if (dbUser.getRole().equals("ADMIN")) {
+	                return "redirect:/admin-dashboard";
+	            }
+
+	            if (dbUser.getRole().equals("CUSTOMER")) {
+	                return "redirect:/customer-dashboard";
+	            }
+	        }
+	    }
+
+	    model.addAttribute("error", "Invalid Credentials");
+	    return "Login";
 	}
 
 	/* ================= FORGOT PASSWORD ================= */

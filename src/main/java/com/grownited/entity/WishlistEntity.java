@@ -9,9 +9,17 @@ public class WishlistEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer wishlistId;
 
+    // Car relation
     @ManyToOne
-    @JoinColumn(name="listingId")
+    @JoinColumn(name = "listing_id")
     private CarListingEntity carListing;
+
+    // 🔥 User relation (IMPORTANT)
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
+
+    // ================= GETTERS SETTERS =================
 
     public Integer getWishlistId() {
         return wishlistId;
@@ -27,5 +35,13 @@ public class WishlistEntity {
 
     public void setCarListing(CarListingEntity carListing) {
         this.carListing = carListing;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 }
