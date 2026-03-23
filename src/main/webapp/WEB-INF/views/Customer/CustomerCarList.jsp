@@ -6,6 +6,7 @@
 
 <html>
 <head>
+<jsp:include page="CustomerHeader.jsp"></jsp:include>
 <meta charset="UTF-8">
 <title>Available Cars</title>
 
@@ -163,6 +164,7 @@ body {
 		</div>
 
 	</div>
+	<jsp:include page="CustomerFooter.jsp"></jsp:include>
 
 </body>
 </html>

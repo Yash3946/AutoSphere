@@ -6,6 +6,9 @@ body {
 	margin: 0;
 	font-family: Arial;
 	background: #f4f6fb;
+
+	/* 🔥 ADD THIS (content niche shift) */
+	padding-top: 80px;
 }
 
 /* HEADER */
@@ -15,6 +18,15 @@ body {
 	padding: 15px 40px;
 	background: white;
 	border-bottom: 1px solid #ddd;
+
+	/* 🔥 MAIN FIX */
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 1000;
+
+	box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 .logo {
@@ -74,13 +86,13 @@ body {
 	</div>
 
 	<div class="menu">
-		<a href="customerCarList">List Car</a>
+		<a href="CustomerCarList">List Car</a>
 		<a href="#brands">Car Brand</a>
 		<a href="wishlist">My Cart</a>
 		<a href="#">Buy Car</a>
 		<a href="#">Sell Car</a>
 		<a href="#">Login</a>
-		<a href="#">Register</a>
+		<a href="CustomerSignup">Register</a>
 	</div>
 
 </div>

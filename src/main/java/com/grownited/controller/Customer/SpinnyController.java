@@ -29,90 +29,84 @@ import com.grownited.repository.CarImageRepository;
 @Controller
 public class SpinnyController {
 
-    
-
 	@Autowired
 	CarImageRepository carImageRepository;
-	
+
 	@Autowired
 	CarListingRepository carListingRepository;
 
 	@Autowired
 	Cloudinary cloudinary;
-	
+
 	@Autowired
 	CarTransactionRepository carTransactionRepository;
-	
+
 	@Autowired
 	CarBrandRepository carBrandRepository;
 
+	@GetMapping("/customerLogin")
+	public String customerLogin() {
+		return "Admin/login";
+	}
 
-
-	@GetMapping ("/customer-dashboard")
-	public String spinny(Model model)
-	{
+	@GetMapping("/customer-dashboard")
+	public String spinny(Model model) {
 		List<CarImageEntity> image = carImageRepository.findAll();
 		List<CarBrandEntity> brand = carBrandRepository.findAll();
-			
+
 		model.addAttribute("image", image);
-		model.addAttribute("brand",brand);
+		model.addAttribute("brand", brand);
 		return "Customer/spinny";
 	}
-	
-	
+
 	@GetMapping("/CustomerCarList")
-	public String customerCarList(Model model){
+	public String customerCarList(Model model) {
 
-	    List<CarListingEntity> customerCarList = carListingRepository.findAll();
+		List<CarListingEntity> customerCarList = carListingRepository.findAll();
 
-	    model.addAttribute("customerCarList", customerCarList);
+		model.addAttribute("customerCarList", customerCarList);
 
-	    return "Customer/CustomerCarList";
+		return "Customer/CustomerCarList";
 	}
-	
+
 	@GetMapping("/customerViewCarListing")
-	public String customerViewCarListing(Integer listingId, Model model){
+	public String customerViewCarListing(Integer listingId, Model model) {
 
-	    Optional<CarListingEntity> op = carListingRepository.findById(listingId);
+		Optional<CarListingEntity> op = carListingRepository.findById(listingId);
 
-	    if(op.isPresent()){
-	        model.addAttribute("carListing", op.get());
-	    }
+		if (op.isPresent()) {
+			model.addAttribute("carListing", op.get());
+		}
 
-	    return "Customer/CustomerViewCarListing"; 
+		return "Customer/CustomerViewCarListing";
 	}
-	
-	
-	
-	
+
 	// ⭐ BUY NOW PAGE
 	@GetMapping("/buyNow")
 	public String buyNow(@RequestParam("listingId") Integer listingId, Model model, HttpSession session) {
 
-	    // Check if user is logged in
-	    if(session.getAttribute("user") == null) {
-	        return "redirect:/login"; // redirect to login if user not in session
-	    }
+		// Check if user is logged in
+		if (session.getAttribute("user") == null) {
+			return "redirect:/login"; // redirect to login if user not in session
+		}
 
-	    // Get car listing
-	    Optional<CarListingEntity> op = carListingRepository.findById(listingId);
-	    if(op.isPresent()) {
-	        model.addAttribute("carListing", op.get());
-	    } else {
-	        return "redirect:/CustomerCarList"; // fallback if car not found
-	    }
+		// Get car listing
+		Optional<CarListingEntity> op = carListingRepository.findById(listingId);
+		if (op.isPresent()) {
+			model.addAttribute("carListing", op.get());
+		} else {
+			return "redirect:/CustomerCarList"; // fallback if car not found
+		}
 
-	    return "Customer/buyNow";
+		return "Customer/buyNow";
 	}
 
+	@PostMapping("/confirmBooking")
+	public String confirmBooking(CarTransactionEntity transaction) {
 
-		
-		@PostMapping("/confirmBooking")
-		public String confirmBooking(CarTransactionEntity transaction) {
+		carTransactionRepository.save(transaction);
 
-		    carTransactionRepository.save(transaction);
-
-		    return "Customer/bookingSuccess";
-		}
+		return "Customer/bookingSuccess";
+	}
 
 }
