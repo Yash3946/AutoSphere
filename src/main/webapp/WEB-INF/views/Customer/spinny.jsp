@@ -573,7 +573,7 @@ body {
 
 			<div class="footer-col">
 				<h3>Company</h3>
-				<a href="#">About</a> <a href="CareersPage">Careers</a> <a href="CustomerBlog">Blog</a>
+				<a href="about">About</a> <a href="CareersPage">Careers</a> <a href="CustomerBlog">Blog</a>
 				<a href="ContactPage">Contact</a>
 			</div>
 

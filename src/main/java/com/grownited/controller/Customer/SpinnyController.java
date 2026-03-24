@@ -124,4 +124,9 @@ public class SpinnyController {
 	    public String blogPage() {
 	        return "Customer/CustomerBlog"; // JSP name
 	    }
+	 
+	 @GetMapping("/about")
+		public String aboutPage() {
+		    return "Customer/About";
+		}
 }

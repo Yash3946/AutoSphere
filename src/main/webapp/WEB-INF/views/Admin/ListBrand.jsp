@@ -1,20 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
-
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html>
 <head>
-
-<meta charset="UTF-8">
 <title>Car Brand List</title>
 
-<!-- Bootstrap -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-rel="stylesheet">
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 
-<!-- Bootstrap Icons (Important for Sidebar Icons) -->
 <link rel="stylesheet"
 href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
@@ -27,47 +21,79 @@ background:#F4F6F9;
 font-family:'Segoe UI', sans-serif;
 }
 
-/* Content layout */
-
 .content{
 margin-left:260px;
 padding:30px;
+}
+
+/* HEADER */
+.page-header{
 display:flex;
-justify-content:center;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
 }
 
-/* Card */
+.page-title{
+font-weight:700;
+color:#0D1B2A;
+}
 
-.content-card{
-width:100%;
-max-width:1000px;
+/* CARD */
+.dashboard-card{
 background:white;
+border-radius:14px;
 padding:25px;
-border-radius:15px;
-box-shadow:0 10px 25px rgba(0,0,0,0.08);
+box-shadow:0 5px 20px rgba(0,0,0,0.08);
 }
 
-/* Buttons */
-
-.btn-edit{
-background:#007bff;
-color:white;
-border:none;
+/* TABLE */
+.table thead{
+background:#F1F5F9;
+font-weight:600;
 }
 
-.btn-edit:hover{
-background:#0056b3;
+.table tbody tr:hover{
+background:#F8FAFC;
+transform:scale(1.01);
+}
+
+/* LOGO */
+.brand-logo{
+width:60px;
+height:40px;
+object-fit:contain;
+background:#F8FAFC;
+padding:5px;
+border-radius:8px;
+border:1px solid #E5E7EB;
+}
+
+/* STATUS */
+.status-active{
+background:#DCFCE7;
+color:#166534;
+padding:5px 10px;
+border-radius:12px;
+font-size:12px;
+}
+
+.status-inactive{
+background:#FEE2E2;
+color:#991B1B;
+padding:5px 10px;
+border-radius:12px;
+font-size:12px;
+}
+
+/* BUTTONS */
+.btn-view{
+background:#0EA5E9;
 color:white;
 }
 
 .btn-delete{
-background:#dc3545;
-color:white;
-border:none;
-}
-
-.btn-delete:hover{
-background:#a71d2a;
+background:#EF4444;
 color:white;
 }
 
@@ -77,67 +103,81 @@ color:white;
 
 <body>
 
-<!-- HEADER -->
-<jsp:include page="AdminHeader.jsp"/>
-
-<!-- SIDEBAR -->
 <jsp:include page="AdminSidebar.jsp"/>
-
-<!-- CONTENT -->
+<jsp:include page="AdminHeader.jsp"/>
 
 <div class="content">
 
-<div class="content-card">
+<div class="page-header">
 
-<h4 class="fw-bold mb-3 text-center">Car Brand List</h4>
-
-<div class="mb-3">
-<a href="addbrand" class="btn btn-info">
-+ Add Brand
-</a>
+<div>
+<h3 class="page-title">Car Brand Management</h3>
+<p class="text-muted mb-0">Manage all car brands</p>
 </div>
+
+<a href="addbrand" class="btn btn-primary">
+<i class="bi bi-plus-circle"></i> Add Brand
+</a>
+
+</div>
+
+<div class="dashboard-card">
 
 <div class="table-responsive">
 
-<table class="table table-bordered table-striped align-middle">
+<table class="table align-middle">
 
-<thead class="table-dark">
-
+<thead>
 <tr>
-<th>Brand ID</th>
+<th>#</th>
+<th>Logo</th>
 <th>Brand Name</th>
-<th>Logo URL</th>
-<th>Active</th>
-<th>Action</th>
+<th>Status</th>
+<th>Actions</th>
 </tr>
-
 </thead>
 
 <tbody>
 
-<c:forEach var="car" items="${brandList}">
+<c:forEach var="car" items="${brandList}" varStatus="s">
 
 <tr>
 
-<td>${car.brandId}</td>
+<td>${s.count}</td>
 
-<td>${car.brandName}</td>
+<td>
+    <img src="${car.logoUrl}" class="brand-logo">
+</td>
 
-<td>${car.logoUrl}</td>
+<td class="fw-semibold">${car.brandName}</td>
 
-<td>${car.active}</td>
+<td>
+<c:choose>
+<c:when test="${car.active}">
+<span class="status-active">
+<i class="bi bi-check-circle"></i> Active
+</span>
+</c:when>
+
+<c:otherwise>
+<span class="status-inactive">
+<i class="bi bi-x-circle"></i> Inactive
+</span>
+</c:otherwise>
+</c:choose>
+</td>
 
 <td>
 
 <a href="viewCarBrand?brandId=${car.brandId}"
-class="btn btn-primary btn-sm">
-View
+class="btn btn-sm btn-view">
+<i class="bi bi-eye"></i>
 </a>
 
 <a href="deletebrand?brandId=${car.brandId}"
-class="btn btn-danger btn-sm"
-onclick="return confirm('Are you sure you want to delete this brand?');">
-Delete
+class="btn btn-sm btn-delete"
+onclick="return confirm('Delete this brand?');">
+<i class="bi bi-trash"></i>
 </a>
 
 </td>
@@ -145,6 +185,14 @@ Delete
 </tr>
 
 </c:forEach>
+
+<c:if test="${empty brandList}">
+<tr>
+<td colspan="5" class="text-center text-muted py-4">
+No brands available
+</td>
+</tr>
+</c:if>
 
 </tbody>
 
@@ -155,8 +203,6 @@ Delete
 </div>
 
 </div>
-
-<!-- FOOTER -->
 
 <jsp:include page="AdminFooter.jsp"/>
 

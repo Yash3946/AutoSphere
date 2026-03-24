@@ -67,5 +67,31 @@ public class CarFeaturesController {
 	    return "Admin/ViewCarFeature";
 	}
 
+	@GetMapping("/editCarFeature")
+	public String editCarFeature(Integer featureId, Model model) {
+
+	    Optional<CarFeaturesEntity> op = carFeaturesRepository.findById(featureId);
+
+	    if (op.isEmpty()) {
+	        return "redirect:/listCarFeatures";
+	    } else {
+	        model.addAttribute("carFeature", op.get());
+
+	        List<CarModelTypeEntity> allCarType = carModelTypeRepository.findAll();
+	        model.addAttribute("allCarType", allCarType);
+	    }
+
+	    return "Admin/EditCarFeature";
+	}
+	
+	@PostMapping("/updateCarFeature")
+	public String updateCarFeature(CarFeaturesEntity carFeaturesEntity) {
+
+	    carFeaturesRepository.save(carFeaturesEntity); // auto update if ID present
+
+	    return "redirect:/listCarFeatures";
+	}
+	
+	
 		
 }

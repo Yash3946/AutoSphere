@@ -40,20 +40,23 @@ public class UserController {
 	}
 	
 	@GetMapping("viewUser")
-	public String viewuser(Integer userId,Model model) {
-		
-	 Optional<UserEntity> opUser = 	userRepository.findById(userId);
-	  Optional<UserDetailEntity> opUserDetail = userDetailRepository.findByUserId(userId);
-	 if(opUser.isEmpty()) {
-		 return"";
-	 }else {
-		 UserEntity userEntity = opUser.get();
-		 UserDetailEntity userDetailEntity = opUserDetail.get();
-		 model.addAttribute("user",userEntity);
-		 model.addAttribute("userDetail",userDetailEntity);
-	 }
-	 
-		return"Admin/ViewUser";
+	public String viewuser(@RequestParam Integer userId, Model model) {
+
+	    Optional<UserEntity> opUser = userRepository.findById(userId);
+	    Optional<UserDetailEntity> opUserDetail = userDetailRepository.findByUserId(userId);
+
+	    if(opUser.isEmpty()) {
+	        return "redirect:/listUser";
+	    }
+
+	    UserEntity userEntity = opUser.get();
+	    model.addAttribute("user", userEntity);
+
+	    if(opUserDetail.isPresent()) {
+	        model.addAttribute("userDetail", opUserDetail.get());
+	    }
+
+	    return "Admin/ViewUser";
 	}
 	
 	@GetMapping("/deleteUser")
