@@ -63,5 +63,25 @@ public class CarReviewRatingController {
 		
 		return"Admin/ViewReviewRating";
 	}
+	@GetMapping("editReviewRating")
+	public String editReviewRating(Integer reviewId, Model model) {
+
+	    Optional<ReviewRatingEntity> reviewOpt = reviewRatingRepository.findById(reviewId);
+
+	    if (reviewOpt.isEmpty()) {
+	        return "redirect:/listReviewRating";
+	    }
+
+	    model.addAttribute("review", reviewOpt.get());
+	    return "Admin/EditReviewRating";
+	}
+	
+	@PostMapping("updateReviewRating")
+	public String updateReviewRating(ReviewRatingEntity reviewRatingEntity) {
+
+	    reviewRatingRepository.save(reviewRatingEntity);
+
+	    return "redirect:/listReviewRating";
+	}
 	
 }

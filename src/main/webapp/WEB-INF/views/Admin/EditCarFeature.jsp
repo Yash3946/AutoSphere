@@ -86,8 +86,13 @@ body{
                value="${carFeature.exteriorFeatures}"
                class="form-control"/>
     </div>
+     <a href="listCarVariant" class="btn btn-secondary">
+         Back
+    </a>
 
-    <button class="btn btn-primary w-100">Update Feature</button>
+    <button class="btn btn-primary">
+        Update Feature
+    </button>
 
 </form>
 

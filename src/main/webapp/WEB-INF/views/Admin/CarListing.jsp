@@ -25,6 +25,7 @@ body{
 
 /* Content layout */
 .content{
+	margin-top: 90px;
     margin-left:260px;
     padding:30px;
     display:flex;

@@ -6,8 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.grownited.entity.CarListingEntity;
 import com.grownited.entity.ReportsEntity;
@@ -19,59 +18,79 @@ import com.grownited.repository.UserRepository;
 @Controller
 public class ReportsController {
 
-   
-	
-	@Autowired
-	UserRepository userRepository;
-	
-	@Autowired
-	CarListingRepository carListingRepository;
-	
-	@Autowired
-	ReportsRepository reportsRepository;
+    @Autowired
+    UserRepository userRepository;
 
-    
+    @Autowired
+    CarListingRepository carListingRepository;
 
-	@GetMapping("/carReports")
-	public String carReports(Model model) {
-		List<UserEntity> allUser =  userRepository.findAll();
-		List<CarListingEntity> allCar =  carListingRepository.findAll();
-		
-		model.addAttribute("allCar",allCar);
-		model.addAttribute("allUser",allUser);
-		return"Admin/CarReports";
-		
-	}
-	
-	@PostMapping("/saveCarReport")
-	public String saveCarReports(ReportsEntity reportsEntity) {		
-		reportsRepository.save(reportsEntity);		
-		return"Admin/AdminDashboard";
-	}
-	
-	@GetMapping("/listCarReports")
-	public String listCarReports(Model model) {
-	List<ReportsEntity> carReports = 	reportsRepository.findAll();
-	model.addAttribute("carReports",carReports);
-		return"Admin/ListCarReports";
-	}
-	
-	@GetMapping("/deleteCarReports")
-	public String deleteCarReports(Integer reportId) {		
-		reportsRepository.deleteById(reportId);
-		return"redirect:/listCarReports";
-	}
-	
-	@GetMapping("/viewCarReports")
-	public String viewCarReports(Integer reportId,Model model) {
-		Optional<ReportsEntity> allReports =  reportsRepository.findById(reportId);
-		
-		if(allReports.isEmpty()) {
-			return"redirect:/listCarReports";
-		}else {
-			ReportsEntity Report = allReports.get();
-			model.addAttribute("Report",Report);
-		}		
-		return"Admin/ViewCarReports";
-	}
+    @Autowired
+    ReportsRepository reportsRepository;
+
+    // ADD PAGE
+    @GetMapping("/carReports")
+    public String carReports(Model model) {
+        model.addAttribute("allCar", carListingRepository.findAll());
+        model.addAttribute("allUser", userRepository.findAll());
+        return "Admin/CarReports";
+    }
+
+    // SAVE
+    @PostMapping("/saveCarReport")
+    public String saveCarReports(ReportsEntity reportsEntity) {
+        reportsRepository.save(reportsEntity);
+        return "redirect:/listCarReports";
+    }
+
+    // LIST
+    @GetMapping("/listCarReports")
+    public String listCarReports(Model model) {
+        model.addAttribute("carReports", reportsRepository.findAll());
+        return "Admin/ListCarReports";
+    }
+
+    // DELETE
+    @GetMapping("/deleteCarReports")
+    public String deleteCarReports(Integer reportId) {
+        reportsRepository.deleteById(reportId);
+        return "redirect:/listCarReports";
+    }
+
+    // VIEW 🔥 (FIXED)
+    @GetMapping("/viewCarReports")
+    public String viewCarReports(Integer reportId, Model model) {
+
+        Optional<ReportsEntity> opt = reportsRepository.findById(reportId);
+
+        if(opt.isEmpty()){
+            return "redirect:/listCarReports";
+        }
+
+        model.addAttribute("report", opt.get()); // ✅ FIXED
+
+        return "Admin/ViewCarReports";
+    }
+
+    // EDIT PAGE
+    @GetMapping("/editCarReport")
+    public String editCarReport(Integer reportId, Model model) {
+
+        Optional<ReportsEntity> opt = reportsRepository.findById(reportId);
+
+        if(opt.isPresent()){
+            model.addAttribute("report", opt.get());
+        }
+
+        model.addAttribute("allUser", userRepository.findAll());
+        model.addAttribute("allCar", carListingRepository.findAll());
+
+        return "Admin/EditCarReport";
+    }
+
+    // UPDATE
+    @PostMapping("/updateCarReport")
+    public String updateCarReport(ReportsEntity reportsEntity) {
+        reportsRepository.save(reportsEntity);
+        return "redirect:/listCarReports";
+    }
 }

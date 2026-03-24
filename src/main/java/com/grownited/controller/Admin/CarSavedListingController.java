@@ -95,4 +95,27 @@ public class CarSavedListingController {
   
         return "Admin/ViewSavedListing";
     }
+    
+    @GetMapping("/editSavedListing")
+    public String editSavedListing(Integer wishlistId, Model model) {
+
+        Optional<SavedListingEntity> op = savedListingRepository.findById(wishlistId);
+
+        if (op.isEmpty()) {
+            return "redirect:/listSavedListing";
+        } else {
+            model.addAttribute("saved", op.get());
+        }
+
+        return "Admin/EditSavedListing";
+    }
+    
+    @PostMapping("/updateSavedListing")
+    public String updateSavedListing(SavedListingEntity savedListingEntity) {
+
+        savedListingRepository.save(savedListingEntity);
+
+        return "redirect:/listSavedListing";
+    }
+    
 }

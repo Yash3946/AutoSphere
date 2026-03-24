@@ -22,14 +22,15 @@ body{
 	font-family:'Segoe UI', sans-serif;
 }
 
-/* Content Layout */
+/* CONTENT */
 .content{
 	margin-left:260px;
+	margin-top:90px;
 	padding:30px;
 	min-height:calc(100vh - 120px);
 }
 
-/* Card Style */
+/* CARD */
 .content-card{
 	background:white;
 	padding:25px;
@@ -37,13 +38,13 @@ body{
 	box-shadow:0 10px 25px rgba(0,0,0,0.08);
 }
 
-/* Table Header */
+/* TABLE */
 .table thead{
 	background:linear-gradient(90deg,#0D1B2A,#1B263B);
 	color:white;
 }
 
-/* Status Colors */
+/* STATUS */
 .status-pending{
 	color:#f39c12;
 	font-weight:600;
@@ -57,28 +58,32 @@ body{
 	font-weight:600;
 }
 
-/* Buttons */
-.btn-admin{
-	background:linear-gradient(135deg,#14213D,#1D3557);
+/* BUTTONS */
+.btn-view{
+	background:#4361ee;
+	color:white;
 	border:none;
-	color:white;
-	font-size:13px;
-	padding:5px 12px;
 }
-.btn-admin:hover{
-	background:#0077B6;
+.btn-view:hover{
+	background:#3651d4;
+}
+
+.btn-edit{
+	background:#fca311;
 	color:white;
+	border:none;
+}
+.btn-edit:hover{
+	background:#e59500;
 }
 
 .btn-delete{
 	background:#dc3545;
 	color:white;
-	font-size:13px;
-	padding:5px 12px;
+	border:none;
 }
 .btn-delete:hover{
 	background:#bb2d3b;
-	color:white;
 }
 
 </style>
@@ -99,7 +104,7 @@ body{
 	<div class="content-card">
 
 		<h4 class="fw-bold mb-4" style="color:#0D1B2A;">
-			Offer List
+			<i class="bi bi-cash-coin"></i> Offer List
 		</h4>
 
 		<div class="table-responsive">
@@ -114,7 +119,7 @@ body{
 						<th>Offered Price</th>
 						<th>Status</th>
 						<th>Created At</th>
-						<th>Action</th>
+						<th class="text-center">Action</th>
 					</tr>
 				</thead>
 
@@ -122,6 +127,7 @@ body{
 
 					<c:forEach items="${allOffer}" var="o">
 						<tr>
+
 							<td>${o.offerId}</td>
 							<td>${o.listingId}</td>
 							<td>${o.userId}</td>
@@ -143,19 +149,35 @@ body{
 
 							<td>${o.createdAt}</td>
 
-							<td>
+							<td class="text-center">
+
+								<!-- 🔥 ACTION -->
 								<c:if test="${o.offerStatus == 'PENDING'}">
-									<a href="viewOffer?offerId=${o.offerId}"
-									   class="btn btn-admin btn-sm">
-									   View
+
+									<a href="viewOffer?offerId=${o.offerId}" class="btn btn-view btn-sm">
+										<i class="bi bi-eye"></i>
+									</a>
+
+									<a href="editOffer?offerId=${o.offerId}" class="btn btn-edit btn-sm">
+										<i class="bi bi-pencil-square"></i>
 									</a>
 
 									<a href="deleteOffer?offerId=${o.offerId}"
 									   class="btn btn-delete btn-sm"
-									   onclick="return confirm('Are you sure?')">
-									   Delete
+									   onclick="return confirm('Delete this offer?')">
+										<i class="bi bi-trash"></i>
 									</a>
+
 								</c:if>
+
+								<c:if test="${o.offerStatus != 'PENDING'}">
+
+									<a href="viewOffer?offerId=${o.offerId}" class="btn btn-view btn-sm">
+										<i class="bi bi-eye"></i>
+									</a>
+
+								</c:if>
+
 							</td>
 
 						</tr>
@@ -164,7 +186,7 @@ body{
 					<c:if test="${empty allOffer}">
 						<tr>
 							<td colspan="7" class="text-center text-muted py-4">
-								No Offers Found
+								<i class="bi bi-exclamation-circle"></i> No Offers Found
 							</td>
 						</tr>
 					</c:if>

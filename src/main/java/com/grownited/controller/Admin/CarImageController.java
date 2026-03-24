@@ -93,5 +93,51 @@ public class CarImageController {
 
         return "Admin/ViewCarImage";
     }
+    
+ // 🔥 EDIT PAGE
+    @GetMapping("/editCarImage")
+    public String editCarImage(Integer imageId, Model model) {
+
+        Optional<CarImageEntity> image = carImageRepository.findById(imageId);
+
+        if (image.isEmpty()) {
+            return "redirect:/listCarImage";
+        }
+
+        model.addAttribute("carImage", image.get());
+        model.addAttribute("allCarModel", carModelTypeRepository.findAll());
+
+        return "Admin/EditCarImage";
+    }
+
+
+    // 🔥 UPDATE
+    @PostMapping("/updateCarImage")
+    public String updateCarImage(CarImageEntity carImageEntity,
+            @RequestParam(value = "imageFile", required = false) MultipartFile imageFile) {
+
+        try {
+
+            // Agar new image upload hua hai
+            if (imageFile != null && !imageFile.isEmpty()) {
+
+                Map uploadResult = cloudinary.uploader().upload(imageFile.getBytes(), null);
+                String imageURL = uploadResult.get("secure_url").toString();
+                carImageEntity.setImageURL(imageURL);
+
+            } else {
+                // Purana image retain karo
+                CarImageEntity old = carImageRepository.findById(carImageEntity.getImageId()).get();
+                carImageEntity.setImageURL(old.getImageURL());
+            }
+
+            carImageRepository.save(carImageEntity);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "redirect:/listCarImage";
+    }
 
 }

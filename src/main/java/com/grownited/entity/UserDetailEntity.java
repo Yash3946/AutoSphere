@@ -1,70 +1,66 @@
 package com.grownited.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
-@Entity // create table
+@Entity
 @Table(name = "user_details")
 public class UserDetailEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer userDetailId;
-	private Integer userId;//
-	private String qualification;
-	private String city;
-	private String state;
-	private String country;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer userDetailId;
 
-	public Integer getUserDetailId() {
-		return userDetailId;
-	}
+    private Integer userId;
+    private String qualification;
+    private String city;
+    private String state;
+    private String country;
 
-	public void setUserDetailId(Integer userDetailId) {
-		this.userDetailId = userDetailId;
-	}
+    public Integer getUserDetailId() {
+        return userDetailId;
+    }
 
-	public Integer getUserId() {
-		return userId;
-	}
+    public void setUserDetailId(Integer userDetailId) {
+        this.userDetailId = userDetailId;
+    }
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
+    public Integer getUserId() {
+        return userId;
+    }
 
-	public String getQualification() {
-		return qualification;
-	}
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 
-	public void setQualification(String qualification) {
-		this.qualification = qualification;
-	}
+    public String getQualification() {
+        return qualification;
+    }
 
-	public String getCity() {
-		return city;
-	}
+    public void setQualification(String qualification) {
+        this.qualification = qualification;
+    }
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+    public String getCity() {
+        return city;
+    }
 
-	public String getState() {
-		return state;
-	}
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-	public void setState(String state) {
-		this.state = state;
-	}
+    public String getState() {
+        return state;
+    }
 
-	public String getCountry() {
-		return country;
-	}
+    public void setState(String state) {
+        this.state = state;
+    }
 
-	public void setCountry(String country) {
-		this.country = country;
-	}
+    public String getCountry() {
+        return country;
+    }
 
+    public void setCountry(String country) {
+        this.country = country;
+    }
 }

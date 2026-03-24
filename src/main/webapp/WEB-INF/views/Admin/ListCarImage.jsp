@@ -1,154 +1,116 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<!DOCTYPE html>
 <html>
 <head>
-
-<meta charset="UTF-8">
 <title>Car Image List</title>
 
-<!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
-<!-- ✅ Bootstrap Icons FIX -->
-<link rel="stylesheet"
-href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-
-<!-- Admin CSS -->
 <jsp:include page="AdminCSS.jsp"/>
 
 <style>
-
-.page-wrapper{
-	padding:30px;
+.image-box img{
+    width:200px;
+    height:120px;
+    object-fit:cover;
+    border-radius:10px;
+    transition:0.3s;
 }
 
-.page-card{
-	background:#fff;
-	padding:30px;
-	border-radius:12px;
-	box-shadow:0 3px 12px rgba(0,0,0,0.08);
+.image-box img:hover{
+    transform:scale(1.1);
 }
-
-.table img{
-	border-radius:8px;
-}
-
-/* Optional: Button Styling */
-.btn-info{
-	background:#0dcaf0;
-	border:none;
-}
-
-.btn-danger{
-	background:#dc3545;
-	border:none;
-}
-
 </style>
 
 </head>
 
 <body>
 
-<!-- ================= SIDEBAR ================= -->
+<jsp:include page="AdminHeader.jsp"/>
 <jsp:include page="AdminSidebar.jsp"/>
 
-<!-- ================= HEADER ================= -->
-<jsp:include page="AdminHeader.jsp"/>
+<div style="margin-left:260px; margin-top:90px; padding:30px;">
 
-<!-- ================= CONTENT ================= -->
+<div class="card p-4 shadow">
 
-<div class="content">
+<h4 class="mb-4">🚗 Car Image List</h4>
 
-	<div class="page-wrapper">
+<table class="table table-hover text-center align-middle">
 
-		<div class="container-fluid">
+<thead class="table-dark">
+<tr>
+<th>ID</th>
+<th>Model</th>
+<th>Image</th>
+<th>Primary</th>
+<th>Action</th>
+</tr>
+</thead>
 
-			<div class="page-card">
+<tbody>
 
-				<h3 class="text-center fw-bold mb-4">🚗 Car Image List</h3>
+<c:forEach var="c" items="${carList}">
+<tr>
 
-				<table class="table table-hover align-middle">
+<td>${c.imageId}</td>
 
-					<thead class="table-dark text-center">
+<td>${c.modelName}</td>
 
-						<tr>
-							<th>ID</th>
-							<th>Model Name</th>
-							<th>Image</th>
-							<th>Primary</th>
-							<th>Action</th>
-						</tr>
+<td>
+<div class="image-box">
+<img src="${c.imageURL}">
+</div>
+</td>
 
-					</thead>
+<td>
+<c:if test="${c.isPrimary}">
+<span class="badge bg-success">
+<i class="bi bi-check-circle"></i> Primary
+</span>
+</c:if>
 
-					<tbody class="text-center">
+<c:if test="${!c.isPrimary}">
+<span class="badge bg-secondary">
+<i class="bi bi-image"></i> Secondary
+</span>
+</c:if>
+</td>
 
-						<c:forEach var="c" items="${carList}">
+<td>
 
-							<tr>
+<!-- VIEW -->
+<a href="viewCarImage?imageId=${c.imageId}" 
+   class="btn btn-info btn-sm">
+   <i class="bi bi-eye"></i>
+</a>
 
-								<td>${c.imageId}</td>
+<!-- EDIT -->
+<a href="editCarImage?imageId=${c.imageId}" 
+   class="btn btn-warning btn-sm">
+   <i class="bi bi-pencil"></i>
+</a>
 
-								<td>${c.modelName}</td>
+<!-- DELETE -->
+<a href="deleteCarImage?imageId=${c.imageId}" 
+   class="btn btn-danger btn-sm"
+   onclick="return confirm('Delete image?')">
+   <i class="bi bi-trash"></i>
+</a>
 
-								<td>
-									<img src="${c.imageURL}" width="120" class="img-thumbnail">
-								</td>
+</td>
 
-								<td>
+</tr>
+</c:forEach>
 
-									<c:if test="${c.isPrimary}">
-										<span class="badge bg-success">
-											<i class="bi bi-check-circle"></i> Primary
-										</span>
-									</c:if>
+</tbody>
 
-									<c:if test="${!c.isPrimary}">
-										<span class="badge bg-secondary">
-											<i class="bi bi-image"></i> Secondary
-										</span>
-									</c:if>
-
-								</td>
-
-								<td>
-
-									<a href="viewCarImage?imageId=${c.imageId}" 
-									   class="btn btn-info btn-sm">
-										<i class="bi bi-eye"></i> View
-									</a>
-
-									<a href="deleteCarImage?imageId=${c.imageId}" 
-									   class="btn btn-danger btn-sm">
-										<i class="bi bi-trash"></i> Delete
-									</a>
-
-								</td>
-
-							</tr>
-
-						</c:forEach>
-
-					</tbody>
-
-				</table>
-
-			</div>
-
-		</div>
-
-	</div>
+</table>
 
 </div>
 
-<!-- ================= FOOTER ================= -->
-<jsp:include page="AdminFooter.jsp"/>
-
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</div>
 
 </body>
 </html>

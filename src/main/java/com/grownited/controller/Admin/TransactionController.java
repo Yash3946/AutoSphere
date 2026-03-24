@@ -77,4 +77,25 @@ public class TransactionController {
 
 	    return "Admin/ViewCarTransaction";
 	}
+	
+	@GetMapping("/editCarTransaction")
+	public String editCarTransaction(Integer transactionId, Model model) {
+
+	    Optional<TransactionsEntity> transaction = transactionsRepository.findById(transactionId);
+
+	    if (transaction.isPresent()) {
+	        model.addAttribute("carTransaction", transaction.get());
+	    }
+
+	    model.addAttribute("allCarList", carListingRepository.findAll());
+	    model.addAttribute("allUsers", userRepository.findAll());
+
+	    return "Admin/EditCarTransaction";
+	}
+	
+	@PostMapping("/updateCarTransaction")
+	public String updateCarTransaction(TransactionsEntity transactionsEntity) {
+	    transactionsRepository.save(transactionsEntity);
+	    return "redirect:/listCarTransaction";
+	}
 }

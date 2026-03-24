@@ -19,58 +19,78 @@ import com.grownited.repository.UserRepository;
 @Controller
 public class OfferController {
 
-   @Autowired
-   OfferRepository offerRepository;
+    @Autowired
+    OfferRepository offerRepository;
 
-	@Autowired
-	CarListingRepository carListingRepository;
-	
-	@Autowired
-	UserRepository userRepository;
+    @Autowired
+    CarListingRepository carListingRepository;
 
-   
-	@GetMapping("/carOffer")
-	public String carOffer(Model model) {
-	List<CarListingEntity> allCarList = carListingRepository.findAll();
-	List<UserEntity> allUser =  userRepository.findAll();
-	model.addAttribute("allCarList",allCarList);
-	model.addAttribute("allUser",allUser);
-		return"Admin/CarOffer";
-	}
-	
-	
-	
-	@PostMapping("/saveCarOffer")
-	public String saveOffer(OfferEntity offerEntity) {
-		offerRepository.save(offerEntity);
-		return"AdminDashboard";
-	}
-	
-	@GetMapping("/listCarOffer")
-	public String listCarOffer(Model model) {
-		List<OfferEntity> allOffer =  offerRepository.findAll();
-		model.addAttribute("allOffer",allOffer);
-		return"Admin/ListOffer";
-	}
-	
-	@GetMapping("deleteOffer")
-	public String deleteOffer(Integer offerId) {
-		offerRepository.deleteById(offerId);
-		return"redirect:/listCarOffer";
-	}
-	
-	@GetMapping("viewOffer")
-	public String viewOffer(Integer offerId,Model model) {
-	Optional<OfferEntity> carOffer = offerRepository.findById(offerId);
-	
-	if(carOffer.isEmpty()) {
-		return"redirect:/listCarOffer";
-	}else {
-		OfferEntity Offer = carOffer.get();
-		model.addAttribute("Offer",Offer);
-	}
-	
-		return"Admin/ViewOffer";
-	}
+    @Autowired
+    UserRepository userRepository;
+
+    // ADD PAGE
+    @GetMapping("/carOffer")
+    public String carOffer(Model model) {
+        model.addAttribute("allCarList", carListingRepository.findAll());
+        model.addAttribute("allUser", userRepository.findAll());
+        return "Admin/CarOffer";
+    }
+
+    // SAVE
+    @PostMapping("/saveCarOffer")
+    public String saveOffer(OfferEntity offerEntity) {
+        offerRepository.save(offerEntity);
+        return "redirect:/listCarOffer";
+    }
+
+    // LIST
+    @GetMapping("/listCarOffer")
+    public String listCarOffer(Model model) {
+        model.addAttribute("allOffer", offerRepository.findAll());
+        return "Admin/ListOffer";
+    }
+
+    // DELETE
+    @GetMapping("/deleteOffer")
+    public String deleteOffer(Integer offerId) {
+        offerRepository.deleteById(offerId);
+        return "redirect:/listCarOffer";
+    }
+
+    // 🔥 VIEW (IMPORTANT FIX)
+    @GetMapping("/viewOffer")
+    public String viewOffer(Integer offerId, Model model) {
+
+        Optional<OfferEntity> offer = offerRepository.findById(offerId);
+
+        if (offer.isEmpty()) {
+            return "redirect:/listCarOffer";
+        }
+
+        model.addAttribute("offer", offer.get());
+        return "Admin/ViewOffer";
+    }
+
+    // 🔥 EDIT
+    @GetMapping("/editOffer")
+    public String editOffer(Integer offerId, Model model) {
+
+        Optional<OfferEntity> offer = offerRepository.findById(offerId);
+
+        if (offer.isPresent()) {
+            model.addAttribute("offer", offer.get());
+        }
+
+        model.addAttribute("allCarList", carListingRepository.findAll());
+        model.addAttribute("allUser", userRepository.findAll());
+
+        return "Admin/EditOffer";
+    }
+
+    // 🔥 UPDATE
+    @PostMapping("/updateOffer")
+    public String updateOffer(OfferEntity offerEntity) {
+        offerRepository.save(offerEntity);
+        return "redirect:/listCarOffer";
+    }
 }
-

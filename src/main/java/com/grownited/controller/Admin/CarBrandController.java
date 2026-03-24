@@ -95,4 +95,58 @@ public class CarBrandController {
 
         return "Admin/ViewCarBrand";
     }
+    
+ // 🔥 EDIT PAGE OPEN
+    @GetMapping("/editCarBrand")
+    public String editCarBrand(Integer brandId, Model model) {
+
+        Optional<CarBrandEntity> op = carBrandRepository.findById(brandId);
+
+        if (op.isEmpty()) {
+            return "redirect:/listbrand";
+        }
+
+        model.addAttribute("carBrand", op.get());
+
+        return "Admin/EditCarBrand";
+    }
+
+
+    // 🔥 UPDATE BRAND
+    @PostMapping("/updateCarBrand")
+    public String updateCarBrand(CarBrandEntity carBrandEntity,
+                                 @RequestParam(value = "logoFile", required = false) MultipartFile file) {
+
+        try {
+
+            // 🔥 Agar new image upload ki ho to update karo
+            if (file != null && !file.isEmpty()) {
+
+                Map uploadResult = cloudinary.uploader().upload(
+                        file.getBytes(),
+                        ObjectUtils.asMap("folder", "brand_logos")
+                );
+
+                String imageUrl = (String) uploadResult.get("secure_url");
+
+                carBrandEntity.setLogoUrl(imageUrl);
+            } else {
+                // 🔥 Old image retain karo
+                CarBrandEntity oldData = carBrandRepository
+                        .findById(carBrandEntity.getBrandId())
+                        .orElse(null);
+
+                if (oldData != null) {
+                    carBrandEntity.setLogoUrl(oldData.getLogoUrl());
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        carBrandRepository.save(carBrandEntity);
+
+        return "redirect:/listbrand";
+    }
 }

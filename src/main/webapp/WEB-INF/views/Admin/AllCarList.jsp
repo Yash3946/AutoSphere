@@ -27,8 +27,10 @@ background:#F4F6F9;
 font-family:'Segoe UI', sans-serif;
 }
 
+/* 🔥 IMPORTANT (HEADER FIX SPACE) */
 .content{
 margin-left:260px;
+margin-top:90px;
 padding:40px;
 }
 
@@ -117,6 +119,17 @@ border:none;
 background:#3651d4;
 }
 
+/* 🔥 EDIT BUTTON */
+.btn-edit{
+background:#fca311;
+color:white;
+border:none;
+}
+.btn-edit:hover{
+background:#e59500;
+}
+
+/* DELETE */
 .btn-delete{
 background:#ef233c;
 color:white;
@@ -134,11 +147,9 @@ background:#d90429;
 <body>
 
 <!-- SIDEBAR -->
-
 <jsp:include page="AdminSidebar.jsp"/>
 
 <!-- HEADER -->
-
 <jsp:include page="AdminHeader.jsp"/>
 
 <div class="content">
@@ -228,19 +239,23 @@ Available
 
 <td class="text-center">
 
+<!-- VIEW -->
 <a href="viewCarListing?listingId=${c.listingId}"
 class="btn btn-view action-btn btn-sm">
-
 <i class="bi bi-eye"></i>
-
 </a>
 
+<!-- 🔥 EDIT -->
+<a href="editCarListing?listingId=${c.listingId}"
+class="btn btn-edit action-btn btn-sm">
+<i class="bi bi-pencil-square"></i>
+</a>
+
+<!-- DELETE -->
 <a href="deleteCarListing?listingId=${c.listingId}"
 class="btn btn-delete action-btn btn-sm"
 onclick="return confirm('Delete this listing?')">
-
 <i class="bi bi-trash"></i>
-
 </a>
 
 </td>
@@ -252,7 +267,6 @@ onclick="return confirm('Delete this listing?')">
 <c:if test="${empty allCarList}">
 
 <tr>
-
 <td colspan="13" class="text-center text-muted py-5">
 
 <i class="bi bi-car-front" style="font-size:25px"></i>
@@ -262,7 +276,6 @@ onclick="return confirm('Delete this listing?')">
 No Car Listings Found
 
 </td>
-
 </tr>
 
 </c:if>
@@ -278,7 +291,6 @@ No Car Listings Found
 </div>
 
 <!-- FOOTER -->
-
 <jsp:include page="AdminFooter.jsp"/>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

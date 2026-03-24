@@ -121,4 +121,52 @@ public class CarListingController {
 
         return "Admin/ViewCarListing";
     }
+    
+ // 🔥 EDIT PAGE OPEN
+    @GetMapping("/editCarListing")
+    public String editCarListing(Integer listingId, Model model) {
+
+        Optional<CarListingEntity> car =
+                carListingRepository.findById(listingId);
+
+        car.ifPresent(c -> model.addAttribute("car", c));
+
+        model.addAttribute("allUser", userRepository.findAll());
+        model.addAttribute("allCarBrand", carBrandRepository.findAll());
+        model.addAttribute("allCarModel", carModelTypeRepository.findAll());
+        model.addAttribute("allCarVariant", carVariantRepository.findAll());
+
+        return "Admin/EditCarListing";
+    }
+    
+ // 🔥 UPDATE
+    @PostMapping("/updateCarListing")
+    public String updateCarListing(CarListingEntity carListingEntity,
+                                   @RequestParam("imageFile") MultipartFile file) {
+
+        try {
+            if (!file.isEmpty()) {
+                Map uploadResult = cloudinary.uploader().upload(file.getBytes(), null);
+                String imageUrl = uploadResult.get("secure_url").toString();
+                carListingEntity.setImageUrl(imageUrl);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Set names again
+        carBrandRepository.findById(carListingEntity.getBrandId())
+                .ifPresent(b -> carListingEntity.setBrandName(b.getBrandName()));
+
+        carModelTypeRepository.findById(carListingEntity.getModelId())
+                .ifPresent(m -> carListingEntity.setModelName(m.getModelName()));
+
+        carVariantRepository.findById(carListingEntity.getVariantId())
+                .ifPresent(v -> carListingEntity.setVariantName(v.getVariantName()));
+
+        carListingRepository.save(carListingEntity);
+
+        return "redirect:/allCarList";
+    }
+    
 }
