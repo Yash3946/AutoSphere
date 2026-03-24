@@ -11,9 +11,6 @@ body {
 	margin: 0;
 	font-family: Arial;
 	background: #f4f6fb;
-
-	/* 🔥 IMPORTANT (header overlap fix) */
-	padding-top: 80px;
 }
 
 /* HEADER */
@@ -23,44 +20,12 @@ body {
 	padding: 15px 40px;
 	background: white;
 	border-bottom: 1px solid #ddd;
-
-	/* 🔥 FIXED HEADER */
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	z-index: 1000;
-
-	box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 .logo {
-	display: flex;
-	align-items: center;
-	gap: 12px;
-	font-size: 28px;
-	font-weight: 700;
-	color: #4a148c;
-	text-decoration: none;
-	font-family: Arial, sans-serif;
-}
-
-.logo-icon {
-	width: 40px;
-	height: 40px;
-	background: #ff4d6d;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	transform: rotate(45deg);
-	border-radius: 10px;
-}
-
-.logo-icon span {
-	color: white;
-	font-size: 20px;
-	font-weight: 700;
-	transform: rotate(-45deg);
+	font-size: 26px;
+	font-weight: bold;
+	color: #6a1b9a;
 }
 
 .city-select {
@@ -109,6 +74,18 @@ body {
 }
 
 .hero h1 {
+	color: #4a148c;
+}
+
+.section h2 {
+	color: #4a148c;
+}
+
+.how-section h2 {
+	color: #4a148c;
+}
+
+.brand-section h2 {
 	color: #4a148c;
 }
 
@@ -194,6 +171,71 @@ body {
 	border-radius: 8px;
 }
 
+/* HOW WORKS */
+.how-section {
+	background: #f2f2f2;
+	padding: 60px 20px;
+	text-align: center;
+}
+
+.how-cards {
+	display: flex;
+	justify-content: center;
+	gap: 80px;
+	flex-wrap: wrap;
+	margin-top: 40px;
+}
+
+.how-card {
+	width: 220px;
+}
+
+.how-card img {
+	width: 120px;
+	margin-bottom: 10px;
+}
+
+.how-card h3 {
+	font-size: 16px;
+}
+
+/* WATCH BUTTON */
+.watch-area {
+	margin-top: 40px;
+}
+
+.watch-btn {
+	background: linear-gradient(90deg, #7b1fa2, #6a1b9a);
+	color: white;
+	border: none;
+	padding: 16px 35px;
+	font-size: 18px;
+	border-radius: 14px;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.play-icon {
+	background: white;
+	color: #6a1b9a;
+	width: 28px;
+	height: 28px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	font-size: 14px;
+}
+
+.learn-more {
+	margin-top: 15px;
+	color: #6a1b9a;
+	font-weight: 600;
+	cursor: pointer;
+}
+
 /* BRANDS */
 .brand-section {
 	padding: 60px;
@@ -214,6 +256,14 @@ body {
 	padding: 20px;
 	border-radius: 15px;
 	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.brand-card:hover {
+	transform: scale(1.08) translateY(-5px);
+	background: linear-gradient(135deg, #f3e5f5, #d1c4e9);
+	/* 🔥 Purple Shadow */
+	box-shadow: 0 12px 30px rgba(106, 27, 154, 0.5);
 }
 
 .brand-card img {
@@ -238,154 +288,434 @@ body {
 	width: 220px;
 }
 
+.footer-col h3 {
+	margin-bottom: 15px;
+}
+
+.footer-col p {
+	font-size: 14px;
+	line-height: 22px;
+	color: #ddd;
+}
+
 .footer-col a {
 	display: block;
 	color: #ddd;
 	text-decoration: none;
 	margin-bottom: 8px;
+	font-size: 14px;
 }
 
 .footer-bottom {
 	margin-top: 30px;
 	text-align: center;
 	color: #ccc;
+	font-size: 14px;
+}
+
+.logo {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	font-size: 28px;
+	font-weight: 700;
+	color: #4a148c;
+	text-decoration: none;
+	font-family: Arial, sans-serif;
+}
+
+.logo-icon {
+	width: 40px;
+	height: 40px;
+	background: #ff4d6d;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transform: rotate(45deg);
+	border-radius: 10px;
+}
+
+.logo-icon span {
+	color: white;
+	font-size: 20px;
+	font-weight: 700;
+	transform: rotate(-45deg);
+}
+
+/* responsive */
+@media ( max-width :768px) {
+	.logo {
+		font-size: 22px;
+	}
+	.logo-icon {
+		width: 32px;
+		height: 32px;
+	}
+	.logo-icon span {
+		font-size: 16px;
+	}
+}
+
+/* RESPONSIVE */
+@media ( max-width :768px) {
+	.search-bar {
+		width: 200px;
+	}
+	.how-cards {
+		gap: 40px;
+	}
+}
+
+.brand-card img {
+	width: 70px;
+	margin-top: 10px;
+	transition: transform 0.3s ease;
+}
+
+.brand-card:hover img {
+	transform: scale(1.15);
+}
+
+.suggestion-box {
+    position: absolute;
+    top: 45px;
+    left: 0;
+    width: 100%;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    z-index: 999;
+}
+
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover {
+    background: #f3e5f5;
 }
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
-<div class="header">
-	<a href="customer-dashboard" class="logo">
-		<div class="logo-icon">
-			<span>A</span>
-		</div> AutoSphere
-	</a>
+	<!-- HEADER -->
 
-	<input type="text" class="city-select" placeholder="Select City">
+	<div class="header">
 
-	<div class="search-bar">
-		<input type="text" placeholder="Search cars by brand or model">
+		<a href="customer-dashboard" class="logo">
+
+			<div class="logo-icon">
+				<span>A</span>
+			</div> AutoSphere
+
+		</a>
+		<div style="position: relative;">
+			<input type="text" id="cityInput" class="city-select"
+				placeholder="Select City" onkeyup="showCitySuggestions()">
+
+			<div id="citySuggestionBox" class="suggestion-box"></div>
+		</div>
+
+
+
+		<div class="search-bar" style="position: relative;">
+			<input type="text" id="searchInput" placeholder="Search cars..."
+				onkeyup="showCarSuggestions()">
+
+			<div id="suggestionBox" class="suggestion-box"></div>
+		</div>
+
+		<div class="menu">
+			<a href="CustomerCarList">List Car</a> <a href="#brands">Car
+				Brand</a> <a href="wishlist">My Cart</a> <a href="#">Buy Car</a> <a
+				href="#">Sell Car</a> <a href="login">Login</a> <a href="#">Register</a>
+		</div>
+
 	</div>
 
-	<div class="menu">
-		<a href="CustomerCarList">List Car</a> 
-		<a href="#brands">Car Brand</a>
-		<a href="wishlist">My Cart</a> 
-		<a href="#">Buy Car</a> 
-		<a href="#">Sell Car</a>
-		<a href="login">Login</a> 
-		<a href="customerSignup">Register</a>
-	</div>
-</div>
+	<!-- HERO -->
 
-<!-- HERO -->
-<div class="hero">
-	<h1>Cars you’ll love to buy</h1>
-	<p>Verified used cars with full inspection</p>
+	<div class="hero">
 
-	<div class="slider-container">
-		<button class="arrow left" onclick="slideLeft()">❮</button>
+		<h1>Cars you’ll love to buy</h1>
+		<p>Verified used cars with full inspection</p>
 
-		<div class="slider" id="slider">
-			<c:forEach var="img" items="${image}">
-				<img src="${img.imageURL}">
-			</c:forEach>
-		</div>
+		<div class="slider-container">
 
-		<button class="arrow right" onclick="slideRight()">❯</button>
-	</div>
+			<button class="arrow left" onclick="slideLeft()">❮</button>
 
-	<button class="sell-btn">Sell My Car</button>
-</div>
+			<div class="slider" id="slider">
 
-<!-- BENEFITS -->
-<div class="section">
-	<h2>AutoSphere Assured Benefits</h2>
+				<c:forEach var="img" items="${image}">
+					<img src="${img.imageURL}">
+				</c:forEach>
 
-	<div class="cards">
-		<div class="card">
-			<img src="https://tse2.mm.bing.net/th/id/OIP.Dt_cmV3c7iAiI9hH3a_-oQHaHa">
-			<p>✔ 200+ Quality Checks</p>
-		</div>
-
-		<div class="card">
-			<img src="https://tse2.mm.bing.net/th/id/OIP.dLwwkw6ARI0Jm1Y6LMvgXwHaFL">
-			<p>✔ 7 Days Trial</p>
-		</div>
-
-		<div class="card">
-			<img src="https://tse4.mm.bing.net/th/id/OIP.2-oHKJ06_H3EnJgGQQKTiQHaE8">
-			<p>✔ 1 Year Warranty</p>
-		</div>
-
-		<div class="card">
-			<img src="https://tse3.mm.bing.net/th/id/OIP.ApW2_1cwNgxi_flgt4ZQngHaEl">
-			<p>✔ Fixed Price</p>
-		</div>
-	</div>
-</div>
-
-<!-- BRANDS -->
-<div class="brand-section" id="brands">
-	<h2>Explore Popular Brands</h2>
-
-	<div class="brand-grid">
-		<c:forEach var="brd" items="${brand}">
-			<div class="brand-card">
-				<h3>${brd.brandName}</h3>
-				<img src="${brd.logoUrl}">
 			</div>
-		</c:forEach>
-	</div>
-</div>
 
-<!-- FOOTER -->
-<div class="footer">
-	<div class="footer-container">
-		<div class="footer-col">
-			<h3>AutoSphere</h3>
-			<p>Buy & sell cars easily.</p>
+			<button class="arrow right" onclick="slideRight()">❯</button>
+
 		</div>
 
-		<div class="footer-col">
-			<h3>Company</h3>
-			<a href="#">About</a>
-			<a href="#">Careers</a>
-		</div>
+		<button class="sell-btn">Sell My Car</button>
 
-		<div class="footer-col">
-			<h3>Services</h3>
-			<a href="#">Buy Car</a>
-			<a href="#">Sell Car</a>
-		</div>
 	</div>
 
-	<div class="footer-bottom">© 2026 AutoSphere</div>
-</div>
+	<!-- BENEFITS -->
 
-<script>
-let scroll = 0;
-const slider = document.getElementById("slider");
-const imageWidth = 315;
-const images = slider.querySelectorAll("img");
-const totalImages = images.length;
+	<div class="section">
 
-function slideLeft() {
-	scroll += imageWidth;
-	if (scroll > 0) scroll = -(imageWidth * (totalImages - 1));
-	slider.style.transform = "translateX(" + scroll + "px)";
-}
+		<h2>AutoSphere Assured Benefits</h2>
 
-function slideRight() {
-	scroll -= imageWidth;
-	if (Math.abs(scroll) >= imageWidth * totalImages) scroll = 0;
-	slider.style.transform = "translateX(" + scroll + "px)";
-}
+		<div class="cards">
 
-setInterval(() => slideRight(), 3000);
-</script>
+			<div class="card">
+				<img
+					src="https://tse2.mm.bing.net/th/id/OIP.Dt_cmV3c7iAiI9hH3a_-oQHaHa">
+				<p>✔ 200+ Quality Checks</p>
+			</div>
+
+			<div class="card">
+				<img
+					src="https://tse2.mm.bing.net/th/id/OIP.dLwwkw6ARI0Jm1Y6LMvgXwHaFL">
+				<p>✔ 7 Days Trial</p>
+			</div>
+
+			<div class="card">
+				<img
+					src="https://tse4.mm.bing.net/th/id/OIP.2-oHKJ06_H3EnJgGQQKTiQHaE8">
+				<p>✔ 1 Year Warranty</p>
+			</div>
+
+			<div class="card">
+				<img
+					src="https://tse3.mm.bing.net/th/id/OIP.ApW2_1cwNgxi_flgt4ZQngHaEl">
+				<p>✔ Fixed Price</p>
+			</div>
+
+		</div>
+	</div>
+
+	<!-- HOW AUTOSPHERE WORKS -->
+
+	<div class="how-section">
+
+		<h2>How AutoSphere Works</h2>
+
+		<div class="how-cards">
+
+			<div class="how-card">
+				<img src="https://cdn-icons-png.flaticon.com/512/854/854878.png">
+				<h3>Choose your car</h3>
+			</div>
+
+			<div class="how-card">
+				<img
+					src="https://tse3.mm.bing.net/th/id/OIP.3I6DIZqr146CnNMUkrljrQHaE8">
+				<h3>Book test drive</h3>
+			</div>
+
+			<div class="how-card">
+				<img
+					src="https://tse2.mm.bing.net/th/id/OIP.TinBeamEG8ni7EGH1fS6NAHaHa">
+				<h3>Online payment</h3>
+			</div>
+
+		</div>
+
+
+		<div class="watch-area">
+
+			<button class="watch-btn">
+				Watch how it works <span class="play-icon">▶️</span>
+			</button>
+
+			<p class="learn-more">Learn more</p>
+
+		</div>
+
+	</div>
+
+	<!-- BRANDS -->
+
+	<div class="brand-section" id="brands">
+
+		<h2>Explore Popular Brands</h2>
+
+		<div class="brand-grid">
+
+			<c:forEach var="brd" items="${brand}">
+				<div class="brand-card">
+					<h3>${brd.brandName}</h3>
+					<img src="${brd.logoUrl}">
+				</div>
+			</c:forEach>
+
+		</div>
+
+	</div>
+
+	<!-- FOOTER -->
+
+	<div class="footer">
+
+		<div class="footer-container">
+
+			<div class="footer-col">
+				<h3>AutoSphere</h3>
+				<p>AutoSphere is the easiest way to buy and sell used cars
+					online.</p>
+			</div>
+
+			<div class="footer-col">
+				<h3>Company</h3>
+				<a href="#">About</a> <a href="CareersPage">Careers</a> <a href="CustomerBlog">Blog</a>
+				<a href="ContactPage">Contact</a>
+			</div>
+
+			<div class="footer-col">
+				<h3>Services</h3>
+				<a href="#">Buy Car</a> <a href="#">Sell Car</a> <a href="#">Car
+					Loan</a> <a href="#">Insurance</a>
+			</div>
+
+			<div class="footer-col">
+				<h3>Support</h3>
+				<a href="#">FAQ</a> <a href="#">Terms</a> <a href="#">Privacy</a>
+			</div>
+
+		</div>
+
+		<div class="footer-bottom">©️ 2026 AutoSphere | MCA Sem 4 Project
+		</div>
+
+	</div>
+
+	<script>
+		let scroll = 0;
+		const slider = document.getElementById("slider");
+		const imageWidth = 315;
+
+		const images = slider.querySelectorAll("img");
+		const totalImages = images.length;
+
+		function slideLeft() {
+
+			scroll += imageWidth;
+
+			if (scroll > 0) {
+				scroll = -(imageWidth * (totalImages - 1));
+			}
+
+			slider.style.transform = "translateX(" + scroll + "px)";
+		}
+
+		function slideRight() {
+
+			scroll -= imageWidth;
+
+			if (Math.abs(scroll) >= imageWidth * totalImages) {
+				scroll = 0;
+			}
+
+			slider.style.transform = "translateX(" + scroll + "px)";
+		}
+
+		setInterval(function() {
+			slideRight();
+		}, 3000);
+		
+		
+		
+		let cars = ["Thar","Scorpio","Bolero","XUV300","XUV500","XUV700","Swift","Swift Dzire","Baleno","Brezza","Ertiga","Alto","WagonR","Celerio","Ignis","S-Presso","BMW","Audi","Mercedes","Fortuner","Innova","Innova Crysta","Innova Hycross","Honda City","Amaze","Civic","CR-V","Verna","Creta","Venue","i10","i20","Kia Seltos","Kia Sonet","Kia Carens","MG Hector","MG Astor","Tata Nexon","Tata Punch","Tata Harrier","Tata Safari","Tata Tiago","Tata Tigor","Skoda Slavia","Skoda Kushaq","Volkswagen Polo","Virtus","Jeep Compass","Range Rover","Land Rover","Jaguar","Mini Cooper"];
+		let cities = ["Ahmedabad","Surat","Rajkot","Vadodara","Gandhinagar","Bhavnagar","Jamnagar","Junagadh","Anand","Navsari","Mehsana","Morbi","Surendranagar","Porbandar","Palanpur","Valsad","Bharuch","Godhra","Patan","Dahod","Bhuj","Veraval","Amreli","Gondal","Kalol","Nadiad","Mumbai","Delhi","Bengaluru","Chennai","Kolkata","Hyderabad","Pune","Jaipur","Lucknow","Kanpur","Nagpur","Indore","Bhopal","Patna","Chandigarh","Coimbatore","Kochi","Visakhapatnam","Agra","Varanasi","Madurai","Nashik","Vadodara","Faridabad","Ghaziabad","Noida"];
+
+		function showCarSuggestions() {
+		    let input = document.getElementById("searchInput").value.toLowerCase();
+		    let box = document.getElementById("suggestionBox");
+		    box.innerHTML = "";
+
+		    if (input === "") {
+		        box.style.display = "none";
+		        return;
+		    }
+
+		    let matches = cars.filter(c => c.toLowerCase().includes(input));
+
+		    matches.forEach(car => {
+		        let div = document.createElement("div");
+		        div.className = "suggestion-item";
+		        div.innerText = car;
+
+		        div.onclick = () => {
+		            document.getElementById("searchInput").value = car;
+		            box.style.display = "none";
+		        };
+
+		        box.appendChild(div);
+		    });
+
+		    box.style.display = matches.length ? "block" : "none";
+		}
+
+		function showCitySuggestions() {
+		    let input = document.getElementById("cityInput").value.toLowerCase();
+		    let box = document.getElementById("citySuggestionBox");
+		    box.innerHTML = "";
+
+		    if (input === "") {
+		        box.style.display = "none";
+		        return;
+		    }
+
+		    let matches = cities.filter(c => c.toLowerCase().includes(input));
+
+		    matches.forEach(city => {
+		        let div = document.createElement("div");
+		        div.className = "suggestion-item";
+		        div.innerText = city;
+
+		        div.onclick = () => {
+		            document.getElementById("cityInput").value = city;
+		            box.style.display = "none";
+		        };
+
+		        box.appendChild(div);
+		    });
+
+		    box.style.display = matches.length ? "block" : "none";
+		}
+		
+		
+		
+		
+		document.addEventListener("click", function(event) {
+
+		    let cityBox = document.getElementById("citySuggestionBox");
+		    let cityInput = document.getElementById("cityInput");
+
+		    let carBox = document.getElementById("suggestionBox");
+		    let carInput = document.getElementById("searchInput");
+
+		    // 🔹 City
+		    if (!cityInput.contains(event.target) && !cityBox.contains(event.target)) {
+		        cityBox.style.display = "none";
+		        cityInput.value = ""; // 🔥 clear text
+		    }
+
+		    // 🔹 Car
+		    if (!carInput.contains(event.target) && !carBox.contains(event.target)) {
+		        carBox.style.display = "none";
+		        carInput.value = ""; // 🔥 clear text
+		    }
+
+		});
+		
+	</script>
 
 </body>
 </html>

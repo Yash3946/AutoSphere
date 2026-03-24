@@ -108,5 +108,20 @@ public class SpinnyController {
 
 		return "Customer/bookingSuccess";
 	}
+	
+	 @GetMapping("/CareersPage")
+	    public String careersPage() {
+	        return "Customer/CareersPage"; // JSP name
+	    }
 
+	 @GetMapping("/ContactPage")
+	    public String contactPage() {
+	        return "Customer/ContactPage"; // JSP name
+	    }
+	 
+
+	 @GetMapping("/CustomerBlog")
+	    public String blogPage() {
+	        return "Customer/CustomerBlog"; // JSP name
+	    }
 }
