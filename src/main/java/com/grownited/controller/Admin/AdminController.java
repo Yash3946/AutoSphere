@@ -13,36 +13,43 @@ import com.grownited.repository.UserRepository;
 @Controller
 public class AdminController {
 
-	@Autowired
-	UserRepository userRepository;
-	
-	@Autowired
-	CarListingRepository carListingRepository;
-	
-	@Autowired
-	TransactionRepository transactionRepository;
-	
-	@Autowired
-	OfferRepository offerRepository;
-	
-	@GetMapping(value = {"admin-dashboard","/"})
-	public String adminDashboard(Model model) {
+    @Autowired
+    UserRepository userRepository;
 
-	    Long totalUser = userRepository.count();
-	    Long totalAvailable = carListingRepository.countByStatus("AVAILABLE");
-	    Long totalTransaction = transactionRepository.countByTransactionStatus("COMPLETED");
+    @Autowired
+    CarListingRepository carListingRepository;
 
-	    Double totalRevenue = transactionRepository.getTotalRevenue();
+    @Autowired
+    TransactionRepository transactionRepository;
 
-	    if(totalRevenue == null){
-	        totalRevenue = 0.0;
-	    }
+    @Autowired
+    OfferRepository offerRepository;
 
-	    model.addAttribute("totalUser", totalUser);
-	    model.addAttribute("totalAvailable", totalAvailable);
-	    model.addAttribute("totalTransaction", totalTransaction);
-	    model.addAttribute("totalRevenue", totalRevenue);
+    @GetMapping(value = {"admin-dashboard","/"})
+    public String adminDashboard(Model model) {
 
-	    return "Admin/AdminDashboard";
-	}
+        // ✅ TOTAL USERS
+        Long totalUser = userRepository.count();
+
+        // 🔥 LISTED CARS (IMPORTANT FIX)
+        // Agar DB me "Available" hai to same case use karo
+        Long totalAvailable = carListingRepository.countByStatus("Available");
+
+        // ✅ BOOKINGS (TRANSACTIONS)
+        Long totalTransaction = transactionRepository.countByTransactionStatus("COMPLETED");
+
+        // ✅ REVENUE
+        Double totalRevenue = transactionRepository.getTotalRevenue();
+        if (totalRevenue == null) {
+            totalRevenue = 0.0;
+        }
+
+        // 🔥 SEND DATA TO JSP
+        model.addAttribute("totalUser", totalUser);
+        model.addAttribute("totalAvailable", totalAvailable);
+        model.addAttribute("totalTransaction", totalTransaction);
+        model.addAttribute("totalRevenue", totalRevenue);
+
+        return "Admin/AdminDashboard";
+    }
 }
