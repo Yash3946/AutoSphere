@@ -22,6 +22,7 @@ body {
 .car-card {
 	border-radius: 15px;
 	transition: 0.3s;
+	overflow: hidden;
 }
 
 .car-card:hover {
@@ -39,70 +40,89 @@ body {
 	font-weight: bold;
 	color: #198754;
 }
+
+/* 🔥 IMAGE STYLE */
+.car-img {
+	width: 100%;
+	height: 200px;
+	object-fit: cover;
+}
 </style>
 
 </head>
 
 <body>
-	<jsp:include page="CustomerHeader.jsp" />
-	<div class="container mt-5">
 
-		<div class="d-flex justify-content-between align-items-center mb-4">
+<jsp:include page="CustomerHeader.jsp" />
 
-			<h3>
-				<i class="bi bi-heart-fill text-danger"></i> My Wishlist
-			</h3>
+<div class="container mt-5">
 
-			<a href="CustomerCarList" class="btn btn-dark btn-sm"> <i
-				class="bi bi-arrow-left"></i> Back
-			</a>
+	<div class="d-flex justify-content-between align-items-center mb-4">
 
-		</div>
+		<h3>
+			<i class="bi bi-heart-fill text-danger"></i> My Wishlist
+		</h3>
 
-		<div class="row g-4">
+		<a href="CustomerCarList" class="btn btn-dark btn-sm">
+			<i class="bi bi-arrow-left"></i> Back
+		</a>
 
-			<c:forEach items="${wishlist}" var="w">
+	</div>
 
-				<div class="col-md-4">
+	<div class="row g-4">
 
-					<div class="card car-card shadow-sm">
+		<c:forEach items="${wishlist}" var="w">
 
-						<div class="card-body">
+			<div class="col-md-4">
 
-							<h5 class="car-title">
+				<div class="card car-card shadow-sm">
 
-								${w.carListing.brandName} ${w.carListing.modelName} <span
-									class="text-muted">(${w.carListing.year})</span>
+					<!-- 🔥 CAR IMAGE -->
+					<c:choose>
 
-							</h5>
+						<c:when test="${not empty w.carListing.imageUrl}">
+							<img src="${w.carListing.imageUrl}" class="car-img">
+						</c:when>
 
-							<p class="text-muted mb-2">
+						<c:otherwise>
+							<img src="https://cdn-icons-png.flaticon.com/512/743/743131.png"
+								class="car-img">
+						</c:otherwise>
 
-								<i class="bi bi-geo-alt"></i> ${w.carListing.city}
+					</c:choose>
 
-							</p>
+					<div class="card-body">
 
-							<p class="mb-1">
+						<h5 class="car-title">
+							${w.carListing.brandName} ${w.carListing.modelName}
+							<span class="text-muted">(${w.carListing.year})</span>
+						</h5>
 
-								<b>KMS:</b> ${w.carListing.kmsDriven} KM
+						<p class="text-muted mb-2">
+							<i class="bi bi-geo-alt"></i> ${w.carListing.city}
+						</p>
 
-							</p>
+						<p class="mb-1">
+							<b>KMS:</b> ${w.carListing.kmsDriven} KM
+						</p>
 
-							<p class="price">₹ ${w.carListing.price}</p>
+						<p class="mb-1">
+							<b>Ownership:</b> ${w.carListing.ownership}
+						</p>
 
-							<div class="mt-3">
+						<p class="price">₹ ${w.carListing.price}</p>
 
-								<a href="removeWishlist?wishlistId=${w.wishlistId}"
-									class="btn btn-danger btn-sm me-2"> <i class="bi bi-trash"></i>
-									Remove
+						<div class="mt-3">
 
-								</a> <a href="buyNow?listingId=${w.carListing.listingId}"
-									class="btn btn-success btn-sm"> <i class="bi bi-cart"></i>
-									Buy
+							<a href="removeWishlist?wishlistId=${w.wishlistId}"
+								class="btn btn-danger btn-sm me-2">
+								<i class="bi bi-trash"></i> Remove
+							</a>
 
-								</a>
-
-							</div>
+							<a href="buyNow?listingId=${w.carListing.listingId}"
+								class="btn btn-success btn-sm">
+								<i class="bi bi-cart"></i> Buy
+							</a>
 
 						</div>
 
@@ -110,26 +130,27 @@ body {
 
 				</div>
 
-			</c:forEach>
+			</div>
 
-			<c:if test="${empty wishlist}">
+		</c:forEach>
 
-				<div class="col-12 text-center">
+		<c:if test="${empty wishlist}">
 
-					<div class="alert alert-warning">
+			<div class="col-12 text-center">
 
-						<i class="bi bi-exclamation-circle"></i> No cars in wishlist
-
-					</div>
-
+				<div class="alert alert-warning">
+					<i class="bi bi-exclamation-circle"></i> No cars in wishlist
 				</div>
 
-			</c:if>
+			</div>
 
-		</div>
+		</c:if>
 
 	</div>
-<jsp:include page="CustomerFooter.jsp"></jsp:include>
-</body>
 
+</div>
+
+<jsp:include page="CustomerFooter.jsp"></jsp:include>
+
+</body>
 </html>

@@ -51,9 +51,11 @@ public class SpinnyController {
 
 	@GetMapping("/customer-dashboard")
 	public String spinny(Model model) {
+		 List<CarListingEntity> customerCarList = carListingRepository.findAll();
 		List<CarImageEntity> image = carImageRepository.findAll();
 		List<CarBrandEntity> brand = carBrandRepository.findAll();
-
+		
+		 model.addAttribute("customerCarList", customerCarList);
 		model.addAttribute("image", image);
 		model.addAttribute("brand", brand);
 		return "Customer/spinny";
@@ -83,22 +85,28 @@ public class SpinnyController {
 
 	// ⭐ BUY NOW PAGE
 	@GetMapping("/buyNow")
-	public String buyNow(@RequestParam("listingId") Integer listingId, Model model, HttpSession session) {
+	public String buyNow(@RequestParam("listingId") Integer listingId,
+	                     Model model,
+	                     HttpSession session) {
 
-		// Check if user is logged in
-		if (session.getAttribute("user") == null) {
-			return "redirect:/login"; // redirect to login if user not in session
-		}
+	    // 🔒 Check if user logged in
+	    if (session.getAttribute("user") == null) {
+	        return "redirect:/login";
+	    }
 
-		// Get car listing
-		Optional<CarListingEntity> op = carListingRepository.findById(listingId);
-		if (op.isPresent()) {
-			model.addAttribute("carListing", op.get());
-		} else {
-			return "redirect:/CustomerCarList"; // fallback if car not found
-		}
+	    // 🚗 Fetch car by ID
+	    CarListingEntity car = carListingRepository.findById(listingId).orElse(null);
 
-		return "Customer/buyNow";
+	    // ❌ If car not found
+	    if (car == null) {
+	        return "redirect:/CustomerCarList";
+	    }
+
+	    // 📦 Send to JSP
+	    model.addAttribute("carListing", car);
+
+	    // 📄 Open JSP (IMPORTANT: path correct rakho)
+	    return "Customer/buyNow";   // <-- agar tumhari JSP folder me hai
 	}
 
 	@PostMapping("/confirmBooking")

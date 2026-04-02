@@ -169,4 +169,26 @@ public class CarListingController {
         return "redirect:/allCarList";
     }
     
+    @GetMapping("/cars-by-brand")
+    public String getCarsByBrand(@RequestParam("brand") String brand, Model model) {
+
+        List<CarListingEntity> cars = carListingRepository.findByBrandNameIgnoreCase(brand);
+
+        model.addAttribute("cars", cars);
+        model.addAttribute("brand", brand);
+
+        return "Customer/carByBrand";
+    }
+    
+    
+    @GetMapping("/car-details")
+    public String carDetails(@RequestParam("id") Integer id, Model model) {
+
+        CarListingEntity car = carListingRepository.findById(id).orElse(null);
+
+        model.addAttribute("car", car);
+
+        return "Customer/CustomerViewCarListing"; // JSP name
+    }
+    
 }

@@ -67,7 +67,7 @@
 
 		<div class="footer-col">
 			<h3>Company</h3>
-			<a href="#">About Us</a> <a href="#">Careers</a> <a href="#">Contact</a>
+			<a href="#">About Us</a> <a href="CareersPage">Careers</a> <a href="ContactPage">Contact</a>
 		</div>
 
 		<div class="footer-col">

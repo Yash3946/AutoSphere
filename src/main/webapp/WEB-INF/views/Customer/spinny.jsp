@@ -154,23 +154,28 @@ body {
 	margin-top: 25px;
 	flex-wrap: wrap;
 }
+.card-link {
+    text-decoration: none;
+    color: inherit;
+}
 
 .card {
-	width: 200px;
-	margin: 10px;
-	padding: 15px;
-	background: #fafafa;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-	border-radius: 10px;
+    width: 300px;
+    margin-right: 15px;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: scale(1.05);
 }
 
 .card img {
-	width: 100%;
-	height: 120px;
-	object-fit: cover;
-	border-radius: 8px;
+    width: 100%;
+    height: 200px;
 }
-
 /* HOW WORKS */
 .how-section {
 	background: #f2f2f2;
@@ -398,6 +403,130 @@ body {
 .suggestion-item:hover {
     background: #f3e5f5;
 }
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.card {
+    cursor: pointer;
+}
+
+
+
+/* RECENTLY VIEWED */
+
+.recent-section {
+    padding: 50px 40px;
+    background: #ffffff;
+}
+
+.recent-section h2 {
+    color: #4a148c;
+    margin-bottom: 25px;
+}
+
+.recent-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding-bottom: 10px;
+}
+
+.recent-card {
+    min-width: 260px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    overflow: hidden;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.recent-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(106, 27, 154, 0.3);
+}
+
+.recent-card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+}
+
+.recent-info {
+    padding: 12px;
+}
+
+.car-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.car-details {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.price {
+    font-weight: bold;
+    color: #4a148c;
+}
+
+.emi {
+    font-size: 12px;
+    color: #888;
+}
+
+.brand-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 🔥 always 5 boxes */
+    gap: 25px;
+    justify-items: center;
+}
+
+.brand-card {
+    width: 160px;   /* thodu adjust karo */
+    height: 160px;
+    background: #f8f8f8;
+    border-radius: 18px;
+    padding: 15px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.brand-card img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+.brand-card:hover {
+    transform: translateY(-5px);
+}
+
+.brand-card h3 {
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+}
+
+
 </style>
 </head>
 
@@ -451,11 +580,28 @@ body {
 
 			<div class="slider" id="slider">
 
-				<c:forEach var="img" items="${image}">
-					<img src="${img.imageURL}">
-				</c:forEach>
+    <c:forEach var="car" items="${customerCarList}">
+        
+        <a href="customerViewCarListing?listingId=${car.listingId}" class="card-link">
+            
+            <div class="card">
 
-			</div>
+                <img src="${car.imageUrl}" alt="car">
+
+                <div style="padding:10px;">
+                    <h5>${car.brandName} ${car.modelName}</h5>
+                    <p style="color:#4a148c; font-weight:bold;">
+                        ₹ ${car.price}
+                    </p>
+                </div>
+
+            </div>
+
+        </a>
+
+    </c:forEach>
+
+</div>
 
 			<button class="arrow right" onclick="slideRight()">❯</button>
 
@@ -469,36 +615,45 @@ body {
 
 	<div class="section">
 
-		<h2>AutoSphere Assured Benefits</h2>
+    <h2>AutoSphere Assured Benefits</h2>
 
-		<div class="cards">
+    <div class="cards">
 
-			<div class="card">
-				<img
-					src="https://tse2.mm.bing.net/th/id/OIP.Dt_cmV3c7iAiI9hH3a_-oQHaHa">
-				<p>✔ 200+ Quality Checks</p>
-			</div>
+        <!-- Quality Checks -->
+        <a href="quality-check" class="card-link">
+            <div class="card">
+                <img src="https://tse2.mm.bing.net/th/id/OIP.Dt_cmV3c7iAiI9hH3a_-oQHaHa">
+                <p>✔ 200+ Quality Checks</p>
+            </div>
+        </a>
 
-			<div class="card">
-				<img
-					src="https://tse2.mm.bing.net/th/id/OIP.dLwwkw6ARI0Jm1Y6LMvgXwHaFL">
-				<p>✔ 7 Days Trial</p>
-			</div>
+        <!-- Trial -->
+        <a href="trial" class="card-link">
+            <div class="card">
+                <img src="https://tse2.mm.bing.net/th/id/OIP.dLwwkw6ARI0Jm1Y6LMvgXwHaFL">
+                <p>✔ 7 Days Trial</p>
+            </div>
+        </a>
 
-			<div class="card">
-				<img
-					src="https://tse4.mm.bing.net/th/id/OIP.2-oHKJ06_H3EnJgGQQKTiQHaE8">
-				<p>✔ 1 Year Warranty</p>
-			</div>
+        <!-- Warranty -->
+        <a href="warranty" class="card-link">
+            <div class="card">
+                <img src="https://tse4.mm.bing.net/th/id/OIP.2-oHKJ06_H3EnJgGQQKTiQHaE8">
+                <p>✔ 1 Year Warranty</p>
+            </div>
+        </a>
 
-			<div class="card">
-				<img
-					src="https://tse3.mm.bing.net/th/id/OIP.ApW2_1cwNgxi_flgt4ZQngHaEl">
-				<p>✔ Fixed Price</p>
-			</div>
+        <!-- Fixed Price -->
+        <a href="fixed-price" class="card-link">
+            <div class="card">
+                <img src="https://tse3.mm.bing.net/th/id/OIP.ApW2_1cwNgxi_flgt4ZQngHaEl">
+                <p>✔ Fixed Price</p>
+            </div>
+        </a>
 
-		</div>
-	</div>
+    </div>
+</div>
+	
 
 	<!-- HOW AUTOSPHERE WORKS -->
 
@@ -539,25 +694,66 @@ body {
 		</div>
 
 	</div>
+	
+	<!-- RECENTLY VIEWED CARS -->
+
+<div class="recent-section">
+
+   
+
+    <div class="recent-container">
+
+        <c:forEach var="car" items="${recentCars}">
+            <div class="recent-card">
+
+                <img src="${car.imageUrl}" alt="car">
+
+                <div class="recent-info">
+                    <p class="car-name">${car.name}</p>
+                    <p class="car-details">
+                        ${car.km} km • ${car.fuel} • ${car.transmission}
+                    </p>
+
+                    <div class="price-row">
+                        <span class="price">₹${car.price} Lakh</span>
+                        <span class="emi">EMI from ₹${car.emi}/m</span>
+                    </div>
+                </div>
+
+            </div>
+        </c:forEach>
+
+    </div>
+
+</div>
+	
 
 	<!-- BRANDS -->
 
 	<div class="brand-section" id="brands">
 
-		<h2>Explore Popular Brands</h2>
+    <h2>Explore Popular Brands</h2>
 
-		<div class="brand-grid">
+    <div class="brand-grid">
 
-			<c:forEach var="brd" items="${brand}">
-				<div class="brand-card">
-					<h3>${brd.brandName}</h3>
-					<img src="${brd.logoUrl}">
-				</div>
-			</c:forEach>
+        <c:forEach var="brd" items="${brand}">
+            
+            <c:url value="/cars-by-brand" var="brandUrl">
+                <c:param name="brand" value="${brd.brandName}" />
+            </c:url>
 
-		</div>
+            <a href="${brandUrl}" style="text-decoration: none; color: inherit;">
+                <div class="brand-card">
+                    <h3>${brd.brandName}</h3>
+                    <img src="${brd.logoUrl}">
+                </div>
+            </a>
 
-	</div>
+        </c:forEach>
+
+    </div>
+
+</div>
 
 	<!-- FOOTER -->
 
