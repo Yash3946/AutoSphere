@@ -697,9 +697,20 @@ body {
 			</div>
 		</div>
 		<div class="watch-area">
-			<button class="watch-btn">
-				Watch how it works <span class="play-icon">&#9654;</span>
-			</button>
+			<button onclick="showVideo()" class="watch-btn">Watch how it
+				works ▶️</button>
+				<div id="videoContainer"
+				style="display: none; text-align: center; margin-top: 30px; position: relative;">
+
+				<!-- ❌ Close Button -->
+				<span onclick="closeVideo()"
+					style="position: absolute; right: 50px; top: -10px; font-size: 30px; cursor: pointer;">
+					✖ </span>
+
+				<iframe width="1000" height="550" src="" frameborder="0"
+					allow="autoplay" allowfullscreen> </iframe>
+
+			</div>
 			<p class="learn-more">Learn more</p>
 		</div>
 	</div>
@@ -1064,6 +1075,21 @@ function filterCars(type, btn) {
     });
 
     btn.classList.add("active");
+}
+function showVideo() {
+    const container = document.getElementById("videoContainer");
+    const iframe = container.querySelector("iframe");
+
+    container.style.display = "block";
+    iframe.src = "https://www.youtube.com/embed/COl7h8BEUZA?autoplay=1";
+}
+
+function closeVideo() {
+    const container = document.getElementById("videoContainer");
+    const iframe = container.querySelector("iframe");
+
+    container.style.display = "none";
+    iframe.src = ""; // video stop
 }
 </script>
 

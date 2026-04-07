@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cloudinary.Cloudinary;
+import com.grownited.entity.CarBrandEntity;
 import com.grownited.entity.CarListingEntity;
+import com.grownited.entity.CarModelTypeEntity;
+import com.grownited.entity.CarVariantEntity;
 import com.grownited.repository.*;
 
 @Controller
@@ -53,24 +56,54 @@ public class CarListingController {
                              @RequestParam("imageFile") MultipartFile file) {
 
         try {
-            if (!file.isEmpty()) {
-                Map uploadResult = cloudinary.uploader().upload(file.getBytes(), null);
-                String imageUrl = uploadResult.get("secure_url").toString();
-                carListingEntity.setImageUrl(imageUrl);
-            }
+            Map uploadResult = cloudinary.uploader().upload(file.getBytes(), null);
+            String imageUrl = uploadResult.get("secure_url").toString();
+            carListingEntity.setImageUrl(imageUrl);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        // 🔥 SET MODEL + BODY TYPE FROM MODEL TABLE
-        carModelTypeRepository.findById(carListingEntity.getModelId())
-            .ifPresent(m -> {
-                carListingEntity.setModelName(m.getModelName());
-                carListingEntity.setBodyType(m.getBodyType());   // ✅ FIX
-            });
+        // 🔥 IMPORTANT: First get the model to fetch body_type
+        if (carListingEntity.getModelId() != null) {
+            Optional<CarModelTypeEntity> modelOpt = carModelTypeRepository.findById(carListingEntity.getModelId());
+            if (modelOpt.isPresent()) {
+                CarModelTypeEntity model = modelOpt.get();
+                carListingEntity.setModelName(model.getModelName());
+                
+                // 🔥 CRITICAL: Set body_type from CarModelType
+                if (model.getBodyType() != null && !model.getBodyType().isEmpty()) {
+                    carListingEntity.setBodyType(model.getBodyType());
+                    System.out.println("Body type set from model: " + model.getBodyType());
+                } else {
+                    // Default fallback
+                    carListingEntity.setBodyType("SUV");
+                    System.out.println("Model had no body type, set default: SUV");
+                }
+            }
+        }
+
+        // Set brand name
+        if (carListingEntity.getBrandId() != null) {
+            Optional<CarBrandEntity> brandOpt = carBrandRepository.findById(carListingEntity.getBrandId());
+            if (brandOpt.isPresent()) {
+                carListingEntity.setBrandName(brandOpt.get().getBrandName());
+            }
+        }
+
+        // Set variant name
+        if (carListingEntity.getVariantId() != null) {
+            Optional<CarVariantEntity> variantOpt = carVariantRepository.findById(carListingEntity.getVariantId());
+            if (variantOpt.isPresent()) {
+                carListingEntity.setVariantName(variantOpt.get().getVariantName());
+            }
+        }
+
+        // Final fallback - if still null
+        if (carListingEntity.getBodyType() == null || carListingEntity.getBodyType().isEmpty()) {
+            carListingEntity.setBodyType("SUV");
+        }
 
         carListingRepository.save(carListingEntity);
-
         return "redirect:/allCarList";
     }
 
