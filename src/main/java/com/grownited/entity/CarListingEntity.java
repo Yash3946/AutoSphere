@@ -60,12 +60,23 @@ public class CarListingEntity {
 
     @Column(name="image_url")
     private String imageUrl;
+    
+    @Column(name = "body_type")
+    private String bodyType;
 
     // ======================
     // GETTERS & SETTERS
     // ======================
 
-    public Integer getListingId() {
+    public String getBodyType() {
+		return bodyType;
+	}
+
+	public void setBodyType(String bodyType) {
+		this.bodyType = bodyType;
+	}
+
+	public Integer getListingId() {
         return listingId;
     }
 

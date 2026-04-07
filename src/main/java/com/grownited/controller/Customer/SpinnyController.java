@@ -82,6 +82,18 @@ public class SpinnyController {
 
 		return "Customer/CustomerViewCarListing";
 	}
+	
+	@GetMapping("/customerViewCarListing1")
+	public String customerViewCarListing1(Integer listingId, Model model) {
+
+		Optional<CarListingEntity> op = carListingRepository.findById(listingId);
+
+		if (op.isPresent()) {
+			model.addAttribute("carListing", op.get());
+		}
+
+		return "Customer/CustomerViewCarListing1";
+	}
 
 	// ⭐ BUY NOW PAGE
 	@GetMapping("/buyNow")

@@ -69,7 +69,7 @@ body{
 <i class="bi bi-car-front"></i> Car Details
 </h4>
 
-<a href="CustomerCarList" class="btn btn-light btn-sm">
+<a href="customer-dashboard" class="btn btn-light btn-sm">
 <i class="bi bi-arrow-left"></i> Back
 </a>
 
