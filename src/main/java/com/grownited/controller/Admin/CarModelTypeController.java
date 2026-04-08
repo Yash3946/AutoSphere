@@ -61,9 +61,6 @@ public class CarModelTypeController {
 		    }
 
 		    return "Admin/ViewCarModel";
-		}
-
-		
-		
+		}	
 		
 }

@@ -1,48 +1,31 @@
-<%@ page contentType="text/html;charset=UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<!DOCTYPE html>
 <html>
 <head>
-<title>Car Transaction Details</title>
+<meta charset="UTF-8">
+<title>View Transaction</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet"
-href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-
-<style>
-.big-card {
-    max-width: 850px;
-    width: 100%;
-    margin: auto;
-    border-radius: 16px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-}
-
-.big-card .card-header {
-    padding: 15px 25px;
-    font-size: 20px;
-    font-weight: 600;
-}
-
-.big-card .card-body {
-    padding: 25px 30px;
-}
-
-.big-card .card-body p {
-    margin-bottom: 12px;
-    font-size: 16px;
-}
-
-.big-card .card-footer {
-    padding: 15px 25px;
-}
-
-.action-btns a {
-    margin-left: 8px;
-}
-</style>
 
 <jsp:include page="AdminCSS.jsp"/>
+
+<style>
+body{
+    background:#F4F6F9;
+    font-family:'Segoe UI', sans-serif;
+}
+
+.content{
+    margin-left:260px;
+    padding:30px;
+}
+
+.card{
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+</style>
 
 </head>
 
@@ -51,61 +34,71 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.c
 <jsp:include page="AdminHeader.jsp"/>
 <jsp:include page="AdminSidebar.jsp"/>
 
-<div style="margin-left:260px; margin-top:90px;"
-     class="container d-flex justify-content-center">
+<div class="content">
 
-    <div class="card big-card">
+<div class="card p-4">
 
-        <div class="card-header bg-dark text-white">
-            Car Transaction Details
-        </div>
+<h4 class="mb-4 text-center fw-bold">Transaction Details</h4>
 
-        <div class="card-body">
+<table class="table table-bordered">
 
-            <p><b>Transaction ID:</b> ${carTransaction.transactionId}</p>
-            <p><b>Listing ID:</b> ${carTransaction.listingId}</p>
-            <p><b>User ID:</b> ${carTransaction.userId}</p>
-            <p><b>Final Price:</b> ₹ ${carTransaction.finalPrice}</p>
+<tr>
+    <th>ID</th>
+    <td>${carTransaction.transactionId}</td>
+</tr>
 
-            <p><b>Payment Mode:</b> ${carTransaction.paymentMode}</p>
+<tr>
+    <th>Car</th>
+    <td>${carTransaction.listing.modelName}</td>
+</tr>
 
-            <p><b>Status:</b>
-                <span class="badge 
-                    ${carTransaction.transactionStatus == 'FAILED' ? 'bg-danger' : 
-                      carTransaction.transactionStatus == 'SUCCESS' ? 'bg-success' : 'bg-warning'}">
-                    ${carTransaction.transactionStatus}
-                </span>
-            </p>
+<tr>
+    <th>Buyer</th>
+    <td>
+        ${carTransaction.buyer.firstName}
+        ${carTransaction.buyer.lastName}
+    </td>
+</tr>
 
-            <p><b>Completed At:</b> ${carTransaction.completedAt}</p>
+<tr>
+    <th>Seller</th>
+    <td>
+        ${carTransaction.seller.firstName}
+        ${carTransaction.seller.lastName}
+    </td>
+</tr>
 
-        </div>
+<tr>
+    <th>Final Price</th>
+    <td>₹ ${carTransaction.finalPrice}</td>
+</tr>
 
-        <div class="card-footer d-flex justify-content-end action-btns">
+<tr>
+    <th>Payment Mode</th>
+    <td>${carTransaction.paymentMode}</td>
+</tr>
 
-            <!-- BACK -->
-            <a href="listCarTransaction" class="btn btn-secondary">
-                <i class="bi bi-arrow-left"></i> Back
-            </a>
+<tr>
+    <th>Status</th>
+    <td>${carTransaction.transactionStatus}</td>
+</tr>
 
-            <!-- EDIT -->
-            <a href="editCarTransaction?transactionId=${carTransaction.transactionId}" 
-               class="btn btn-warning">
-                <i class="bi bi-pencil-square"></i> Edit
-            </a>
+<tr>
+    <th>Completed At</th>
+    <td>${carTransaction.completedAt}</td>
+</tr>
 
-            <!-- DELETE -->
-            <a href="deleteTransaction?transactionId=${carTransaction.transactionId}" 
-               class="btn btn-danger"
-               onclick="return confirm('Are you sure you want to delete this transaction?')">
-                <i class="bi bi-trash"></i> Delete
-            </a>
+</table>
 
-        </div>
-
-    </div>
+<div class="text-center mt-3">
+    <a href="listCarTransaction" class="btn btn-primary">Back</a>
+</div>
 
 </div>
+
+</div>
+
+<jsp:include page="AdminFooter.jsp"/>
 
 </body>
 </html>

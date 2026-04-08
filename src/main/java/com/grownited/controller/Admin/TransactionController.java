@@ -6,96 +6,106 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
-//import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.grownited.entity.CarListingEntity;
-//import com.grownited.entity.CarVariantEntity;
-import com.grownited.entity.TransactionsEntity;
+import com.grownited.entity.CarTransactionEntity;
 import com.grownited.entity.UserEntity;
 import com.grownited.repository.CarListingRepository;
-import com.grownited.repository.TransactionRepository;
+import com.grownited.repository.CarTransactionRepository;
 import com.grownited.repository.UserRepository;
-
 
 @Controller
 public class TransactionController {
-	
+
 	@Autowired
 	CarListingRepository carListingRepository;
-	
+
 	@Autowired
 	UserRepository userRepository;
-	
-	@Autowired
-	TransactionRepository transactionsRepository;
 
+	@Autowired
+	CarTransactionRepository carTransactionRepository;
+
+	// ================= FORM PAGE =================
 	@GetMapping("/carTransaction")
 	public String carTransaction(Model model) {
-		List<CarListingEntity> allCarList =  carListingRepository.findAll();
+
+		List<CarListingEntity> allCarList = carListingRepository.findAll();
 		List<UserEntity> allUsers = userRepository.findAll();
-		
-		model.addAttribute("allCarList",allCarList);
-		model.addAttribute("allUsers",allUsers);
+
+		model.addAttribute("allCarList", allCarList);
+		model.addAttribute("allUsers", allUsers);
+
 		return "Admin/CarTransaction";
 	}
-	
+
+	// ================= SAVE =================
 	@PostMapping("/saveCarTransaction")
-	public String saveCarTransaction(TransactionsEntity transactionsEntity) {
-		transactionsRepository.save(transactionsEntity);
-		return"Admin/AdminDashboard";
-				
+	public String saveCarTransaction(CarTransactionEntity transaction) {
+
+		carTransactionRepository.save(transaction);
+
+		return "redirect:/listCarTransaction";
 	}
-	
+
+	// ================= LIST =================
 	@GetMapping("/listCarTransaction")
 	public String listCarTransaction(Model model) {
-		
-	List<TransactionsEntity> allTransaction = transactionsRepository.findAll();
-	model.addAttribute("allTransaction",allTransaction);
-		return"Admin/ListCarTransaction";
+
+		List<CarTransactionEntity> allTransaction = carTransactionRepository.findAll();
+
+		model.addAttribute("allTransaction", allTransaction);
+
+		return "Admin/ListCarTransaction";
 	}
-	
+
+	// ================= DELETE =================
 	@GetMapping("/deleteTransaction")
 	public String deleteTransaction(Integer transactionId) {
-		transactionsRepository.deleteById(transactionId);
-		
-		return"redirect:/listCarTransaction";
+
+		carTransactionRepository.deleteById(transactionId);
+
+		return "redirect:/listCarTransaction";
 	}
-	
+
+	// ================= VIEW =================
 	@GetMapping("/viewCarTransaction")
 	public String viewCarTransaction(Integer transactionId, Model model) {
 
-	    Optional<TransactionsEntity> transaction = transactionsRepository.findById(transactionId);
+		Optional<CarTransactionEntity> transaction = carTransactionRepository.findById(transactionId);
 
-	    if (transaction.isEmpty()) {
-	        return "redirect:/listCarTransaction"; // safe fallback
-	    } else {
-	    	TransactionsEntity carTransaction = transaction.get();
-	        model.addAttribute("carTransaction", carTransaction);
-	    }
+		if (transaction.isPresent()) {
+			model.addAttribute("carTransaction", transaction.get());
+		} else {
+			return "redirect:/listCarTransaction";
+		}
 
-	    return "Admin/ViewCarTransaction";
+		return "Admin/ViewCarTransaction";
 	}
-	
+
+	// ================= EDIT =================
 	@GetMapping("/editCarTransaction")
 	public String editCarTransaction(Integer transactionId, Model model) {
 
-	    Optional<TransactionsEntity> transaction = transactionsRepository.findById(transactionId);
+		Optional<CarTransactionEntity> transaction = carTransactionRepository.findById(transactionId);
 
-	    if (transaction.isPresent()) {
-	        model.addAttribute("carTransaction", transaction.get());
-	    }
+		if (transaction.isPresent()) {
+			model.addAttribute("carTransaction", transaction.get());
+		}
 
-	    model.addAttribute("allCarList", carListingRepository.findAll());
-	    model.addAttribute("allUsers", userRepository.findAll());
+		model.addAttribute("allCarList", carListingRepository.findAll());
+		model.addAttribute("allUsers", userRepository.findAll());
 
-	    return "Admin/EditCarTransaction";
+		return "Admin/EditCarTransaction";
 	}
-	
+
+	// ================= UPDATE =================
 	@PostMapping("/updateCarTransaction")
-	public String updateCarTransaction(TransactionsEntity transactionsEntity) {
-	    transactionsRepository.save(transactionsEntity);
-	    return "redirect:/listCarTransaction";
+	public String updateCarTransaction(CarTransactionEntity transaction) {
+
+		carTransactionRepository.save(transaction);
+
+		return "redirect:/listCarTransaction";
 	}
 }

@@ -4,77 +4,96 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class CarTransactionEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer transactionId;
+	 @Id
+	    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	    private Integer transactionId;
 
-    private Integer buyerId;
-    private Integer sellerId;
+	    @ManyToOne
+	    @JoinColumn(name = "listing_id")
+	    private CarListingEntity listing;
 
-    private String carName;
-    private String variantName;
+	    @ManyToOne
+	    @JoinColumn(name = "buyer_id")
+	    private UserEntity buyer;
 
-    private Integer bookingAmount;
+	    @ManyToOne
+	    @JoinColumn(name = "seller_id")
+	    private UserEntity seller;
 
-    private String paymentMethod;
+	    private Double finalPrice;
+	    private String paymentMode;
+	    private String transactionStatus;
+	    private String completedAt;
 
-    public Integer getTransactionId() {
-        return transactionId;
-    }
+	    // GETTERS & SETTERS
 
-    public void setTransactionId(Integer transactionId) {
-        this.transactionId = transactionId;
-    }
+	    public Integer getTransactionId() {
+	        return transactionId;
+	    }
 
-    public Integer getBuyerId() {
-        return buyerId;
-    }
+	    public void setTransactionId(Integer transactionId) {
+	        this.transactionId = transactionId;
+	    }
 
-    public void setBuyerId(Integer buyerId) {
-        this.buyerId = buyerId;
-    }
+	    public CarListingEntity getListing() {
+	        return listing;
+	    }
 
-    public Integer getSellerId() {
-        return sellerId;
-    }
+	    public void setListing(CarListingEntity listing) {
+	        this.listing = listing;
+	    }
 
-    public void setSellerId(Integer sellerId) {
-        this.sellerId = sellerId;
-    }
+	    public UserEntity getBuyer() {
+	        return buyer;
+	    }
 
-    public String getCarName() {
-        return carName;
-    }
+	    public void setBuyer(UserEntity buyer) {
+	        this.buyer = buyer;
+	    }
 
-    public void setCarName(String carName) {
-        this.carName = carName;
-    }
+	    public UserEntity getSeller() {
+	        return seller;
+	    }
 
-    public String getVariantName() {
-        return variantName;
-    }
+	    public void setSeller(UserEntity seller) {
+	        this.seller = seller;
+	    }
 
-    public void setVariantName(String variantName) {
-        this.variantName = variantName;
-    }
+	    public Double getFinalPrice() {
+	        return finalPrice;
+	    }
 
-    public Integer getBookingAmount() {
-        return bookingAmount;
-    }
+	    public void setFinalPrice(Double finalPrice) {
+	        this.finalPrice = finalPrice;
+	    }
 
-    public void setBookingAmount(Integer bookingAmount) {
-        this.bookingAmount = bookingAmount;
-    }
+	    public String getPaymentMode() {
+	        return paymentMode;
+	    }
 
-    public String getPaymentMethod() {
-        return paymentMethod;
-    }
+	    public void setPaymentMode(String paymentMode) {
+	        this.paymentMode = paymentMode;
+	    }
 
-    public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
-}
+	    public String getTransactionStatus() {
+	        return transactionStatus;
+	    }
+
+	    public void setTransactionStatus(String transactionStatus) {
+	        this.transactionStatus = transactionStatus;
+	    }
+
+	    public String getCompletedAt() {
+	        return completedAt;
+	    }
+
+	    public void setCompletedAt(String completedAt) {
+	        this.completedAt = completedAt;
+	    }
+	}

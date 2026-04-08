@@ -120,7 +120,7 @@ body {
 /* SLIDER - FULLY WORKING */
 .slider-container {
 	position: relative;
-	max-width: 1200px;
+	max-width: 1240px;
 	margin: 0 auto;
 	padding: 0 50px;
 }
@@ -163,8 +163,11 @@ body {
 
 .card img {
 	width: 100%;
-	height: 200px;
+	height: 180px;
 	object-fit: cover;
+}
+.card-link {
+    flex: 0 0 265px;   /* was 300px */
 }
 
 .card h5 {

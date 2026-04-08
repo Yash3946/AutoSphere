@@ -1,7 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html>
@@ -102,8 +100,8 @@ body{
 <thead>
 <tr>
     <th>ID</th>
-    <th>Listing</th>
-    <th>User</th>
+    <th>Car</th>
+    <th>Buyer</th>
     <th>Final Price</th>
     <th>Payment Mode</th>
     <th>Status</th>
@@ -116,12 +114,27 @@ body{
 
 <c:forEach var="t" items="${allTransaction}">
 <tr>
+
+    <!-- ID -->
     <td>${t.transactionId}</td>
-    <td>${t.listingId}</td>
-    <td>${t.userId}</td>
+
+    <!-- CAR NAME -->
+    <td>
+        ${t.listing.modelName}
+    </td>
+
+    <!-- BUYER NAME -->
+    <td>
+        ${t.buyer.firstName} ${t.buyer.lastName}
+    </td>
+
+    <!-- PRICE -->
     <td>₹ ${t.finalPrice}</td>
+
+    <!-- PAYMENT -->
     <td>${t.paymentMode}</td>
 
+    <!-- STATUS -->
     <td>
         <c:choose>
             <c:when test="${t.transactionStatus == 'COMPLETED'}">
@@ -136,8 +149,10 @@ body{
         </c:choose>
     </td>
 
+    <!-- DATE -->
     <td>${t.completedAt}</td>
 
+    <!-- ACTION -->
     <td>
         <a href="viewCarTransaction?transactionId=${t.transactionId}"
            class="btn btn-sm btn-view">
@@ -154,6 +169,7 @@ body{
 </tr>
 </c:forEach>
 
+<!-- EMPTY CASE -->
 <c:if test="${empty allTransaction}">
 <tr>
     <td colspan="8" class="text-center text-muted py-4">
