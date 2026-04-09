@@ -13,7 +13,6 @@
 <jsp:include page="AdminCSS.jsp"/>
 
 <style>
-
 body{
     background:#F4F6F9;
     font-family:'Segoe UI', sans-serif;
@@ -25,13 +24,11 @@ body{
     padding:30px;
 }
 
-/* GRID */
 .main-box{
     display:flex;
     gap:20px;
 }
 
-/* FORM */
 .form-card{
     flex:2;
     background:white;
@@ -40,7 +37,6 @@ body{
     box-shadow:0 10px 30px rgba(0,0,0,0.08);
 }
 
-/* IMAGE CARD */
 .image-card{
     flex:1;
     background:white;
@@ -50,7 +46,6 @@ body{
     text-align:center;
 }
 
-/* IMAGE */
 .side-img{
     width:100%;
     height:180px;
@@ -58,7 +53,6 @@ body{
     border-radius:10px;
 }
 
-/* HEADER ROW */
 .top-bar{
     display:flex;
     justify-content:space-between;
@@ -66,26 +60,16 @@ body{
     margin-bottom:15px;
 }
 
-/* BUTTON */
 .btn-update{
     background:linear-gradient(135deg,#14213D,#1D3557);
     color:white;
     border:none;
 }
-.btn-update:hover{
-    background:#0077B6;
-}
 
-/* BACK BUTTON */
 .btn-back{
     background:#6c757d;
     color:white;
-    border:none;
 }
-.btn-back:hover{
-    background:#5a6268;
-}
-
 </style>
 
 </head>
@@ -96,19 +80,14 @@ body{
 <jsp:include page="AdminHeader.jsp"/>
 
 <div class="content">
-
 <div class="main-box">
 
 <!-- LEFT -->
 <div class="form-card">
 
-<!-- 🔥 TOP BAR -->
 <div class="top-bar">
-    <h5>
-        <i class="bi bi-pencil-square"></i> Edit Car Listing
-    </h5>
+    <h5><i class="bi bi-pencil-square"></i> Edit Car Listing</h5>
 
-    <!-- 🔥 BACK BUTTON -->
     <a href="allCarList" class="btn btn-back btn-sm">
         <i class="bi bi-arrow-left"></i> Back
     </a>
@@ -118,6 +97,19 @@ body{
 
 <input type="hidden" name="listingId" value="${car.listingId}"/>
 
+<!-- Seller -->
+<div class="mb-3">
+<label>Seller</label>
+<select name="userId" class="form-select">
+<c:forEach items="${allUser}" var="u">
+<option value="${u.userId}" ${u.userId == car.userId ? 'selected' : ''}>
+${u.firstName} ${u.lastName}
+</option>
+</c:forEach>
+</select>
+</div>
+
+<!-- Brand -->
 <div class="mb-3">
 <label>Brand</label>
 <select name="brandId" class="form-select">
@@ -129,6 +121,7 @@ ${b.brandName}
 </select>
 </div>
 
+<!-- Model -->
 <div class="mb-3">
 <label>Model</label>
 <select name="modelId" class="form-select">
@@ -140,6 +133,7 @@ ${m.modelName}
 </select>
 </div>
 
+<!-- Variant -->
 <div class="mb-3">
 <label>Variant</label>
 <select name="variantId" class="form-select">
@@ -151,21 +145,56 @@ ${v.variantName}
 </select>
 </div>
 
+<!-- City -->
 <div class="mb-3">
 <label>City</label>
 <input type="text" name="city" value="${car.city}" class="form-control"/>
 </div>
 
+<!-- KMS -->
 <div class="mb-3">
-<label>KMS</label>
+<label>Kilometers Driven</label>
 <input type="number" name="kmsDriven" value="${car.kmsDriven}" class="form-control"/>
 </div>
 
+<!-- Year -->
+<div class="mb-3">
+<label>Manufacturing Year</label>
+<input type="number" name="year" value="${car.year}" class="form-control"/>
+</div>
+
+<!-- Ownership -->
+<div class="mb-3">
+<label>Ownership</label>
+<select name="ownership" class="form-select">
+<option value="FIRST" ${car.ownership == 'FIRST' ? 'selected' : ''}>First</option>
+<option value="SECOND" ${car.ownership == 'SECOND' ? 'selected' : ''}>Second</option>
+<option value="THIRD" ${car.ownership == 'THIRD' ? 'selected' : ''}>Third</option>
+</select>
+</div>
+
+<!-- Price -->
 <div class="mb-3">
 <label>Price</label>
 <input type="number" name="price" value="${car.price}" class="form-control"/>
 </div>
 
+<!-- Status -->
+<div class="mb-3">
+<label>Status</label>
+<select name="status" class="form-select">
+<option value="AVAILABLE" ${car.status == 'AVAILABLE' ? 'selected' : ''}>Available</option>
+<option value="SOLD" ${car.status == 'SOLD' ? 'selected' : ''}>Sold</option>
+</select>
+</div>
+
+<!-- Created Date -->
+<div class="mb-3">
+<label>Created Date</label>
+<input type="date" name="createdAt" value="${car.createdAt}" class="form-control"/>
+</div>
+
+<!-- Image -->
 <div class="mb-3">
 <label>Change Image</label>
 <input type="file" name="imageFile" class="form-control"/>
@@ -181,13 +210,13 @@ ${v.variantName}
 
 </div>
 
-<!-- RIGHT IMAGE -->
+<!-- RIGHT -->
 <div class="image-card">
 
 <h6>Car Preview</h6>
 
 <c:if test="${not empty car.imageUrl}">
-    <img src="${car.imageUrl}" class="side-img"/>
+<img src="${car.imageUrl}" class="side-img"/>
 </c:if>
 
 <p class="mt-2 text-muted">
@@ -197,7 +226,6 @@ ${car.brandName} ${car.modelName}
 </div>
 
 </div>
-
 </div>
 
 </body>

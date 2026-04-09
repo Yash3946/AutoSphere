@@ -343,17 +343,18 @@ body {
 .watch-area {
 	margin-top: 40px;
 }
+
 .filter-car .card {
-    border-radius: 16px;
-    overflow: hidden;
-    background: white;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-    transition: 0.3s;
+	border-radius: 16px;
+	overflow: hidden;
+	background: white;
+	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+	transition: 0.3s;
 }
 
 .filter-car .card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 30px rgba(106,27,154,0.3);
+	transform: translateY(-8px);
+	box-shadow: 0 12px 30px rgba(106, 27, 154, 0.3);
 }
 
 .watch-btn {
@@ -369,25 +370,27 @@ body {
 	gap: 12px;
 	transition: all 0.3s ease;
 }
+
 .filter-car .card div {
-    padding: 15px;
+	padding: 15px;
 }
 
 .filter-car h5 {
-    font-size: 17px;
-    margin-bottom: 5px;
+	font-size: 17px;
+	margin-bottom: 5px;
 }
 
 .filter-car p {
-    font-size: 16px;
-    font-weight: bold;
-    color: #6a1b9a;
+	font-size: 16px;
+	font-weight: bold;
+	color: #6a1b9a;
 }
+
 .filter-car img {
-    width: 100%;
-    height: 220px;
-    object-fit: contain; /* 🔥 IMPORTANT */
-    background: #f8f8f8;
+	width: 100%;
+	height: 220px;
+	object-fit: contain; /* 🔥 IMPORTANT */
+	background: #f8f8f8;
 }
 
 .watch-btn:hover {
@@ -472,6 +475,56 @@ body {
 
 .brand-card:hover img {
 	transform: scale(1.15);
+}
+/* photo scroller */
+
+.scroll-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+
+    height: 520px;         /* 🔥 FIXED height (important) */
+    overflow-y: scroll;    /* 🔥 scrollbar always visible */
+    overflow-x: hidden;
+
+    padding: 20px;
+}
+.scroll-container::-webkit-scrollbar {
+    width: 12px;
+}
+
+.scroll-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+    background: #6a1b9a;
+    border-radius: 10px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb:hover {
+    background: #ff4d6d;
+}
+
+/* Optional scrollbar */
+.scroll-container::-webkit-scrollbar {
+    width: 8px;
+}
+.filter-car {
+    width: 230px;          /* 🔥 thodu balance size */
+    flex: 0 0 230px;       /* 🔥 IMPORTANT (overlap fix) */
+}
+.filter-car img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+    background: #b39ddb;
+    border-radius: 10px;
 }
 
 /* FOOTER */
@@ -582,6 +635,68 @@ body {
 		text-align: center;
 	}
 }
+
+/* INSIGHTS SECTION */
+.insight-section {
+    padding: 60px 40px;
+    text-align: center;
+    background: #f4f6fb;
+}
+
+.insight-section h2 {
+    color: #4a148c;
+    margin-bottom: 40px;
+    font-size: 28px;
+}
+
+/* container */
+.insight-container {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+/* card */
+.insight-card {
+    width: 280px;
+    padding: 25px;
+    border-radius: 18px;
+
+    /* 🔥 PERFECT BALANCE PURPLE (thodu j light) */
+    background: linear-gradient(135deg, #7e57c2, #6a1b9a);
+
+    color: white;
+    text-align: left;
+    transition: 0.3s;
+}
+
+/* hover */
+.insight-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(106, 27, 154, 0.4);
+}
+
+/* icon */
+.insight-card img {
+    width: 70px;
+    margin-bottom: 15px;
+}
+
+/* number */
+.insight-card h3 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+/* text */
+.insight-card p {
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+
+
 </style>
 </head>
 
@@ -609,8 +724,7 @@ body {
 
 		<div class="menu">
 			<a href="CustomerCarList">List Car</a> <a href="#brands">Car
-				Brand</a> <a href="wishlist">My Cart</a> <a href="#">Buy Car</a> <a
-				href="#">Sell Car</a> <a href="login">Login</a> <a href="#">Register</a>
+				Brand</a> <a href="wishlist">My Cart</a>  <a href="login">Login</a> <a href="#">Register</a>
 		</div>
 	</div>
 
@@ -644,21 +758,24 @@ body {
 		</div>
 
 		<div class="dots-container" id="dotsContainer"></div>
+		
 
-		<button class="sell-btn">Sell My Car</button>
+		<a href="CustomerCarList">
+    <button class="sell-btn">View My Car</button>
+</a>
 	</div>
 
 	<!-- BENEFITS SECTION -->
 	<div class="section">
 		<h2>AutoSphere Assured Benefits</h2>
 		<div class="cards">
-			<a href="quality-check" class="card-link">
+			<a href="qualitychecks" class="card-link">
 				<div class="card">
 					<img
 						src="https://tse2.mm.bing.net/th/id/OIP.Dt_cmV3c7iAiI9hH3a_-oQHaHa">
 					<p>&#10004; 200+ Quality Checks</p>
 				</div>
-			</a> <a href="trial" class="card-link">
+			</a> <a href="7daystrial" class="card-link">
 				<div class="card">
 					<img
 						src="https://tse2.mm.bing.net/th/id/OIP.dLwwkw6ARI0Jm1Y6LMvgXwHaFL">
@@ -670,7 +787,7 @@ body {
 						src="https://tse4.mm.bing.net/th/id/OIP.2-oHKJ06_H3EnJgGQQKTiQHaE8">
 					<p>&#10004; 1 Year Warranty</p>
 				</div>
-			</a> <a href="fixed-price" class="card-link">
+			</a> <a href="fixedprice" class="card-link">
 				<div class="card">
 					<img
 						src="https://tse3.mm.bing.net/th/id/OIP.ApW2_1cwNgxi_flgt4ZQngHaEl">
@@ -679,9 +796,59 @@ body {
 			</a>
 		</div>
 	</div>
+	
+	<!-- INSIGHTS SECTION -->
+<div class="insight-section">
+    <h2>Insights That Drive Us</h2>
+
+    <div class="insight-container" class="how-section">
+
+        <div class="insight-card">
+            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png">
+            <h3>4.8/5</h3>
+            <p>Our average review rating on Google and on Social platforms</p>
+        </div>
+
+        <div class="insight-card">
+            <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png">
+            <h3>35%</h3>
+            <p>The number of Spinny customers that are referrals</p>
+        </div>
+
+        <div class="insight-card">
+            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
+            <h3>&gt; 70%</h3>
+            <p>People who've become customers after their first test drive</p>
+        </div>
+
+        <div class="insight-card">
+            <img src="https://cdn-icons-png.flaticon.com/512/4140/4140051.png">
+            <h3>32%</h3>
+            <p>Our women customer quotient</p>
+        </div>
+
+    </div>
+    <div class="watch-area">
+			<button onclick="showVideo()" class="watch-btn">Watch how it
+				works ▶️</button>
+			<div id="videoContainer"
+				style="display: none; text-align: center; margin-top: 30px; position: relative;">
+
+				<!-- ❌ Close Button -->
+				<span onclick="closeVideo()"
+					style="position: absolute; right: 50px; top: -10px; font-size: 30px; cursor: pointer;">
+					✖ </span>
+
+				<iframe width="1000" height="550" src="" frameborder="0"
+					allow="autoplay" allowfullscreen> </iframe>
+
+			</div>
+			
+		</div>
+</div>
 
 	<!-- HOW AUTOSPHERE WORKS -->
-	<div class="how-section">
+	<!-- <div class="how-section">
 		<h2>How AutoSphere Works</h2>
 		<div class="how-cards">
 			<div class="how-card">
@@ -702,10 +869,10 @@ body {
 		<div class="watch-area">
 			<button onclick="showVideo()" class="watch-btn">Watch how it
 				works ▶️</button>
-				<div id="videoContainer"
+			<div id="videoContainer"
 				style="display: none; text-align: center; margin-top: 30px; position: relative;">
 
-				<!-- ❌ Close Button -->
+				❌ Close Button
 				<span onclick="closeVideo()"
 					style="position: absolute; right: 50px; top: -10px; font-size: 30px; cursor: pointer;">
 					✖ </span>
@@ -716,42 +883,46 @@ body {
 			</div>
 			<p class="learn-more">Learn more</p>
 		</div>
-	</div>
-
+	</div> -->
+	
+	
 	<!-- BODY TYPE FILTER -->
-	<div style="text-align: center; margin: 40px 0;">
+	<div  style="text-align: center; margin: 40px 0;">
 		<h2 style="color: #4a148c;">Explore by Body Type</h2>
-
 		<div style="margin-top: 20px;">
 			<button class="filter-btn active" onclick="filterCars('ALL', this)">All</button>
-<button class="filter-btn" onclick="filterCars('SUV', this)">SUV</button>
-<button class="filter-btn" onclick="filterCars('SEDAN', this)">Sedan</button>
-<button class="filter-btn" onclick="filterCars('HATCHBACK', this)">Hatchback</button>
-<button class="filter-btn" onclick="filterCars('MUV', this)">MUV</button>
+			<button class="filter-btn" onclick="filterCars('SUV', this)">SUV</button>
+			<button class="filter-btn" onclick="filterCars('SEDAN', this)">Sedan</button>
+			<button class="filter-btn" onclick="filterCars('HATCHBACK', this)">Hatchback</button>
+			<button class="filter-btn" onclick="filterCars('MUV', this)">MUV</button>
 		</div>
 	</div>
+
 	<!-- FILTERED CARS SECTION -->
-<div id="filteredCars" style="display:flex; flex-wrap:wrap; gap:20px; justify-content:center; padding:20px;">
-
-    <c:forEach var="car" items="${customerCarList}">
-    <div class="filter-car" data-type="${car.bodyType != null ? car.bodyType : 'UNKNOWN'}" style="width:250px;">
-       
-            
-            <div class="card">
-                <img src="${car.imageUrl}" alt="car">
-                <div style="padding:10px;">
-                    <h5>${car.brandName} ${car.modelName}</h5>
-                    <p style="color:#4a148c; font-weight:bold;">
-                        &#8377; ${car.price}
-                    </p>
-                </div>
-            </div>
-
-        </div>
-    </c:forEach>
-
-</div>
-
+	<div id="filteredCarsContainer" class="scroll-container">
+		<c:forEach var="car" items="${customerCarList}">
+			<div class="filter-car"
+				data-type="${car.bodyType != null ? car.bodyType.toUpperCase() : 'UNKNOWN'}"
+				style="width: 250px;">
+				<a href="customerViewCarListing1?listingId=${car.listingId}"
+					class="card-link" style="text-decoration: none; color: inherit;">
+					<div class="card">
+						<img src="${car.imageUrl}" alt="${car.brandName} ${car.modelName}"
+							style="width: 100%; height: 180px; object-fit: cover;">
+						<div style="padding: 15px;">
+							<h5 style="font-size: 16px; margin-bottom: 8px; color: #333;">${car.brandName}
+								${car.modelName}</h5>
+							<p
+								style="color: #4a148c; font-weight: bold; font-size: 18px; margin: 0;">&#8377;
+								${car.price}</p>
+							<p style="color: #888; font-size: 12px; margin-top: 5px;">${car.bodyType != null ? car.bodyType : 'Car'}</p>
+						</div>
+					</div>
+				</a>
+			</div>
+		</c:forEach>
+	</div>
+	
 	<!-- BRANDS SECTION -->
 	<div class="brand-section" id="brands">
 		<h2>Explore Popular Brands</h2>
@@ -824,6 +995,20 @@ function getCardWidth() {
     return firstCard.offsetWidth + marginRight;
 }
 
+//->>>>>>>>>>>>>>>>>> image niche dot mate 
+
+//Update slider position
+/* function updateSliderPosition(animate = true) {
+ if (animate) {
+     sliderWrapper.style.scrollBehavior = 'smooth';
+ } else {
+     sliderWrapper.style.scrollBehavior = 'auto';
+ }
+ const cardWidth = getCardWidth();
+ sliderWrapper.scrollLeft = currentIndex * cardWidth;
+} */
+
+
 // Update slider position
 function updateSliderPosition(animate = true) {
     if (animate) {
@@ -831,9 +1016,13 @@ function updateSliderPosition(animate = true) {
     } else {
         sliderWrapper.style.scrollBehavior = 'auto';
     }
+
     const cardWidth = getCardWidth();
-    sliderWrapper.scrollLeft = currentIndex * cardWidth;
+    const visibleCards = getVisibleCards();
+
+    sliderWrapper.scrollLeft = currentIndex * (cardWidth * visibleCards);
 }
+
 
 // Go to specific slide
 function goToSlide(index) {
@@ -929,8 +1118,10 @@ function setupHoverPause() {
     }
 }
 
-// Handle scroll event to update current index
-function handleScroll() {
+
+//->>>>>>>>>>>>>>>>>> image niche dot mate 
+
+/* function handleScroll() {
     const cardWidth = getCardWidth();
     const scrollPosition = sliderWrapper.scrollLeft;
     const newIndex = Math.round(scrollPosition / cardWidth);
@@ -939,12 +1130,40 @@ function handleScroll() {
         currentIndex = newIndex;
         updateDots();
     }
+} */
+
+// Handle scroll event to update current index
+function handleScroll() {
+    const cardWidth = getCardWidth();
+    const visibleCards = getVisibleCards();
+
+    const scrollPosition = sliderWrapper.scrollLeft;
+    const newIndex = Math.round(scrollPosition / (cardWidth * visibleCards));
+
+    if (newIndex !== currentIndex && newIndex >= 0 && newIndex < totalSlides) {
+        currentIndex = newIndex;
+        updateDots();
+    }
 }
+
+
+/* ------>>>>>>>>>>>>>add this ->>>>>>>mage niche dot mate */
+function getVisibleCards() {
+    const containerWidth = sliderWrapper.offsetWidth;
+    const cardWidth = getCardWidth();
+    return Math.floor(containerWidth / cardWidth);
+}
+
+
+
 
 // Initialize slider
 function initSlider() {
     slides = getSlides();
-    totalSlides = slides.length;
+    
+    /* totalSlides = slides.length; */ /*->>>>>>>>>>>>> image niche dot mate  */   
+    const visibleCards = getVisibleCards();
+    totalSlides = Math.ceil(slides.length / visibleCards);
     
     if (totalSlides === 0) return;
     
@@ -1054,31 +1273,60 @@ document.addEventListener("click", function(event) {
 });
 
 function filterCars(type, btn) {
-
     let cars = document.querySelectorAll(".filter-car");
-
+    
+    console.log("Filtering by: " + type);
+    console.log("Total cars found: " + cars.length);
+    
+    let visibleCount = 0;
+    
     cars.forEach(car => {
         let carType = car.getAttribute("data-type");
-
-        // 🔥 NULL / UNKNOWN safe
-        if (!carType || carType === "UNKNOWN") {
-            car.style.display = "block";
-            return;
+        
+        // Clean up: trim and convert to uppercase for comparison
+        if (carType) {
+            carType = carType.trim().toUpperCase();
+        } else {
+            carType = "UNKNOWN";
         }
-
-        if (type === "ALL" || carType === type) {
+        
+        console.log("Car type after cleanup: " + carType);
+        
+        // Show based on filter
+        if (type === "ALL") {
             car.style.display = "block";
+            visibleCount++;
+        } else if (carType === type.toUpperCase()) {
+            car.style.display = "block";
+            visibleCount++;
         } else {
             car.style.display = "none";
         }
     });
-
+    
+    console.log("Visible cars after filter: " + visibleCount);
+    
+    // Update active button styling
     document.querySelectorAll(".filter-btn").forEach(b => {
         b.classList.remove("active");
     });
-
     btn.classList.add("active");
 }
+// Also add this function to debug and see what body types are available
+function showAvailableBodyTypes() {
+    let cars = document.querySelectorAll(".filter-car");
+    let types = new Set();
+    cars.forEach(car => {
+        let type = car.getAttribute("data-type");
+        types.add(type);
+    });
+    console.log("Available body types in DOM:", Array.from(types));
+}
+
+// Call this on page load to debug
+window.addEventListener('load', function() {
+    showAvailableBodyTypes();
+});
 function showVideo() {
     const container = document.getElementById("videoContainer");
     const iframe = container.querySelector("iframe");

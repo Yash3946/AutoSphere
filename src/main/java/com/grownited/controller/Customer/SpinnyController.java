@@ -44,10 +44,10 @@ public class SpinnyController {
 	@Autowired
 	CarBrandRepository carBrandRepository;
 
-	@GetMapping("/customerLogin")
-	public String customerLogin() {
-		return "Admin/login";
-	}
+//	@GetMapping("/customerLogin")
+//	public String customerLogin() {
+//		return "Admin/login";
+//	}
 
 	@GetMapping("/customer-dashboard")
 	public String spinny(Model model) {
@@ -83,18 +83,29 @@ public class SpinnyController {
 		return "Customer/CustomerViewCarListing";
 	}
 	
+//	@GetMapping("/customerViewCarListing1")
+//	public String customerViewCarListing1(Integer listingId, Model model) {
+//
+//		Optional<CarListingEntity> op = carListingRepository.findById(listingId);
+//
+//		if (op.isPresent()) {
+//			model.addAttribute("carListing", op.get());
+//		}
+//
+//		return "Customer/CustomerViewCarListing1";
+//	}
+
 	@GetMapping("/customerViewCarListing1")
-	public String customerViewCarListing1(Integer listingId, Model model) {
+	public String customerViewCarListing1(@RequestParam("listingId") Integer listingId, Model model) {
 
-		Optional<CarListingEntity> op = carListingRepository.findById(listingId);
+	    Optional<CarListingEntity> op = carListingRepository.findById(listingId);
 
-		if (op.isPresent()) {
-			model.addAttribute("carListing", op.get());
-		}
+	    if(op.isPresent()) {
+	        model.addAttribute("carListing", op.get());
+	    }
 
-		return "Customer/CustomerViewCarListing1";
+	    return "Customer/CustomerViewCarListing1"; // 🔥 aa change karo
 	}
-
 	// ⭐ BUY NOW PAGE
 	@GetMapping("/buyNow")
 	public String buyNow(@RequestParam("listingId") Integer listingId,
