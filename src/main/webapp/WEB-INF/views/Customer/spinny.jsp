@@ -953,9 +953,9 @@ body {
 
         <div class="footer-col">
             <h3>Support</h3>
-            <a href="#">FAQ</a> 
-            <a href="#">Terms</a> 
-            <a href="#">Privacy</a>
+            <a href="faq">FAQ</a> 
+            <a href="terms">Terms</a> 
+            <a href="privacy">Privacy</a>
         </div>
 
     </div>

@@ -179,4 +179,16 @@ public class SpinnyController {
 		public String warranty() {
 			return "Customer/warranty";
 		}
+		@GetMapping("faq")
+		public String faq() {
+			return "Customer/Faq";
+		}
+		@GetMapping("terms")
+		public String terms() {
+			return "Customer/Terms";
+		}
+		@GetMapping("privacy")
+		public String privacy() {
+			return "Customer/Privacy";
+		}
 }
