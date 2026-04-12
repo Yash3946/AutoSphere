@@ -176,7 +176,7 @@ body {
 
 <body>
 
-<!-- ===== HEADER ===== -->
+<!-- HEADER -->
 <div class="header">
 
     <a href="customer-dashboard" class="logo">
@@ -246,6 +246,18 @@ body {
 
         <div class="detail-row"><span class="label">KMS Driven</span><span class="value">${carListing.kmsDriven}</span></div>
         <div class="detail-row"><span class="label">Ownership</span><span class="value">${carListing.ownership}</span></div>
+
+        <!-- 🔥 ADDED -->
+        <div class="detail-row">
+            <span class="label">Fuel Type</span>
+            <span class="value">${empty carListing.fuelType ? 'Not Set' : carListing.fuelType}</span>
+        </div>
+
+        <div class="detail-row">
+            <span class="label">Transmission</span>
+            <span class="value">${empty carListing.transmission ? 'Not Set' : carListing.transmission}</span>
+        </div>
+
         <div class="detail-row"><span class="label">Created Date</span><span class="value">${carListing.createdAt}</span></div>
     </div>
 
@@ -270,7 +282,6 @@ body {
 
 </div>
 
-<!-- ===== FOOTER ===== -->
 <jsp:include page="CustomerFooter.jsp"></jsp:include>
 
 </body>

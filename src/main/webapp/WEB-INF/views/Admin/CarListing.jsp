@@ -8,22 +8,18 @@
 <meta charset="UTF-8">
 <title>Add Car Listing</title>
 
-<!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
 <link rel="stylesheet"
 href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
 <jsp:include page="AdminCSS.jsp"/>
 
 <style>
-
 body{
     background:#F4F6F9;
     font-family:'Segoe UI', sans-serif;
 }
 
-/* Content layout */
 .content{
 	margin-top: 90px;
     margin-left:260px;
@@ -32,7 +28,6 @@ body{
     justify-content:center;
 }
 
-/* Card */
 .content-card{
     width:100%;
     max-width:700px;
@@ -42,13 +37,11 @@ body{
     box-shadow:0 10px 25px rgba(0,0,0,0.08);
 }
 
-/* Smaller inputs */
 .small-input{
     height:38px;
     font-size:14px;
 }
 
-/* Admin Button */
 .btn-admin{
     background:linear-gradient(135deg,#14213D,#1D3557);
     border:none;
@@ -56,9 +49,7 @@ body{
 }
 .btn-admin:hover{
     background:#0077B6;
-    color:white;
 }
-
 </style>
 
 </head>
@@ -70,7 +61,6 @@ body{
 <!-- HEADER -->
 <jsp:include page="AdminHeader.jsp"/>
 
-<!-- CONTENT -->
 <div class="content">
 
 <div class="content-card">
@@ -139,7 +129,7 @@ body{
         <input type="text" name="city" class="form-control small-input" required>
     </div>
 
-    <!-- KMS Driven -->
+    <!-- KMS -->
     <div class="mb-3">
         <label class="form-label">Kilometers Driven</label>
         <input type="number" name="kmsDriven" class="form-control small-input" required>
@@ -161,6 +151,28 @@ body{
         </select>
     </div>
 
+    <!-- 🔥 FUEL TYPE -->
+    <div class="mb-3">
+        <label class="form-label">Fuel Type</label>
+        <select name="fuelType" class="form-select small-input" required>
+            <option value="">Select Fuel Type</option>
+            <option value="PETROL">Petrol</option>
+            <option value="DIESEL">Diesel</option>
+            <option value="CNG">CNG</option>
+            <option value="EV">Electric</option>
+        </select>
+    </div>
+
+    <!-- 🔥 TRANSMISSION -->
+    <div class="mb-3">
+        <label class="form-label">Transmission</label>
+        <select name="transmission" class="form-select small-input" required>
+            <option value="">Select Transmission</option>
+            <option value="MANUAL">Manual</option>
+            <option value="AUTOMATIC">Automatic</option>
+        </select>
+    </div>
+
     <!-- Price -->
     <div class="mb-3">
         <label class="form-label">Price</label>
@@ -176,17 +188,17 @@ body{
         </select>
     </div>
 
-    <!-- Created At -->
+    <!-- Created Date -->
     <div class="mb-3">
         <label class="form-label">Created Date</label>
         <input type="date" name="createdAt" class="form-control small-input">
     </div>
-    
-    <!-- 🔥 ADD THIS HERE -->
-<div class="mb-3">
-    <label class="form-label">Car Image</label>
-    <input type="file" name="imageFile" class="form-control small-input" required>
-</div>
+
+    <!-- Image -->
+    <div class="mb-3">
+        <label class="form-label">Car Image</label>
+        <input type="file" name="imageFile" class="form-control small-input" required>
+    </div>
 
     <div class="d-grid mt-4">
         <button type="submit" class="btn btn-admin">
@@ -199,7 +211,6 @@ body{
 </div>
 </div>
 
-<!-- FOOTER -->
 <jsp:include page="AdminFooter.jsp"/>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

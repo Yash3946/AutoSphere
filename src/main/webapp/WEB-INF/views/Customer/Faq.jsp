@@ -291,7 +291,7 @@
             <div class="col-lg-5 text-center animate-on-load delay-1">
                 <div class="brand-strip">
                     <span>Maruti Suzuki</span> <span>Hyundai</span> <span>Toyota</span> <span>VW</span>
-                    <span>Skoda</span> <span>Mahindra</span> <span>Kia</span> <span>Tata</span> <span>Land Rover</span>
+                    <span>Skoda</span> <span>Mahindra</span> <span>Kia</span> <span>Tata</span> <span>Land Rover</span> <span>JEEP</span>
                 </div>
                 <div class="mt-4">
                     <img src="https://placehold.co/400x200/FAF5FF/4a148c?text=100%25+Online+Sales&font=montserrat" alt="online car sales" class="img-fluid rounded-4 shadow-sm" style="max-width: 280px;">

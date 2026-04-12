@@ -52,9 +52,20 @@ public class CarListingController {
 
     // ================== SAVE ==================
     @PostMapping("/saveCarListing")
-    public String saveCarList(CarListingEntity carListingEntity,
-                             @RequestParam("imageFile") MultipartFile file) {
+    public String saveCarList(
+            CarListingEntity carListingEntity,
+            @RequestParam("imageFile") MultipartFile file,
+            @RequestParam("fuelType") String fuelType,
+            @RequestParam("transmission") String transmission) {
 
+        // ✅ SET FUEL & TRANSMISSION
+        carListingEntity.setFuelType(fuelType);
+        carListingEntity.setTransmission(transmission);
+
+        System.out.println("Fuel: " + fuelType);
+        System.out.println("Transmission: " + transmission);
+
+        // ✅ IMAGE UPLOAD
         try {
             Map uploadResult = cloudinary.uploader().upload(file.getBytes(), null);
             String imageUrl = uploadResult.get("secure_url").toString();
@@ -63,53 +74,45 @@ public class CarListingController {
             e.printStackTrace();
         }
 
-        // 🔥 IMPORTANT: First get the model to fetch body_type
+        // ✅ MODEL + BODY TYPE
         if (carListingEntity.getModelId() != null) {
-            Optional<CarModelTypeEntity> modelOpt = carModelTypeRepository.findById(carListingEntity.getModelId());
-            if (modelOpt.isPresent()) {
-                CarModelTypeEntity model = modelOpt.get();
-                carListingEntity.setModelName(model.getModelName());
-                
-                // 🔥 CRITICAL: Set body_type from CarModelType
-                if (model.getBodyType() != null && !model.getBodyType().isEmpty()) {
-                    carListingEntity.setBodyType(model.getBodyType());
-                    System.out.println("Body type set from model: " + model.getBodyType());
-                } else {
-                    // Default fallback
-                    carListingEntity.setBodyType("SUV");
-                    System.out.println("Model had no body type, set default: SUV");
-                }
-            }
+            carModelTypeRepository.findById(carListingEntity.getModelId())
+                .ifPresent(model -> {
+                    carListingEntity.setModelName(model.getModelName());
+
+                    if (model.getBodyType() != null && !model.getBodyType().isEmpty()) {
+                        carListingEntity.setBodyType(model.getBodyType());
+                    } else {
+                        carListingEntity.setBodyType("SUV");
+                    }
+                });
         }
 
-        // Set brand name
+        // ✅ BRAND NAME
         if (carListingEntity.getBrandId() != null) {
-            Optional<CarBrandEntity> brandOpt = carBrandRepository.findById(carListingEntity.getBrandId());
-            if (brandOpt.isPresent()) {
-                carListingEntity.setBrandName(brandOpt.get().getBrandName());
-            }
+            carBrandRepository.findById(carListingEntity.getBrandId())
+                .ifPresent(b -> carListingEntity.setBrandName(b.getBrandName()));
         }
 
-        // Set variant name
+        // ✅ VARIANT NAME
         if (carListingEntity.getVariantId() != null) {
-            Optional<CarVariantEntity> variantOpt = carVariantRepository.findById(carListingEntity.getVariantId());
-            if (variantOpt.isPresent()) {
-                carListingEntity.setVariantName(variantOpt.get().getVariantName());
-            }
+            carVariantRepository.findById(carListingEntity.getVariantId())
+                .ifPresent(v -> carListingEntity.setVariantName(v.getVariantName()));
         }
 
-        // Final fallback - if still null
-        if (carListingEntity.getBodyType() == null || carListingEntity.getBodyType().isEmpty()) {
+        // ✅ FINAL FALLBACK
+        if (carListingEntity.getBodyType() == null) {
             carListingEntity.setBodyType("SUV");
         }
 
         carListingRepository.save(carListingEntity);
+
         return "redirect:/allCarList";
     }
 
     // ================== LIST ==================
     @GetMapping("/allCarList")
-    public String alLCarList(Model model) {
+    public String allCarList(Model model) {
         model.addAttribute("allCarList", carListingRepository.findAll());
         return "Admin/AllCarList";
     }
@@ -148,8 +151,15 @@ public class CarListingController {
 
     // ================== UPDATE ==================
     @PostMapping("/updateCarListing")
-    public String updateCarListing(CarListingEntity carListingEntity,
-                                   @RequestParam("imageFile") MultipartFile file) {
+    public String updateCarListing(
+            CarListingEntity carListingEntity,
+            @RequestParam("imageFile") MultipartFile file,
+            @RequestParam("fuelType") String fuelType,
+            @RequestParam("transmission") String transmission) {
+
+        // ✅ SET VALUES
+        carListingEntity.setFuelType(fuelType);
+        carListingEntity.setTransmission(transmission);
 
         try {
             if (!file.isEmpty()) {
@@ -161,18 +171,18 @@ public class CarListingController {
             e.printStackTrace();
         }
 
-        // ✅ FIXED PART
+        // MODEL
         carModelTypeRepository.findById(carListingEntity.getModelId())
             .ifPresent(m -> {
                 carListingEntity.setModelName(m.getModelName());
                 carListingEntity.setBodyType(m.getBodyType());
             });
 
-        // brand
+        // BRAND
         carBrandRepository.findById(carListingEntity.getBrandId())
             .ifPresent(b -> carListingEntity.setBrandName(b.getBrandName()));
 
-        // variant
+        // VARIANT
         carVariantRepository.findById(carListingEntity.getVariantId())
             .ifPresent(v -> carListingEntity.setVariantName(v.getVariantName()));
 
@@ -194,11 +204,16 @@ public class CarListingController {
     }
 
     // ================== CAR DETAILS ==================
+ // ================== CAR DETAILS ==================
     @GetMapping("/car-details")
     public String carDetails(@RequestParam("id") Integer id, Model model) {
 
         CarListingEntity car = carListingRepository.findById(id).orElse(null);
-        model.addAttribute("car", car);
+
+        System.out.println("Fuel: " + car.getFuelType());
+        System.out.println("Transmission: " + car.getTransmission());
+
+        model.addAttribute("carListing", car);
 
         return "Customer/CustomerViewCarListing";
     }

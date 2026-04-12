@@ -63,12 +63,34 @@ public class CarListingEntity {
     
     @Column(name = "body_type")
     private String bodyType;
+    
+    @Column(name = "fuel_type")
+    private String fuelType;
+
+    @Column(name = "transmission")
+    private String transmission;
 
     // ======================
     // GETTERS & SETTERS
     // ======================
 
-    public String getBodyType() {
+    public String getFuelType() {
+		return fuelType;
+	}
+
+	public void setFuelType(String fuelType) {
+		this.fuelType = fuelType;
+	}
+
+	public String getTransmission() {
+		return transmission;
+	}
+
+	public void setTransmission(String transmission) {
+		this.transmission = transmission;
+	}
+
+	public String getBodyType() {
 		return bodyType;
 	}
 

@@ -70,15 +70,11 @@
 			<a href="#">About Us</a> <a href="CareersPage">Careers</a> <a href="ContactPage">Contact</a>
 		</div>
 
-		<div class="footer-col">
-			<h3>Services</h3>
-			<a href="#">Buy Car</a> <a href="#">Sell Car</a> <a href="#">Inspection</a>
-		</div>
 
 		<div class="footer-col">
 			<h3>Support</h3>
-			<a href="#">Help Center</a> <a href="#">Terms & Conditions</a> <a
-				href="#">Privacy Policy</a>
+			<a href="faq">FAQ</a> <a href="terms">Terms & Conditions</a> <a
+				href="privacy">Privacy Policy</a>
 		</div>
 
 	</div>

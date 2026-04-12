@@ -9,6 +9,9 @@ pageEncoding="UTF-8"%>
 <html>
 <head>
 
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.bootstrap5.min.css">
+
 <meta charset="UTF-8">
 <title>Car Listings</title>
 
@@ -21,39 +24,32 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.c
 <jsp:include page="AdminCSS.jsp"/>
 
 <style>
-
 body{
 background:#F4F6F9;
 font-family:'Segoe UI', sans-serif;
 }
-
-/* 🔥 CONTENT */
 .content{
 margin-left:260px;
 margin-top:90px;
 padding:40px;
 }
-
 .content-card{
 background:white;
 border-radius:16px;
 padding:30px;
 box-shadow:0 10px 30px rgba(0,0,0,0.08);
 }
-
 .page-header{
 display:flex;
 justify-content:space-between;
 align-items:center;
 margin-bottom:25px;
 }
-
 .page-title{
 font-weight:700;
 font-size:22px;
 color:#1B263B;
 }
-
 .counter-badge{
 background:#4361ee;
 color:white;
@@ -61,117 +57,46 @@ padding:6px 14px;
 border-radius:20px;
 font-size:14px;
 }
-
 .table{
 min-width:1300px;
-border-radius:10px;
-overflow:hidden;
 }
-
-.table th{
-padding:14px;
-white-space:nowrap;
-font-size:14px;
-}
-
-.table td{
-padding:14px;
-vertical-align:middle;
+.table th,.table td{
 white-space:nowrap;
 }
-
 .table thead{
 background:#1B263B;
 color:white;
 }
-
-.table tbody tr:hover{
-background:#f4f7fb;
-}
-
 .price{
 font-weight:700;
 color:#198754;
 }
-
 .status-badge{
 background:#e9f9f1;
 color:#198754;
 padding:6px 12px;
 border-radius:20px;
 font-size:12px;
-font-weight:600;
 }
-
-/* 🔥 IMAGE STYLE */
 .car-img{
 width:65px;
 height:48px;
 object-fit:cover;
 border-radius:8px;
-box-shadow:0 2px 6px rgba(0,0,0,0.2);
-transition:0.3s;
 }
-
-.car-img:hover{
-transform:scale(1.1);
-}
-
-/* BUTTONS */
-.action-btn{
-border-radius:6px;
-padding:5px 10px;
-font-size:13px;
-}
-
-.btn-view{
-background:#4361ee;
-color:white;
-border:none;
-}
-
-.btn-view:hover{
-background:#3651d4;
-}
-
-.btn-edit{
-background:#fca311;
-color:white;
-border:none;
-}
-
-.btn-edit:hover{
-background:#e59500;
-}
-
-.btn-delete{
-background:#ef233c;
-color:white;
-border:none;
-}
-
-.btn-delete:hover{
-background:#d90429;
-}
-
 </style>
 
 </head>
 
 <body>
 
-<!-- SIDEBAR -->
 <jsp:include page="AdminSidebar.jsp"/>
-
-<!-- HEADER -->
 <jsp:include page="AdminHeader.jsp"/>
 
 <div class="content">
-
 <div class="content-card">
 
 <div class="page-header">
-
 <h4 class="page-title">
 <i class="bi bi-car-front-fill"></i> Car Listings
 </h4>
@@ -179,12 +104,11 @@ background:#d90429;
 <div class="counter-badge">
 Total Cars : ${allCarList.size()}
 </div>
-
 </div>
 
 <div class="table-responsive">
 
-<table class="table table-hover align-middle">
+<table class="table table-hover align-middle" id="myTable">
 
 <thead>
 <tr>
@@ -200,7 +124,7 @@ Total Cars : ${allCarList.size()}
 <th>Price</th>
 <th>Status</th>
 <th>Date</th>
-<th class="text-center">Action</th>
+<th>Action</th>
 </tr>
 </thead>
 
@@ -210,33 +134,26 @@ Total Cars : ${allCarList.size()}
 
 <tr>
 
-
 <td>${c.listingId}</td>
 
 <td>
-<i class="bi bi-person-circle"></i>
-${c.userId}
+<i class="bi bi-person-circle"></i> ${c.userId}
 </td>
 
 <td>${c.brandName}</td>
 
-<!-- 🔥 MODEL + IMAGE -->
+<!-- 🔥 FIXED MODEL + IMAGE -->
 <td>
 <div style="display:flex; align-items:center; gap:10px;">
-
-
 <img src="${c.imageUrl != null ? c.imageUrl : 'https://via.placeholder.com/80'}"
 class="car-img"/>
-
+${c.modelName}
 </div>
 </td>
 
 <td>${c.variantName}</td>
 
-<td>
-<i class="bi bi-geo-alt-fill"></i>
-${c.city}
-</td>
+<td>${c.city}</td>
 
 <td>${c.kmsDriven} km</td>
 
@@ -244,60 +161,26 @@ ${c.city}
 
 <td>${c.ownership}</td>
 
-<td class="price">
-₹ ${c.price}
-</td>
+<td class="price">₹ ${c.price}</td>
 
 <td>
-<span class="status-badge">
-<i class="bi bi-check-circle-fill"></i>
-Available
-</span>
+<span class="status-badge">${c.status}</span>
 </td>
 
 <td>
 <fmt:formatDate value="${c.createdAt}" pattern="yyyy-MM-dd"/>
 </td>
 
-<td class="text-center">
-
-<a href="viewCarListing?listingId=${c.listingId}"
-class="btn btn-view action-btn btn-sm">
-<i class="bi bi-eye"></i>
-</a>
-
-<a href="editCarListing?listingId=${c.listingId}"
-class="btn btn-edit action-btn btn-sm">
-<i class="bi bi-pencil-square"></i>
-</a>
-
-<a href="deleteCarListing?listingId=${c.listingId}"
-class="btn btn-delete action-btn btn-sm"
-onclick="return confirm('Delete this listing?')">
-<i class="bi bi-trash"></i>
-</a>
-
+<td>
+<a href="viewCarListing?listingId=${c.listingId}" class="btn btn-primary btn-sm">View</a>
+<a href="editCarListing?listingId=${c.listingId}" class="btn btn-warning btn-sm">Edit</a>
+<a href="deleteCarListing?listingId=${c.listingId}" class="btn btn-danger btn-sm"
+onclick="return confirm('Delete?')">Delete</a>
 </td>
 
 </tr>
 
 </c:forEach>
-
-<c:if test="${empty allCarList}">
-
-<tr>
-<td colspan="13" class="text-center text-muted py-5">
-
-<i class="bi bi-car-front" style="font-size:25px"></i>
-
-<br><br>
-
-No Car Listings Found
-
-</td>
-</tr>
-
-</c:if>
 
 </tbody>
 
@@ -306,13 +189,63 @@ No Car Listings Found
 </div>
 
 </div>
-
 </div>
 
-<!-- FOOTER -->
 <jsp:include page="AdminFooter.jsp"/>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<!-- DataTables -->
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+<!-- Buttons -->
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.bootstrap5.min.js"></script>
+
+<!-- Excel -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+<!-- PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+
+<!-- Buttons -->
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+
+<!-- 🔥 FINAL SCRIPT -->
+<script>
+$(document).ready(function() {
+    $('#myTable').DataTable({
+        dom: 'Bfrtip',
+        scrollX: true,
+        buttons: [
+            'copy',
+            'csv',
+            'excel',
+            {
+                extend: 'pdf',
+                text: 'PDF',
+                orientation: 'landscape',   // 🔥 FIX
+                pageSize: 'A3',             // 🔥 FIX
+                exportOptions: {
+                    columns: ':visible'
+                },
+                customize: function (doc) {
+                    doc.defaultStyle.fontSize = 8;
+                    doc.styles.tableHeader.fontSize = 9;
+                    doc.pageMargins = [10,10,10,10];
+                }
+            },
+            'print'
+        ]
+    });
+});
+</script>
 
 </body>
 </html>

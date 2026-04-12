@@ -173,6 +173,26 @@ ${v.variantName}
 </select>
 </div>
 
+<!-- 🔥 FUEL TYPE -->
+<div class="mb-3">
+<label>Fuel Type</label>
+<select name="fuelType" class="form-select">
+<option value="PETROL" ${car.fuelType == 'PETROL' ? 'selected' : ''}>Petrol</option>
+<option value="DIESEL" ${car.fuelType == 'DIESEL' ? 'selected' : ''}>Diesel</option>
+<option value="CNG" ${car.fuelType == 'CNG' ? 'selected' : ''}>CNG</option>
+<option value="EV" ${car.fuelType == 'EV' ? 'selected' : ''}>Electric</option>
+</select>
+</div>
+
+<!-- 🔥 TRANSMISSION -->
+<div class="mb-3">
+<label>Transmission</label>
+<select name="transmission" class="form-select">
+<option value="MANUAL" ${car.transmission == 'MANUAL' ? 'selected' : ''}>Manual</option>
+<option value="AUTOMATIC" ${car.transmission == 'AUTOMATIC' ? 'selected' : ''}>Automatic</option>
+</select>
+</div>
+
 <!-- Price -->
 <div class="mb-3">
 <label>Price</label>
