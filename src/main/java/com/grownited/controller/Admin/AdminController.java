@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.grownited.repository.CarListingRepository;
+import com.grownited.repository.CarTransactionRepository;
 import com.grownited.repository.OfferRepository;
 import com.grownited.repository.TransactionRepository;
 import com.grownited.repository.UserRepository;
@@ -24,22 +25,24 @@ public class AdminController {
 
     @Autowired
     OfferRepository offerRepository;
+    
+    @Autowired
+    CarTransactionRepository carTransactionRepository;
 
     @GetMapping(value = {"admin-dashboard","/"})
     public String adminDashboard(Model model) {
 
-        // ✅ TOTAL USERS
         Long totalUser = userRepository.count();
 
-        // 🔥 LISTED CARS (IMPORTANT FIX)
-        // Agar DB me "Available" hai to same case use karo
         Long totalAvailable = carListingRepository.countByStatus("Available");
 
-        // ✅ BOOKINGS (TRANSACTIONS)
-        Long totalTransaction = transactionRepository.countByTransactionStatus("COMPLETED");
+        // ✅ BOOKINGS
+        Long totalTransaction = carTransactionRepository
+                .countByTransactionStatus("COMPLETED");
 
         // ✅ REVENUE
-        Double totalRevenue = transactionRepository.getTotalRevenue();
+        Double totalRevenue = carTransactionRepository.getTotalRevenue();
+
         if (totalRevenue == null) {
             totalRevenue = 0.0;
         }
@@ -52,4 +55,6 @@ public class AdminController {
 
         return "Admin/AdminDashboard";
     }
+
+     
 }

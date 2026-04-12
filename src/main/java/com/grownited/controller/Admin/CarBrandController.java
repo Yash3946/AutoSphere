@@ -28,38 +28,25 @@ public class CarBrandController {
     public String homepage() {
         return "Admin/AddBrand";
     }
-
-    // 🔥 CLOUDINARY UPLOAD
     @PostMapping("/savebrand")
     public String saveCategory(CarBrandEntity carBrandEntity,
                                @RequestParam("logoFile") MultipartFile file) {
 
         try {
-
-            // 🔥 Upload to Cloudinary (logo folder)
             Map uploadResult = cloudinary.uploader().upload(
                     file.getBytes(),
                     ObjectUtils.asMap("folder", "brand_logos")
             );
-
             String imageUrl = (String) uploadResult.get("secure_url");
-
-            // 🔥 Save URL in DB
             carBrandEntity.setLogoUrl(imageUrl);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         carBrandEntity.setActive(true);
-
         carBrandRepository.save(carBrandEntity);
-
         return "redirect:/listbrand";
     }
-
-
-    // List Brand
     @GetMapping("/listbrand")
     public String listBrand(Model model) {
 

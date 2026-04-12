@@ -482,14 +482,19 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: center;
 
-    height: 520px;         /* 🔥 FIXED height (important) */
-    overflow-y: scroll;    /* 🔥 scrollbar always visible */
+    height: 520px;
+    overflow-y: auto;
     overflow-x: hidden;
 
     padding: 20px;
+
+    width: 1100px;   /* 🔥 aa karo */
+    margin: 0 auto;
+    justify-content: center;
 }
+
+
 .scroll-container::-webkit-scrollbar {
     width: 12px;
 }
@@ -695,6 +700,25 @@ body {
     line-height: 1.5;
 }
 
+.section-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    color: #4a148c;
+    font-size: 28px;
+    margin-bottom: 40px;
+}
+
+/* left & right line */
+.section-title::before,
+.section-title::after {
+    content: "";
+    flex: 0.3;   /* 🔥 pehla 1 htu → have ochhu */
+    height: 1px;
+    background: #ddd;
+}
+
 
 
 </style>
@@ -767,7 +791,7 @@ body {
 
 	<!-- BENEFITS SECTION -->
 	<div class="section">
-		<h2>AutoSphere Assured Benefits</h2>
+		<h2 class="section-title">AutoSphere Assured Benefits</h2>
 		<div class="cards">
 			<a href="qualitychecks" class="card-link">
 				<div class="card">
@@ -798,8 +822,8 @@ body {
 	</div>
 	
 	<!-- INSIGHTS SECTION -->
-<div class="insight-section">
-    <h2>Insights That Drive Us</h2>
+<div class="insight-section" >
+    <h2 class="section-title">Insights That Drive Us</h2>
 
     <div class="insight-container" class="how-section">
 
@@ -847,48 +871,10 @@ body {
 		</div>
 </div>
 
-	<!-- HOW AUTOSPHERE WORKS -->
-	<!-- <div class="how-section">
-		<h2>How AutoSphere Works</h2>
-		<div class="how-cards">
-			<div class="how-card">
-				<img src="https://cdn-icons-png.flaticon.com/512/854/854878.png">
-				<h3>Choose your car</h3>
-			</div>
-			<div class="how-card">
-				<img
-					src="https://tse3.mm.bing.net/th/id/OIP.3I6DIZqr146CnNMUkrljrQHaE8">
-				<h3>Book test drive</h3>
-			</div>
-			<div class="how-card">
-				<img
-					src="https://tse2.mm.bing.net/th/id/OIP.TinBeamEG8ni7EGH1fS6NAHaHa">
-				<h3>Online payment</h3>
-			</div>
-		</div>
-		<div class="watch-area">
-			<button onclick="showVideo()" class="watch-btn">Watch how it
-				works ▶️</button>
-			<div id="videoContainer"
-				style="display: none; text-align: center; margin-top: 30px; position: relative;">
-
-				❌ Close Button
-				<span onclick="closeVideo()"
-					style="position: absolute; right: 50px; top: -10px; font-size: 30px; cursor: pointer;">
-					✖ </span>
-
-				<iframe width="1000" height="550" src="" frameborder="0"
-					allow="autoplay" allowfullscreen> </iframe>
-
-			</div>
-			<p class="learn-more">Learn more</p>
-		</div>
-	</div> -->
-	
 	
 	<!-- BODY TYPE FILTER -->
 	<div  style="text-align: center; margin: 40px 0;">
-		<h2 style="color: #4a148c;">Explore by Body Type</h2>
+		<h2 class="section-title" style="color: #4a148c;" >Explore by Body Type</h2>
 		<div style="margin-top: 20px;">
 			<button class="filter-btn active" onclick="filterCars('ALL', this)">All</button>
 			<button class="filter-btn" onclick="filterCars('SUV', this)">SUV</button>
@@ -899,7 +885,10 @@ body {
 	</div>
 
 	<!-- FILTERED CARS SECTION -->
-	<div id="filteredCarsContainer" class="scroll-container">
+	<!-- FILTERED CARS SECTION -->
+<div style="display:flex; justify-content:center;">
+    <div id="filteredCarsContainer" class="scroll-container">
+
 		<c:forEach var="car" items="${customerCarList}">
 			<div class="filter-car"
 				data-type="${car.bodyType != null ? car.bodyType.toUpperCase() : 'UNKNOWN'}"
@@ -922,10 +911,11 @@ body {
 			</div>
 		</c:forEach>
 	</div>
+</div>
 	
 	<!-- BRANDS SECTION -->
 	<div class="brand-section" id="brands">
-		<h2>Explore Popular Brands</h2>
+		<h2 class="section-title">Explore Popular Brands</h2>
 		<div class="brand-grid">
 			<c:forEach var="brd" items="${brand}">
 				<c:url value="/cars-by-brand" var="brandUrl">
@@ -942,32 +932,38 @@ body {
 	</div>
 
 	<!-- FOOTER -->
-	<div class="footer">
-		<div class="footer-container">
-			<div class="footer-col">
-				<h3>AutoSphere</h3>
-				<p>AutoSphere is the easiest way to buy and sell used cars
-					online.</p>
-			</div>
-			<div class="footer-col">
-				<h3>Company</h3>
-				<a href="about">About</a> <a href="CareersPage">Careers</a> <a
-					href="CustomerBlog">Blog</a> <a href="ContactPage">Contact</a>
-			</div>
-			<div class="footer-col">
-				<h3>Services</h3>
-				<a href="#">Buy Car</a> <a href="#">Sell Car</a> <a href="#">Car
-					Loan</a> <a href="#">Insurance</a>
-			</div>
-			<div class="footer-col">
-				<h3>Support</h3>
-				<a href="#">FAQ</a> <a href="#">Terms</a> <a href="#">Privacy</a>
-			</div>
-		</div>
-		<div class="footer-bottom">&#169; 2026 AutoSphere | MCA Sem 4
-			Project</div>
-	</div>
+<div class="footer">
+    <div class="footer-container">
+        
+        <div class="footer-col">
+            <h3>AutoSphere</h3>
+            <p>AutoSphere is the easiest way to buy used cars online.</p>
+        </div>
 
+        <div class="footer-col">
+            <h3>Company</h3>
+            
+            <!-- 🔥 Updated Order -->
+            <a href="about">About</a> 
+            <a href="CustomerBlog">Blog</a> 
+            <a href="CareersPage">Careers</a> 
+            <a href="ContactPage">Contact</a>
+
+        </div>
+
+        <div class="footer-col">
+            <h3>Support</h3>
+            <a href="#">FAQ</a> 
+            <a href="#">Terms</a> 
+            <a href="#">Privacy</a>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        &#169; 2026 AutoSphere | MCA Sem 4 Project
+    </div>
+</div>
 	<script>
 // ========== SLIDER CODE - 100% WORKING ==========
 const sliderWrapper = document.getElementById('sliderWrapper');

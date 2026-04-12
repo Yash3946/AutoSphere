@@ -27,7 +27,7 @@ background:#F4F6F9;
 font-family:'Segoe UI', sans-serif;
 }
 
-/* 🔥 IMPORTANT (HEADER FIX SPACE) */
+/* 🔥 CONTENT */
 .content{
 margin-left:260px;
 margin-top:90px;
@@ -103,6 +103,21 @@ font-size:12px;
 font-weight:600;
 }
 
+/* 🔥 IMAGE STYLE */
+.car-img{
+width:65px;
+height:48px;
+object-fit:cover;
+border-radius:8px;
+box-shadow:0 2px 6px rgba(0,0,0,0.2);
+transition:0.3s;
+}
+
+.car-img:hover{
+transform:scale(1.1);
+}
+
+/* BUTTONS */
 .action-btn{
 border-radius:6px;
 padding:5px 10px;
@@ -119,17 +134,16 @@ border:none;
 background:#3651d4;
 }
 
-/* 🔥 EDIT BUTTON */
 .btn-edit{
 background:#fca311;
 color:white;
 border:none;
 }
+
 .btn-edit:hover{
 background:#e59500;
 }
 
-/* DELETE */
 .btn-delete{
 background:#ef233c;
 color:white;
@@ -174,7 +188,6 @@ Total Cars : ${allCarList.size()}
 
 <thead>
 <tr>
-
 <th>ID</th>
 <th>Seller</th>
 <th>Brand</th>
@@ -188,7 +201,6 @@ Total Cars : ${allCarList.size()}
 <th>Status</th>
 <th>Date</th>
 <th class="text-center">Action</th>
-
 </tr>
 </thead>
 
@@ -197,6 +209,7 @@ Total Cars : ${allCarList.size()}
 <c:forEach items="${allCarList}" var="c">
 
 <tr>
+
 
 <td>${c.listingId}</td>
 
@@ -207,7 +220,16 @@ ${c.userId}
 
 <td>${c.brandName}</td>
 
-<td>${c.modelName}</td>
+<!-- 🔥 MODEL + IMAGE -->
+<td>
+<div style="display:flex; align-items:center; gap:10px;">
+
+
+<img src="${c.imageUrl != null ? c.imageUrl : 'https://via.placeholder.com/80'}"
+class="car-img"/>
+
+</div>
+</td>
 
 <td>${c.variantName}</td>
 
@@ -239,19 +261,16 @@ Available
 
 <td class="text-center">
 
-<!-- VIEW -->
 <a href="viewCarListing?listingId=${c.listingId}"
 class="btn btn-view action-btn btn-sm">
 <i class="bi bi-eye"></i>
 </a>
 
-<!-- 🔥 EDIT -->
 <a href="editCarListing?listingId=${c.listingId}"
 class="btn btn-edit action-btn btn-sm">
 <i class="bi bi-pencil-square"></i>
 </a>
 
-<!-- DELETE -->
 <a href="deleteCarListing?listingId=${c.listingId}"
 class="btn btn-delete action-btn btn-sm"
 onclick="return confirm('Delete this listing?')">
