@@ -29,15 +29,16 @@ background:#F4F6F9;
 font-family:'Segoe UI', sans-serif;
 }
 .content{
-margin-left:260px;
-margin-top:90px;
-padding:40px;
+    margin-left:260px;
+    margin-top:30px;   /* 🔥 90 → 30 */
+    padding:25px 30px; /* thoda compact */
 }
 .content-card{
-background:white;
-border-radius:16px;
-padding:30px;
-box-shadow:0 10px 30px rgba(0,0,0,0.08);
+    background:white;
+    border-radius:16px;
+    padding:25px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.08);
+    margin-top:-50px;   /* 🔥 thoda aur upar push */
 }
 .page-header{
 display:flex;

@@ -33,7 +33,9 @@ public class AuthFilter implements Filter {
 		ArrayList<String> publicUrl = new ArrayList<>();
 
 		publicUrl.add("/login");
+		publicUrl.add("/customerLogin");
 		publicUrl.add("/signup");
+		publicUrl.add("/customerSignup");
 		publicUrl.add("/forget-password");
 		publicUrl.add("/authenticate");
 		publicUrl.add("/register");

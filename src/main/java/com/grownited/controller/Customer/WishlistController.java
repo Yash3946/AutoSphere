@@ -72,6 +72,7 @@ public class WishlistController {
 
         model.addAttribute("wishlist", wishlist);
 
+        model.addAttribute("username", user.getFirstName());
         return "Customer/wishlist";
     }
 

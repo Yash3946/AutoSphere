@@ -24,26 +24,26 @@ import net.authorize.api.controller.base.ApiOperationBase;
 public class PaymentService {
 
 	
-	 public static ANetApiResponse run(String apiLoginId, String transactionKey, Double amount) {
+	  public static ANetApiResponse run( Double amount,String creditCardNum,String expDate,String email) {
 
 	        // Set the request to operate in either the sandbox or production environment
 	        ApiOperationBase.setEnvironment(Environment.SANDBOX);
 
 	        // Create object with merchant authentication details
 	        MerchantAuthenticationType merchantAuthenticationType  = new MerchantAuthenticationType() ;
-	        merchantAuthenticationType.setName(apiLoginId);
-	        merchantAuthenticationType.setTransactionKey(transactionKey);
+	        merchantAuthenticationType.setName("85vBLv7w");
+	        merchantAuthenticationType.setTransactionKey("7h9x6kQZ6Ptu8f37");
 
 	        // Populate the payment data
 	        PaymentType paymentType = new PaymentType();
 	        CreditCardType creditCard = new CreditCardType();
-	        creditCard.setCardNumber("4242424242424242");
-	        creditCard.setExpirationDate("0835");
+	        creditCard.setCardNumber(creditCardNum);
+	        creditCard.setExpirationDate(expDate);
 	        paymentType.setCreditCard(creditCard);
 
 	        // Set email address (optional)
 	        CustomerDataType customer = new CustomerDataType();
-	        customer.setEmail("test@test.test");
+	        customer.setEmail(email);
 
 	        // Create the payment transaction object
 	        TransactionRequestType txnRequest = new TransactionRequestType();
@@ -103,7 +103,4 @@ public class PaymentService {
 	        }
 	        
 	        return response;
-	    }
-	
-
-}
+	    }}

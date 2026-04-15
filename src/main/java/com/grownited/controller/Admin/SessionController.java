@@ -59,11 +59,25 @@ public class SessionController {
 		return "Admin/Signup";
 	}
 
+	@GetMapping("/customerSignup")
+	public String customersignup(Model model) {
+
+		List<CarModelTypeEntity> allCarModelType = carModelTypeRepository.findAll();
+		model.addAttribute("allCarModelType", allCarModelType);
+
+		return "Admin/CustomerSignup";
+	}
 	/* ================= LOGIN PAGE ================= */
 
 	@GetMapping("/login")
 	public String openLoginPage() {
 		return "Admin/Login";
+	}
+	
+	
+	@GetMapping("/customerLogin")
+	public String customerLogin() {
+		return "Admin/CustomerLogin";
 	}
 
 	/* ================= AUTHENTICATION ================= */

@@ -191,4 +191,28 @@ public class SpinnyController {
 		public String privacy() {
 			return "Customer/Privacy";
 		}
+		@PostMapping("searchCar")
+		public String searchCar(@RequestParam("car") String car, Model model) {
+
+		    List<CarListingEntity> cars =
+		        carListingRepository
+		        .findByModelNameContainingIgnoreCaseOrBrandNameContainingIgnoreCase(car, car);
+
+		    model.addAttribute("customerCarList", cars);
+
+		    return "Customer/SearchCar";
+		}
+
+		
+		@PostMapping("searchCity")
+		public String searchCity(@RequestParam("city") String city, Model model) {
+
+		    List<CarListingEntity> cars =
+		        carListingRepository.findByCityContainingIgnoreCase(city);
+
+		    model.addAttribute("customerCarList", cars);
+
+		    return "Customer/SearchCar";
+		}
+
 }

@@ -153,9 +153,7 @@ body {
 
 	<div class="d-flex justify-content-between align-items-center mb-4">
 
-		<h3>
-			<i class="bi bi-heart-fill text-danger"></i> My Wishlist
-		</h3>
+		<h3>❤️ ${username}'s Wishlist</h3>
 
 		<a href="CustomerCarList" class="btn btn-dark btn-sm">
 			<i class="bi bi-arrow-left"></i> Back

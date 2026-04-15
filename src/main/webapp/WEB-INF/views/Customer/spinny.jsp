@@ -734,23 +734,47 @@ body {
 			</div> AutoSphere
 		</a>
 
-		<div style="position: relative;">
-			<input type="text" id="cityInput" class="city-select"
-				placeholder="Select City" onkeyup="showCitySuggestions()">
-			<div id="citySuggestionBox" class="suggestion-box"></div>
-		</div>
+		<!-- CITY SEARCH -->
+		<form action="searchCity" method="post" class="search-bar">
+			<input type="text" name="city" placeholder="Select City" required>
+			<input type="submit" value="Search">
+		</form>
 
-		<div class="search-bar" style="position: relative;">
-			<input type="text" id="searchInput" placeholder="Search cars..."
-				onkeyup="showCarSuggestions()">
-			<div id="suggestionBox" class="suggestion-box"></div>
-		</div>
+		<!-- CAR SEARCH -->
+		<form action="searchCar" method="post" class="search-bar">
+			<input type="text" name="car" placeholder="Search cars..." required>
+			<input type="submit" value="Search">
+		</form>
+
 
 		<div class="menu">
 			<a href="CustomerCarList">List Car</a> <a href="#brands">Car
-				Brand</a> <a href="wishlist">My Cart</a>  <a href="login">Login</a> <a href="#">Register</a>
+				Brand</a> <a href="wishlist">My Cart</a>  <a href="customerLogin">Login</a> <a href="customerSignup">Register</a>
 		</div>
 	</div>
+	<div style="background:#f5f3f9; padding:18px 0; border-bottom:1px solid #e0e0e0;">
+    <div class="container" style="text-align:center;">
+        
+        <h3 style="
+            font-weight:700; 
+            color:#6f42c1; 
+            margin:0;
+            letter-spacing:0.5px;
+        ">
+            👋 Welcome, ${sessionScope.user.firstName} ${sessionScope.user.lastName}
+        </h3>
+
+        <!-- Stylish underline -->
+        <div style="
+            width:60px;
+            height:3px;
+            background:#6f42c1;
+            margin:8px auto 0;
+            border-radius:5px;
+        "></div>
+
+    </div>
+</div>
 
 	<!-- HERO SECTION WITH SLIDER -->
 	<div class="hero">
